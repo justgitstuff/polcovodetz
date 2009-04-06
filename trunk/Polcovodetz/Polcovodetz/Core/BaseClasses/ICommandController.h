@@ -5,8 +5,7 @@
 
 //-------------------------------------------------------
 
-#include <QObject>
-#include <QString>
+#include <IAbstractController.h>
 
 //-------------------------------------------------------
 
@@ -28,7 +27,7 @@ class ICommandOutputDriver;
   ToDo: сделать многопоточным.
   ToDo: определить таймаут инициализации.
 */
-class ICommandController : public QObject
+class ICommandController : public IAbstractController
 {
     Q_OBJECT;
 

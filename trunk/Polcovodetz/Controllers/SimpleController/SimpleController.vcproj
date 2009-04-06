@@ -142,86 +142,8 @@
 			Name="PublicInterfaces"
 			>
 			<File
-				RelativePath="..\..\Polcovodetz\Core\BaseClasses\ICommandController.h"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing ICommandController.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;..\..\Polcovodetz\Core\BaseClasses\ICommandController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_ICommandController.cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\ICommandController.h"
-						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_ICommandController.cpp&quot;"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing ICommandController.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -D_WINDLL -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;..\..\Polcovodetz\Core\BaseClasses\ICommandController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_ICommandController.cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\ICommandController.h"
-						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_ICommandController.cpp&quot;"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\Polcovodetz\Core\BaseClasses\IGroupController.h"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing IGroupController.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;..\..\Polcovodetz\Core\BaseClasses\IGroupController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_IGroupController.cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\IGroupController.h"
-						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_IGroupController.cpp&quot;"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing IGroupController.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -D_WINDLL -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;..\..\Polcovodetz\Core\BaseClasses\IGroupController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_IGroupController.cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\IGroupController.h"
-						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_IGroupController.cpp&quot;"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\Polcovodetz\Core\BaseClasses\ILoader.h"
 				>
-			</File>
-			<File
-				RelativePath="..\..\Polcovodetz\Core\BaseClasses\IObjectController.h"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing IObjectController.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;..\..\Polcovodetz\Core\BaseClasses\IObjectController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_IObjectController.cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\IObjectController.h"
-						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_IObjectController.cpp&quot;"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing IObjectController.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -D_WINDLL -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;..\..\Polcovodetz\Core\BaseClasses\IObjectController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_IObjectController.cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\IObjectController.h"
-						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_IObjectController.cpp&quot;"
-					/>
-				</FileConfiguration>
 			</File>
 			<Filter
 				Name="Drivers"
@@ -305,6 +227,114 @@
 					</FileConfiguration>
 				</File>
 			</Filter>
+			<Filter
+				Name="Controllers"
+				>
+				<File
+					RelativePath="..\..\Polcovodetz\Core\BaseClasses\IAbstractController.h"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing IAbstractController.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;..\..\Polcovodetz\Core\BaseClasses\IAbstractController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_IAbstractController.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\IAbstractController.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_IAbstractController.cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing IAbstractController.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -D_WINDLL -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;..\..\Polcovodetz\Core\BaseClasses\IAbstractController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_IAbstractController.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\IAbstractController.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_IAbstractController.cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\Polcovodetz\Core\BaseClasses\ICommandController.h"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing ICommandController.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;..\..\Polcovodetz\Core\BaseClasses\ICommandController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_ICommandController.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\ICommandController.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_ICommandController.cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing ICommandController.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -D_WINDLL -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;..\..\Polcovodetz\Core\BaseClasses\ICommandController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_ICommandController.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\ICommandController.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_ICommandController.cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\Polcovodetz\Core\BaseClasses\IGroupController.h"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing IGroupController.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;..\..\Polcovodetz\Core\BaseClasses\IGroupController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_IGroupController.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\IGroupController.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_IGroupController.cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing IGroupController.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -D_WINDLL -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;..\..\Polcovodetz\Core\BaseClasses\IGroupController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_IGroupController.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\IGroupController.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_IGroupController.cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\Polcovodetz\Core\BaseClasses\IObjectController.h"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing IObjectController.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;..\..\Polcovodetz\Core\BaseClasses\IObjectController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_IObjectController.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\IObjectController.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_IObjectController.cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing IObjectController.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -D_WINDLL -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;..\..\Polcovodetz\Core\BaseClasses\IObjectController.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_IObjectController.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\IObjectController.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_IObjectController.cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Implementations"
@@ -384,7 +414,26 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_ICommandController.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_IAbstractController.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_IAbstractController.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -406,14 +455,19 @@
 				RelativePath=".\GeneratedFiles\Release\moc_ICommandController.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_ICommandController.cpp"
+				>
 				<FileConfiguration
-					Name="Debug|Win32"
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -432,8 +486,13 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Release\moc_ICommandDrivers.cpp"
+				>
 				<FileConfiguration
 					Name="Debug|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -441,15 +500,8 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_ICommandDrivers.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_IGroupController.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
@@ -470,51 +522,6 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\GeneratedFiles\Release\moc_IGroupController.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\GeneratedFiles\Release\moc_IGroupDrivers.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\GeneratedFiles\Debug\moc_IGroupDrivers.cpp"
@@ -527,8 +534,13 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Release\moc_IGroupDrivers.cpp"
+				>
 				<FileConfiguration
 					Name="Debug|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -546,8 +558,13 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Release\moc_IObjectController.cpp"
+				>
 				<FileConfiguration
 					Name="Debug|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -555,15 +572,8 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_IObjectController.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_IObjectDrivers.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
@@ -584,26 +594,12 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_IObjectDrivers.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_SimpleCommandController.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -616,18 +612,6 @@
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_SimpleCommandController.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
