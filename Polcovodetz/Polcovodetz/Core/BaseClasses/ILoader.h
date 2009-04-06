@@ -12,13 +12,20 @@ class IGroupController;
 class IObjectController;
 
 //-------------------------------------------------------
+/**
+    Класс - загрузчик различный контроллеров.
 
+    ToDo: реализовать схему деструкторов
+    ToDo: встроить адекватную систему интернационализации
+*/
 class ILoader
 {
 public:
 
     virtual QString             name()const           = 0;
     virtual QString             description()const    = 0;
+
+    virtual                     ~ILoader(){};
  
     /**
         Выдает новый экземпляр ICommandController.

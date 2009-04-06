@@ -2,10 +2,20 @@
 #include <Implementations/Loader.h>
 #include <Implementations/SimpleCommandController.h>
 
+#include <QVector>
+
+//-------------------------------------------------------
+
+struct LoaderImpl
+{
+   /* QVector*/
+};
+
 //-------------------------------------------------------
 
 Loader::Loader()
 {
+    m_impl.reset( new LoaderImpl() );
 }
 
 //-------------------------------------------------------

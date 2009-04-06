@@ -1,25 +1,21 @@
 ﻿
 
-#ifndef  __IOBJECT_CONTROLLER
-#define  __IOBJECT_CONTROLLER
+#ifndef  __IABSTRACT_CONTROLLER
+#define  __IABSTRACT_CONTROLLER
 
 //-------------------------------------------------------
 
-#include <IAbstractController.h>
-
-//-------------------------------------------------------
-
-class IObjectInputDriver;
-class IObjectOutputDriver;
+#include <QObject>
+#include <QString>
 
 //-------------------------------------------------------
 /**
-  Интерфейс для "коммаднира объекта".
+  Интерфейс для "верховного главнокомандующего".
   Предполагаемые цели и задачи: принимать сообщения от 
-  "командира группы" ( IGroupController ) и, через дрйвер, изменять скорости/ускорение,
-  стрелять.
+  ядра ( PolkApp ) и подчиненных ( IGroupController ).
 
-  Предполагается, что он должен решать, как направлять один объект на базе комманд свыше.
+  Предполагается, что он должен решать, какие группы объектов
+  куда направлять. 
 
   Гарантируется: класс работает асинхронно с ядром и с объектами других комманд.
   Приоритет потока не выше приоритета ядра.
@@ -27,28 +23,24 @@ class IObjectOutputDriver;
   ToDo: сделать многопоточным.
   ToDo: определить таймаут инициализации.
 */
-class IObjectController : public IAbstractController
+class IAbstractController : public QObject
 {
     Q_OBJECT;
 
 public:
-    
+
+    virtual ~IAbstractController(){};
+
     /**Имя контролера*/
     virtual QString name()const                                         = 0;
 
     /**Краткое описание работы ( для отображения в таблице )*/
     virtual QString description()const                                  = 0;
-
-    /**Инициализация. Запускается ядром ДО начала игры.
-       Из-за асинхронности класс может опаздать к началу игры, т. к. 
-       долго конфигурировался.
-    */
-    virtual bool    init( IObjectInputDriver*, IObjectOutputDriver* ) = 0;
 };
 
 //-------------------------------------------------------
 
-#endif //__IOBJECT_CONTROLLER
+#endif //__IABSTRACT_CONTROLLER
 
 //-------------------------------------------------------
 

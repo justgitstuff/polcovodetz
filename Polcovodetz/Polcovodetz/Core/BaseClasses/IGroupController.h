@@ -5,7 +5,7 @@
 
 //-------------------------------------------------------
 
-#include <QObject>
+#include <IAbstractController.h>
 
 //-------------------------------------------------------
 
@@ -26,7 +26,7 @@ class IGroupOutputDriver;
   ToDo: сделать многопоточным.
   ToDo: определить таймаут инициализации.
 */
-class IGroupController : public QObject
+class IGroupController : public IAbstractController
 {
     Q_OBJECT;
 
