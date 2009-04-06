@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Polcovodetz", "Polcovodetz\Polcovodetz.vcproj", "{12E84D71-2274-4E05-8477-0453B6C5F503}"
+	GlobalSection(Qt) = preSolution
+		Integration = True
+	EndGlobalSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleController", "Controllers\SimpleController\SimpleController.vcproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
+	GlobalSection(Qt) = preSolution
+		Integration = True
+	EndGlobalSection
+	ProjectSection(ProjectDependencies) = postProject
+		{12E84D71-2274-4E05-8477-0453B6C5F503} = {12E84D71-2274-4E05-8477-0453B6C5F503}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controllers", "Controllers", "{13BF1341-F6A8-44B0-A122-051403F7553D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12E84D71-2274-4E05-8477-0453B6C5F503}.Debug|Win32.ActiveCfg = Debug|Win32
+		{12E84D71-2274-4E05-8477-0453B6C5F503}.Debug|Win32.Build.0 = Debug|Win32
+		{12E84D71-2274-4E05-8477-0453B6C5F503}.Release|Win32.ActiveCfg = Release|Win32
+		{12E84D71-2274-4E05-8477-0453B6C5F503}.Release|Win32.Build.0 = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|Win32.Build.0 = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.ActiveCfg = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B12702AD-ABFB-343A-A199-8E24837244A3} = {13BF1341-F6A8-44B0-A122-051403F7553D}
+	EndGlobalSection
+EndGlobal
