@@ -20,7 +20,7 @@ class Loader : public ILoader
 public:
             Loader();
 
-    virtual ~Loader(){};
+    virtual ~Loader();
 
     virtual QString             name()const;
     virtual QString             description()const;

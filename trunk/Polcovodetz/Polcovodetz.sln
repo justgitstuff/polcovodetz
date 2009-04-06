@@ -16,6 +16,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleController", "Control
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controllers", "Controllers", "{13BF1341-F6A8-44B0-A122-051403F7553D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1D5805B8-BE60-4AD6-8A16-88AA3DDAF49B}"
+	ProjectSection(SolutionItems) = preProject
+		Common\ControllerSchema.vsd = Common\ControllerSchema.vsd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32

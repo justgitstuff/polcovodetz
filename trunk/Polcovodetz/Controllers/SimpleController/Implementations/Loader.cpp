@@ -8,7 +8,7 @@
 
 struct LoaderImpl
 {
-   /* QVector*/
+    QVector< IAbstractController* > outControllers;
 };
 
 //-------------------------------------------------------
@@ -16,6 +16,14 @@ struct LoaderImpl
 Loader::Loader()
 {
     m_impl.reset( new LoaderImpl() );
+}
+
+//-------------------------------------------------------
+
+Loader::~Loader()
+{
+    foreach( IAbstractController* controller, m_impl->outControllers )
+        delete controller;
 }
 
 //-------------------------------------------------------

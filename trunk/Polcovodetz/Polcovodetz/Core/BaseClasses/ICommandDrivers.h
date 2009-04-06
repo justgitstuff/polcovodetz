@@ -30,7 +30,11 @@ class ICommandInputDriver : public QObject
     Q_OBJECT;
 
 signals:
-    void receiveMessage( CommandInputMessage* mesage );
+    /**
+        Сигнал приема сообщений.
+    */
+
+    void message( CommandInputMessage* mesage );
 
 };
 
@@ -55,7 +59,7 @@ public slots:
     /**
       Слот для принятия сообщений
     */
-    virtual bool sendMassage( const CommandOutputMessage& ) = 0;
+    virtual void message( const CommandOutputMessage& ) = 0;
 };
 
 //-------------------------------------------------------
