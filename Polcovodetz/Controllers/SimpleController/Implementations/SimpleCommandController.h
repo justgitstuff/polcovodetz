@@ -12,6 +12,9 @@
 
 struct SimpleCommandControllerImpl;
 
+struct CommandInputMessage;
+struct CommandOutputMessage;
+
 //-------------------------------------------------------
 
 /**
@@ -32,11 +35,18 @@ public:
 
     virtual bool    init( ICommandInputDriver*, ICommandOutputDriver* );
 
-private:
+signals:
+    void outputMessage( CommandOutputMessage* mesage );
+
+private:    
     /**
     Прячем часть полей внутрь cpp-шника.
     */
     boost::shared_ptr< SimpleCommandControllerImpl > m_impl;
+
+private slots:
+    void inputMessage( CommandInputMessage* mesage );
+
 };
 
 //-------------------------------------------------------

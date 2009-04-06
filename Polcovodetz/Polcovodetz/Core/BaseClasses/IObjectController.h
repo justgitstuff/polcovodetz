@@ -33,11 +33,6 @@ class IObjectController : public IAbstractController
 
 public:
     
-    /**Имя контролера*/
-    virtual QString name()const                                         = 0;
-
-    /**Краткое описание работы ( для отображения в таблице )*/
-    virtual QString description()const                                  = 0;
 
     /**Инициализация. Запускается ядром ДО начала игры.
        Из-за асинхронности класс может опаздать к началу игры, т. к. 
