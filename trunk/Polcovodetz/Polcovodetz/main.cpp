@@ -1,8 +1,10 @@
 ﻿
 //-------------------------------------------------------
 
-#include <QtGui/QApplication>
 #include <GUI/TopLevelControls/MainForm.h>
+
+#include <QApplication>
+#include <QLocale>
 #include <QTranslator>
 
 //-------------------------------------------------------
@@ -10,6 +12,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a( argc, argv );
+
+    QLocale::setDefault( QLocale( QLocale::Russian, QLocale::RussianFederation ) );
 
     QTranslator translator;
 

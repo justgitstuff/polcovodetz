@@ -14,6 +14,7 @@ struct SimpleGroupControllerImpl
 //-------------------------------------------------------
 
 SimpleGroupController::SimpleGroupController()
+:IGroupController()
 {
     m_impl.reset( new SimpleGroupControllerImpl() );
 }
@@ -36,7 +37,7 @@ QString SimpleGroupController::name()const
 */
 QString SimpleGroupController::description()const
 { 
-    return "Простейшая реализация интерфейса IGroupController"; 
+    return QString::fromLocal8Bit( "Простейшая реализация интерфейса IGroupController" ); 
 };
 
 //-------------------------------------------------------

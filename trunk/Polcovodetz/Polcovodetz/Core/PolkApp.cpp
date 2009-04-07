@@ -87,9 +87,9 @@ PolkApp::PolkApp()
 
 PolkApp::~PolkApp()
 {
-    foreach( IAbstractController* controller, m_impl->loadedControllers )
+    for( int i = 0; i < m_impl->loadedControllers.count(); i++ )
     {
-        delete controller;
+        delete m_impl->loadedControllers[ i ];
     }
 }
 
@@ -202,7 +202,11 @@ void PolkApp::refreshCoordinate( const PtrPObject& obj, const QPoint& old )
 }
 
 //-------------------------------------------------------
+/**
+«агружает библиотеку, определ€ет доступные в ней классы и отправл€ет сигнал, в случае успешной загрузки.
 
+¬озвращает привоенный id.
+*/
 int PolkApp::loadLibrary( const QString& fileName )
 {
     QLibrary lib( fileName );
@@ -248,7 +252,9 @@ int PolkApp::loadLibrary( const QString& fileName )
 
         LibDefinition libDef;
 
-        libDef.id = id;
+        libDef.id          = id;
+        libDef.name        = newLib->name();
+        libDef.descritpion = newLib->description();
 
         boost::shared_ptr< ICommandController > cc( lib->getCommandController() );
         boost::shared_ptr< IGroupController >   gc( lib->getGroupController() );
@@ -271,6 +277,8 @@ int PolkApp::loadLibrary( const QString& fileName )
         }
 
         m_impl->libraryInfoMap.insert( id, libDef );
+
+        emit newLibrary( libDef );
 
         return id;
     }

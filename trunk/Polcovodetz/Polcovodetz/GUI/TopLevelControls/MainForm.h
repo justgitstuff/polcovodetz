@@ -10,6 +10,7 @@
 //-----------------------------------------------------------------
 
 struct MainFormImpl;
+struct LibDefinition;
 
 class QFrame;
 
@@ -34,10 +35,14 @@ private:
     QFrame* getRunTimeFrame( QWidget* parent );
     QFrame* getRunTimeOptionFrame( QWidget* parent );
 
+    QFrame* getCommandTreeFrame( QWidget* parent );
+
 private slots:
     void loadMap();
 
     void loadCommandController();
+
+    void addLibraryToTable( const LibDefinition& );
 };
 
 //-----------------------------------------------------------------

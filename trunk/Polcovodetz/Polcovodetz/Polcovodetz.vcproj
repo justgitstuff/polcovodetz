@@ -173,6 +173,36 @@
 				Name="TopLevelControls"
 				>
 				<File
+					RelativePath=".\GUI\TopLevelControls\CommandTreeForm.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\GUI\TopLevelControls\CommandTreeForm.h"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing CommandTreeForm.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; &quot;.\GUI\TopLevelControls\CommandTreeForm.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_CommandTreeForm.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\GUI\TopLevelControls\CommandTreeForm.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_CommandTreeForm.cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing CommandTreeForm.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB -D_UNICODE -DUNICODE -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\GUI\TopLevelControls\CommandTreeForm.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_CommandTreeForm.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\GUI\TopLevelControls\CommandTreeForm.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_CommandTreeForm.cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\GUI\TopLevelControls\GUIControler.cpp"
 					>
 				</File>
@@ -341,6 +371,18 @@
 			SourceControlFiles="false"
 			>
 			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_CommandThread.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\GeneratedFiles\Release\moc_CommandThread.cpp"
 				>
 				<FileConfiguration
@@ -353,7 +395,45 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_CommandThread.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_CommandTreeForm.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_CommandTreeForm.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_GUIControler.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -377,7 +457,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_GUIControler.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_IAbstractController.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -401,10 +481,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_IAbstractController.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_ICommandController.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -425,7 +505,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_ICommandController.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_ICommandDrivers.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -441,18 +521,6 @@
 				>
 				<FileConfiguration
 					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\GeneratedFiles\Release\moc_ICommandDrivers.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -496,10 +564,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_IGroupDrivers.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_IGroupDrivers.cpp"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -508,10 +576,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_IGroupDrivers.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_IGroupDrivers.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -615,10 +683,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_PObject.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_PObject.cpp"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -627,10 +695,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_PObject.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_PObject.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -687,10 +755,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_VisualThread.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_VisualThread.cpp"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -699,10 +767,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_VisualThread.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_VisualThread.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool

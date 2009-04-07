@@ -2,6 +2,8 @@
 //------------------------------------------------------------------------------
 
 #include <GUI/TopLevelControls/MainForm.h>
+
+#include <GUI/TopLevelControls/CommandTreeForm.h>
 #include <GUI/SpecialControls/PaintArea2D.h>
 
 #include <Core/PolkApp.h>
@@ -24,12 +26,15 @@
 
 struct MainFormImpl
 {
-    QPushButton*  startButton;
-    QPushButton*  pauseButton;
+    QPushButton*     startButton;
+    QPushButton*     pauseButton;
 
-    QPushButton*  loadCommandControllerButton;
+    QPushButton*     loadCommandControllerButton;
 
-    QTableWidget* libraryTable;
+    QTableWidget*    libraryTable;
+    QTableWidget*    controllerTable;
+
+    CommandTreeForm* commandTree;
 };
 
 //------------------------------------------------------------------------------
@@ -48,10 +53,13 @@ MainForm::MainForm()
     mainTabWidget->addTab( getOptionFrame( mainTabWidget ),       tr( "Options" ) );
     mainTabWidget->addTab( getControllersFrame( mainTabWidget ),  tr( "ControllersOptions" ) );
     mainTabWidget->addTab( getRunTimeFrame( mainTabWidget ),      tr( "GamePane" ) );
+    mainTabWidget->addTab( getCommandTreeFrame( mainTabWidget ),  tr( "CommandTree" ) );
 
     setCentralWidget( mainTabWidget );
 
-   // QKeyEvent* k = new QKeyEvent( QEvent::Type::
+    mainTabWidget->setMovable( true );
+
+    connect( &pApp, SIGNAL( newLibrary( const LibDefinition& ) ), this, SLOT( addLibraryToTable( const LibDefinition& ) ) );
     return;
 }
 
@@ -117,15 +125,18 @@ QFrame* MainForm::getRunTimeOptionFrame( QWidget* parent )
 
 QFrame* MainForm::getControllersFrame( QWidget* parent )
 {
-    QSplitter*   splitter             = new QSplitter( parent );
+    QSplitter*   splitter                = new QSplitter( parent );
 
-    QFrame*      leftFrame            = new QFrame( splitter );
-    QVBoxLayout* buttonsLayout        = new QVBoxLayout( leftFrame );
+    QFrame*      leftFrame               = new QFrame( splitter );
+    QSplitter*   tableSplitter           = new QSplitter( Qt::Vertical, splitter );
+
+    QVBoxLayout* buttonsLayout           = new QVBoxLayout( leftFrame );
 
                  m_impl->loadCommandControllerButton 
                      = new QPushButton( tr( "LoadCommandController" ), leftFrame );
 
-                 m_impl->libraryTable = new QTableWidget( 0, 2, splitter );
+                 m_impl->libraryTable    = new QTableWidget( 0, 2, tableSplitter );
+                 m_impl->controllerTable = new QTableWidget( 0, 3, tableSplitter );
 
     connect( m_impl->loadCommandControllerButton, SIGNAL( clicked() ), this, SLOT( loadCommandController() ) );
 
@@ -135,11 +146,28 @@ QFrame* MainForm::getControllersFrame( QWidget* parent )
     m_impl->libraryTable->setColumnWidth( 0, 100 );
     m_impl->libraryTable->setColumnWidth( 1, 200 );
 
+    m_impl->controllerTable->setHorizontalHeaderItem( 0, new QTableWidgetItem( tr( "ControllerType" ) ) );
+    m_impl->controllerTable->setHorizontalHeaderItem( 1, new QTableWidgetItem( tr( "ControllerName" ) ) );
+    m_impl->controllerTable->setHorizontalHeaderItem( 2, new QTableWidgetItem( tr( "ControllerDescription" ) ) );
+
+    m_impl->libraryTable->setSortingEnabled( true );
+    m_impl->controllerTable->setSortingEnabled( true );
+
     buttonsLayout->addWidget( m_impl->loadCommandControllerButton );
     buttonsLayout->addWidget( pApp.loadInfoView() );
 
     return splitter;
 }
+
+//------------------------------------------------------------------------------
+
+QFrame* MainForm::getCommandTreeFrame( QWidget* parent )
+{
+    m_impl->commandTree = new CommandTreeForm( parent );
+
+    return m_impl->commandTree;
+}
+
 
 //------------------------------------------------------------------------------
 
@@ -200,6 +228,61 @@ void MainForm::loadCommandController()
             QMessageBox::critical( this, tr( "LoadingError" ), tr( "ErrorDuringLoadNativeControllerFile" ) );
         }        
     }
+}
+
+//------------------------------------------------------------------------------
+
+void MainForm::addLibraryToTable( const LibDefinition& lib )
+{
+    try
+    {
+        m_impl->libraryTable->setSortingEnabled( false );
+        m_impl->controllerTable->setSortingEnabled( false );
+
+        int row = m_impl->libraryTable->rowCount();
+        m_impl->libraryTable->insertRow( row );
+
+        m_impl->libraryTable->setItem( row, 0, new QTableWidgetItem( lib.name ) );
+        m_impl->libraryTable->setItem( row, 1, new QTableWidgetItem( lib.descritpion ) );
+
+        if( !lib.ccName.isEmpty() )
+        {
+            int row = m_impl->controllerTable->rowCount();
+            m_impl->controllerTable->insertRow( row );
+
+            m_impl->controllerTable->setItem( row, 0, new QTableWidgetItem( tr( "CommandController" ) ) );
+            m_impl->controllerTable->setItem( row, 1, new QTableWidgetItem( lib.ccName ) );
+            m_impl->controllerTable->setItem( row, 2, new QTableWidgetItem( lib.ccDescription ) );
+        }
+
+        if( !lib.gcName.isEmpty() )
+        {
+            int row = m_impl->controllerTable->rowCount();
+            m_impl->controllerTable->insertRow( row );
+
+            m_impl->controllerTable->setItem( row, 0, new QTableWidgetItem( tr( "GroupController" ) ) );
+            m_impl->controllerTable->setItem( row, 1, new QTableWidgetItem( lib.gcName ) );
+            m_impl->controllerTable->setItem( row, 2, new QTableWidgetItem( lib.gcDescription ) );
+        }
+
+        if( !lib.ocName.isEmpty() )
+        {
+            int row = m_impl->controllerTable->rowCount();
+            m_impl->controllerTable->insertRow( row );
+
+            m_impl->controllerTable->setItem( row, 0, new QTableWidgetItem( tr( "ObjectController" ) ) );
+            m_impl->controllerTable->setItem( row, 1, new QTableWidgetItem( lib.ocName ) );
+            m_impl->controllerTable->setItem( row, 2, new QTableWidgetItem( lib.ocDescription ) );
+        }
+    }
+    catch( ... )
+    {
+        qDebug( "Error during updating controllers at the controller table" );
+    }
+    
+    m_impl->libraryTable->setSortingEnabled( true );
+    m_impl->controllerTable->setSortingEnabled( true );
+
 }
 
 //------------------------------------------------------------------------------
