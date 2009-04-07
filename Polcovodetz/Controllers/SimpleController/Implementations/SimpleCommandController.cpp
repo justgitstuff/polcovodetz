@@ -14,6 +14,7 @@ struct SimpleCommandControllerImpl
 //-------------------------------------------------------
 
 SimpleCommandController::SimpleCommandController()
+:ICommandController()
 {
     m_impl.reset( new SimpleCommandControllerImpl() );
 }
@@ -36,7 +37,7 @@ QString SimpleCommandController::name()const
 */
 QString SimpleCommandController::description()const
 { 
-    return "Простейшая реализация интерфейса ICommandController"; 
+    return QString::fromLocal8Bit( "Простейшая реализация интерфейса ICommandController" ); 
 };
 
 //-------------------------------------------------------

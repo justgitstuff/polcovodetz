@@ -59,7 +59,10 @@ public:
 
     bool                reloadMap( const QString& fileName );
 
-    int                 loadLibrary( const QString& fileName );//!!!!!
+    int                 loadLibrary( const QString& fileName );
+
+signals:
+    void          newLibrary( const LibDefinition& );
 
 public slots:
     bool          startGame();

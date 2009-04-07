@@ -14,6 +14,7 @@ struct SimpleObjectControllerImpl
 //-------------------------------------------------------
 
 SimpleObjectController::SimpleObjectController()
+:IObjectController()
 {
     m_impl.reset( new SimpleObjectControllerImpl() );
 }
@@ -36,7 +37,7 @@ QString SimpleObjectController::name()const
 */
 QString SimpleObjectController::description()const
 { 
-    return "Простейшая реализация интерфейса IObjectController"; 
+    return QString::fromLocal8Bit( "Простейшая реализация интерфейса IObjectController" ); 
 };
 
 //-------------------------------------------------------
