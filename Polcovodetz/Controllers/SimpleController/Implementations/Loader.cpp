@@ -1,6 +1,9 @@
 ﻿
 #include <Implementations/Loader.h>
+
 #include <Implementations/SimpleCommandController.h>
+#include <Implementations/SimpleGroupController.h>
+#include <Implementations/SimpleObjectController.h>
 
 #include <QVector>
 
@@ -8,7 +11,6 @@
 
 struct LoaderImpl
 {
-    QVector< IAbstractController* > outControllers;
 };
 
 //-------------------------------------------------------
@@ -22,8 +24,6 @@ Loader::Loader()
 
 Loader::~Loader()
 {
-    foreach( IAbstractController* controller, m_impl->outControllers )
-        delete controller;
 }
 
 //-------------------------------------------------------
@@ -51,14 +51,14 @@ ICommandController* Loader::getCommandController()
 
 IGroupController* Loader::getGroupController()
 { 
-    return 0; 
+    return new SimpleGroupController(); 
 };
 
 //-------------------------------------------------------
 
 IObjectController* Loader::getObjectController()
 { 
-    return 0; 
+    return new SimpleObjectController(); 
 };
 
 //-------------------------------------------------------

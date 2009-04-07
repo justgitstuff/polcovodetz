@@ -28,7 +28,6 @@ class IAbstractController : public QObject
     Q_OBJECT;
 
 public:
-
     virtual ~IAbstractController(){};
 
     /**Имя контролера*/

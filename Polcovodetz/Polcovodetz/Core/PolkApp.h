@@ -19,6 +19,25 @@ class GUIControler;
 class ICommandController;
 
 //-------------------------------------------------------
+/**
+Хранит инфорацию о подгружаемой библиотеке.
+*/
+struct LibDefinition
+{
+    int     id;
+
+    QString name;
+    QString descritpion;
+
+    QString ccName;
+    QString ccDescription;
+    QString gcName;
+    QString gcDescription;
+    QString ocName;
+    QString ocDescription;
+};
+
+//-------------------------------------------------------
 /** Главный управляющий класс проекта.
     Так называемое "Ядро"
 */
@@ -27,6 +46,7 @@ class PolkApp : public QObject
     Q_OBJECT;
 public:
                         PolkApp();
+                        ~PolkApp();
 
     QWidget*            currentView()const;
     QWidget*            loadInfoView()const;

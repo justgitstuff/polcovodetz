@@ -4,6 +4,8 @@
 #include <Core/PolkApp.h>
 
 #include <Core/BaseClasses/ICommandController.h>
+#include <Core/BaseClasses/IGroupController.h>
+#include <Core/BaseClasses/IObjectController.h>
 #include <Core/BaseClasses/ILoader.h>
 #include <Core/Common/Map.h>
 #include <Core/MultiThreading/CommandThread.h>
@@ -33,7 +35,7 @@ PolkApp pApp;
 
 //-------------------------------------------------------
 
-typedef ILoader* (*CCFunction)();
+typedef ILoader* (*LoadFunction)();
 
 //-------------------------------------------------------
 
@@ -45,8 +47,15 @@ struct PolkAppImpl
     typedef QMultiMap< int, long >                    PObjectCoordinateMap;//coordinate to list of ids
 
     typedef QMap< int, boost::shared_ptr< ILoader > > LibraryMap;
+    typedef QMap< int, LibDefinition >                LibraryInfoMap;
+
+    typedef QVector< IAbstractController* >           Controllers;
+
 
     LibraryMap            libraryMap;
+    LibraryInfoMap        libraryInfoMap;
+
+    Controllers           loadedControllers;
 
     Map                   map;
 
@@ -72,6 +81,16 @@ PolkApp::PolkApp()
 
     m_impl->currentView  = 0;
     m_impl->loadInfoView = 0;
+}
+
+//-------------------------------------------------------
+
+PolkApp::~PolkApp()
+{
+    foreach( IAbstractController* controller, m_impl->loadedControllers )
+    {
+        delete controller;
+    }
 }
 
 //-------------------------------------------------------
@@ -211,11 +230,11 @@ int PolkApp::loadLibrary( const QString& fileName )
         return 0;
     }
 
-    CCFunction cc = ( CCFunction )f;
+    LoadFunction lf = ( LoadFunction )f;
 
     try
     {
-        ILoader* lib = cc();
+        ILoader* lib = lf();
 
         m_impl->loadInfoView->append( tr( "Loader " ) + lib->name() + tr( " WasLoaded" ) );
 
@@ -226,6 +245,32 @@ int PolkApp::loadLibrary( const QString& fileName )
         int id = SHARED_LIB_ID++;
 
         m_impl->libraryMap.insert( id, newLib );
+
+        LibDefinition libDef;
+
+        libDef.id = id;
+
+        boost::shared_ptr< ICommandController > cc( lib->getCommandController() );
+        boost::shared_ptr< IGroupController >   gc( lib->getGroupController() );
+        boost::shared_ptr< IObjectController >  oc( lib->getObjectController() );
+
+        if( cc.get() != 0 )
+        {
+            libDef.ccName        = cc->name();
+            libDef.ccDescription = cc->description();
+        }
+        if( gc.get() != 0 )
+        {
+            libDef.gcName        = gc->name();
+            libDef.gcDescription = gc->description();
+        }
+        if( oc.get() != 0 )
+        {
+            libDef.ocName        = oc->name();
+            libDef.ocDescription = oc->description();
+        }
+
+        m_impl->libraryInfoMap.insert( id, libDef );
 
         return id;
     }
