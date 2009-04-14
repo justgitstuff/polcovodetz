@@ -22,7 +22,11 @@ public:
 private:
     boost::shared_ptr< CommandTreeFormImpl > m_impl;
 
+    void loadCommandController( const int side );
+
 private slots:
+    void loadCommandController1();
+    void loadCommandController2();
 };
 
 //-----------------------------------------------------------------

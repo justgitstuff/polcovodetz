@@ -39,7 +39,7 @@ public:
        Из-за асинхронности класс может опаздать к началу игры, т. к. 
        долго конфигурировался.
     */
-    virtual bool    init( ICommandInputDriver*, ICommandOutputDriver* ) = 0;
+    virtual bool init( ICommandInputDriver*, ICommandOutputDriver* ) = 0;
 };
 
 //-------------------------------------------------------
