@@ -7,6 +7,8 @@
 #include <Core/PObjects/PObject.h>
 #include <boost/shared_ptr.hpp>
 
+#include <QList>
+
 //-------------------------------------------------------
 
 struct PolkAppImpl;
@@ -20,7 +22,7 @@ class ICommandController;
 
 //-------------------------------------------------------
 /**
-Хранит инфорацию о подгружаемой библиотеке.
+    Хранит инфорацию о подгружаемой библиотеке.
 */
 struct LibDefinition
 {
@@ -45,6 +47,9 @@ class PolkApp : public QObject
 {
     Q_OBJECT;
 public:
+
+    typedef const QList<LibDefinition> LibDefinitions;
+
                         PolkApp();
                         ~PolkApp();
 
@@ -61,6 +66,12 @@ public:
 
     int                 loadLibrary( const QString& fileName );
 
+    ICommandController* loadCommandController( const int libraryID );
+
+    bool                registerCommandController( const int libraryID, const int side );
+
+    LibDefinitions      loadedLibraries()const;
+
 signals:
     void          newLibrary( const LibDefinition& );
 
@@ -74,6 +85,8 @@ private:
 
     void          refreshCoordinate( const PtrPObject& obj, const QPoint& old ); 
     void          refreshCoordinate( const PtrPObject& obj ); 
+
+    void          createCommandDrivers( const int side );
 };
 
 //-------------------------------------------------------

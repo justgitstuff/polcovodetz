@@ -8,6 +8,7 @@
 #include <Core/BaseClasses/IObjectController.h>
 #include <Core/BaseClasses/ILoader.h>
 #include <Core/Common/Map.h>
+#include <Core/Drivers/SimpleCommandDrivers.h>
 #include <Core/MultiThreading/CommandThread.h>
 #include <Core/MultiThreading/VisualThread.h>
 #include <Core/PObjects/PObject.h>
@@ -39,6 +40,16 @@ typedef ILoader* (*LoadFunction)();
 
 //-------------------------------------------------------
 
+struct DriversStorage
+{
+    ICommandInputDriver*  ciDriver;
+    ICommandOutputDriver* coDriver;
+
+    ICommandController*   cController;
+};
+
+//-------------------------------------------------------
+
 struct PolkAppImpl
 {
     typedef QMap< long, PtrPObject >                  PObjectMap;
@@ -51,6 +62,8 @@ struct PolkAppImpl
 
     typedef QVector< IAbstractController* >           Controllers;
 
+    DriversStorage        drivers1;
+    DriversStorage        drivers2;
 
     LibraryMap            libraryMap;
     LibraryInfoMap        libraryInfoMap;
@@ -307,3 +320,54 @@ QWidget* PolkApp::loadInfoView()const
 
 //-------------------------------------------------------
 
+ICommandController* PolkApp::loadCommandController( const int libraryID )
+{
+    if( !m_impl->libraryMap.contains( libraryID ) )
+        return 0;
+
+    ILoader* loader = m_impl->libraryMap[ libraryID ].get();
+
+    ICommandController* cc = loader->getCommandController();
+
+    if( cc == 0 )
+        return 0;
+
+    m_impl->loadedControllers.append( cc );
+
+    return cc;
+}
+
+//-------------------------------------------------------
+
+PolkApp::LibDefinitions PolkApp::loadedLibraries()const
+{
+    return m_impl->libraryInfoMap.values();
+}
+
+//-------------------------------------------------------
+
+bool PolkApp::registerCommandController( const int libraryID, const int side )
+{
+    createCommandDrivers( side );
+
+    DriversStorage& ds = side == 1 ? m_impl->drivers1 : m_impl->drivers2;
+
+    if( ds.cController != 0 )
+        return false;
+
+    return false;
+}
+
+//-------------------------------------------------------
+void PolkApp::createCommandDrivers( const int side )
+{
+    DriversStorage& ds = side == 1 ? m_impl->drivers1 : m_impl->drivers2;
+
+    if( ds.ciDriver == 0 )
+        ds.ciDriver = new SimpleCommandInputDriver();
+
+    if( ds.coDriver == 0 )
+        ds.coDriver = new SimpleCommandOutputDriver();
+}
+
+//-------------------------------------------------------
