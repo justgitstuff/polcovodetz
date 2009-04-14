@@ -42,10 +42,20 @@ typedef ILoader* (*LoadFunction)();
 
 struct DriversStorage
 {
-    ICommandInputDriver*  ciDriver;
-    ICommandOutputDriver* coDriver;
+    DriversStorage():ccID( 0 ){};
 
-    ICommandController*   cController;
+    //IDs
+    int                          ccID; //command controller id
+    QVector< int >               gcIDs;//list of group controllers ids
+    QMultiMap< int, int >        ocIDs;//Map: group controller id to object ids
+
+    //Classes
+    ICommandInputDriver*         ciDriver;
+    ICommandOutputDriver*        coDriver;
+
+    ICommandController*          cController;
+
+    QVector< IGroupController* > gControllers;
 };
 
 //-------------------------------------------------------
@@ -306,6 +316,13 @@ int PolkApp::loadLibrary( const QString& fileName )
 
 //-------------------------------------------------------
 
+LibDefinition PolkApp::library( const int id )
+{
+    return m_impl->libraryInfoMap[ id ];
+}
+
+//-------------------------------------------------------
+
 QWidget* PolkApp::loadInfoView()const
 {
     if( m_impl->loadInfoView == 0 )
@@ -345,20 +362,51 @@ PolkApp::LibDefinitions PolkApp::loadedLibraries()const
 }
 
 //-------------------------------------------------------
+/**
+    Регистрирует контроллер комманды. 
+    libraryID - id библиотеки, откуда загружать контроллер
+    side - сторона, за которую учавствет контроллер
 
+    !!Notice!!
+    В случае, если контроллер комманды уже определен, новый НЕ НАЗНАЧАЕТСЯ.
+*/
 bool PolkApp::registerCommandController( const int libraryID, const int side )
 {
-    createCommandDrivers( side );
-
     DriversStorage& ds = side == 1 ? m_impl->drivers1 : m_impl->drivers2;
 
-    if( ds.cController != 0 )
+    if( ds.ccID != 0 )
         return false;
 
-    return false;
+    ds.ccID = libraryID;
+
+    return true;
 }
 
 //-------------------------------------------------------
+/**
+    Регистрирует контроллер группы. 
+    libraryID - id библиотеки, откуда загружать контроллер
+    side - сторона, за которую учавствет контроллер
+*/
+int PolkApp::registerGroupController( const int /*libraryID*/, const int /*side*/ )
+{
+    return -1;
+}
+
+//-------------------------------------------------------
+/**
+    Регистрирует контроллер объекта. 
+    libraryID - id библиотеки, откуда загружать контроллер
+    gID - ID группового контроллера
+    pObject - объект, которым будет управлять контроллер
+*/
+int PolkApp::registerObjectController( const int /*libraryID*/, const int /*gID*/, const int /*pObject*/ )
+{
+    return -1;
+}
+
+//-------------------------------------------------------
+
 void PolkApp::createCommandDrivers( const int side )
 {
     DriversStorage& ds = side == 1 ? m_impl->drivers1 : m_impl->drivers2;

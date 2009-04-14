@@ -69,8 +69,11 @@ public:
     ICommandController* loadCommandController( const int libraryID );
 
     bool                registerCommandController( const int libraryID, const int side );
+    int                 registerGroupController( const int libraryID, const int side );
+    int                 registerObjectController( const int libraryID, const int gID, const int pObject );
 
     LibDefinitions      loadedLibraries()const;
+    LibDefinition       library( const int id );
 
 signals:
     void          newLibrary( const LibDefinition& );

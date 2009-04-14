@@ -11,6 +11,8 @@
 
 struct CommandTreeFormImpl;
 
+class QTreeWidget;
+
 //-----------------------------------------------------------------
 
 class CommandTreeForm : public QFrame
@@ -23,10 +25,16 @@ private:
     boost::shared_ptr< CommandTreeFormImpl > m_impl;
 
     void loadCommandController( const int side );
+    void loadGroupController( const int side );
+
+    QTreeWidget* createTree( QWidget* parent );
 
 private slots:
     void loadCommandController1();
     void loadCommandController2();
+
+    void loadGroupController1();
+    void loadGroupController2();
 };
 
 //-----------------------------------------------------------------
