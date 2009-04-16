@@ -1,4 +1,3 @@
-﻿
 #ifndef  __POLK_APP__
 #define  __POLK_APP__
 
