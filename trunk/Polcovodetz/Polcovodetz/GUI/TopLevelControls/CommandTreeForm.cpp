@@ -21,6 +21,9 @@ struct CommandTreeFormImpl
     QTreeWidget*                  treeWidget1;
     QTreeWidget*                  treeWidget2;
 
+    QTreeWidgetItem*              cController1;
+    QTreeWidgetItem*              cController2;
+
     QAction*                      loadCommandController1;
     QAction*                      loadCommandController2;
 
@@ -28,6 +31,34 @@ struct CommandTreeFormImpl
     QAction*                      loadGroupController2;
 
     QMap< QTreeWidgetItem*, int > ids;
+};
+
+//------------------------------------------------------------------------------
+
+class GroupItem : public QTreeWidgetItem
+{
+public:
+    GroupItem( QTreeWidgetItem* command, const QString& name, const int id )
+        :QTreeWidgetItem( command, QStringList( name ) ), m_id( id ){ }
+
+    int id()const{ return m_id; }
+
+private:
+    int m_id;
+};
+
+//------------------------------------------------------------------------------
+
+class ObjectItem : public QTreeWidgetItem
+{
+public:
+    ObjectItem( GroupItem* command, const QString& name, const int id )
+        :QTreeWidgetItem( command, QStringList( name ) ), m_id( id ){ }
+
+    int id()const{ return m_id; }
+
+private:
+    int m_id;
 };
 
 //------------------------------------------------------------------------------
@@ -89,6 +120,15 @@ void CommandTreeForm::loadCommandController2()
 
 void CommandTreeForm::loadCommandController( const int side )
 {
+  /*  (QTreeWidgetItem*)& cc = ( side == 1 ? m_impl->cController1 : m_impl->cController2 );
+
+    if( cc != 0 )
+    {
+        QMessageBox::warning( this, tr( "Error" ), tr( "ControllerHasAlreadyAdded" ) );
+
+        return;
+    }
+
     int libID = CommandControllerChooseForm::chooseCommandController( this );
 
     if( libID < 1 )
@@ -105,9 +145,9 @@ void CommandTreeForm::loadCommandController( const int side )
 
     QTreeWidget* tw = side == 1 ? m_impl->treeWidget1 : m_impl->treeWidget2;
 
-    QTreeWidgetItem* newItem = new QTreeWidgetItem( tw, QStringList( pApp.library( libID ).ccName ) );
+    cc = new QTreeWidgetItem( tw, QStringList( pApp.library( libID ).ccName ) );
 
-    m_impl->ids.insert( newItem, id );
+    m_impl->ids.insert( cc, id );*/
 }
 
 //------------------------------------------------------------------------------
@@ -132,19 +172,19 @@ void CommandTreeForm::loadGroupController( const int side )
 
     if( libID < 1 )
         return;
+
+    int id = pApp.registerGroupController( libID, side );
     
-    if ( !pApp.registerGroupController( libID, side ) )
+    if ( id < 1 )
     {
         QMessageBox::warning( this, tr( "Error" ), tr( "ErrorDuringRegistrationCommandController" ) );
 
         return;
     }
 
-    int id = -2 + side;
+    QTreeWidgetItem* twi = side == 1 ? m_impl->cController1 : m_impl->cController2;
 
-    QTreeWidget* tw = side == 1 ? m_impl->treeWidget1 : m_impl->treeWidget2;
-
-    QTreeWidgetItem* newItem = new QTreeWidgetItem( tw, QStringList( pApp.library( libID ).gcName ) );
+    QTreeWidgetItem* newItem = new GroupItem( twi, pApp.library( libID ).gcName, id );
 
     m_impl->ids.insert( newItem, id );
 }
