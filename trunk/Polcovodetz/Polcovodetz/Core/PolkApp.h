@@ -1,4 +1,4 @@
-#ifndef  __POLK_APP__
+﻿#ifndef  __POLK_APP__
 #define  __POLK_APP__
 
 //-------------------------------------------------------
@@ -69,7 +69,7 @@ public:
 
     bool                registerCommandController( const int libraryID, const int side );
     int                 registerGroupController( const int libraryID, const int side );
-    int                 registerObjectController( const int libraryID, const int gID, const int pObject );
+    int                 registerObjectController( const int libraryID, const int side, const int gID, const int pObject );
 
     LibDefinitions      loadedLibraries()const;
     LibDefinition       library( const int id );

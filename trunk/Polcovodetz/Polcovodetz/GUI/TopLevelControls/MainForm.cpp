@@ -133,7 +133,7 @@ QFrame* MainForm::getControllersFrame( QWidget* parent )
     QVBoxLayout* buttonsLayout           = new QVBoxLayout( leftFrame );
 
                  m_impl->loadCommandControllerButton 
-                     = new QPushButton( tr( "LoadCommandController" ), leftFrame );
+                     = new QPushButton( tr( "LoadControlLibrary" ), leftFrame );
 
                  m_impl->libraryTable    = new QTableWidget( 0, 2, tableSplitter );
                  m_impl->controllerTable = new QTableWidget( 0, 3, tableSplitter );

@@ -6,6 +6,7 @@
 #include <Core/PolkApp.h>
 #include <GUI/CommonControls/CommandControllerChooseForm.h>
 #include <GUI/CommonControls/GroupControllerChooseForm.h>
+#include <GUI/CommonControls/ObjectControllerChooseForm.h>
 
 #include <QAction>
 #include <QMessageBox>
@@ -18,6 +19,10 @@
 
 struct CommandTreeFormImpl
 {
+    CommandTreeFormImpl()
+        :cController1( 0 ), cController2( 0 ), treeWidget1( 0 ), treeWidget2( 0 )
+    { }
+
     QTreeWidget*                  treeWidget1;
     QTreeWidget*                  treeWidget2;
 
@@ -29,6 +34,9 @@ struct CommandTreeFormImpl
 
     QAction*                      loadGroupController1;
     QAction*                      loadGroupController2;
+
+    QAction*                      loadObjectController1;
+    QAction*                      loadObjectController2;
 
     QMap< QTreeWidgetItem*, int > ids;
 };
@@ -81,7 +89,7 @@ CommandTreeForm::CommandTreeForm( QWidget* parent )
     m_impl->treeWidget2            = createTree( mainSplitter );
 
     mainLayout->addWidget( toolBar );
-    mainLayout->addWidget( mainSplitter );
+    mainLayout->addWidget( mainSplitter );    
 
     //actions
     m_impl->loadCommandController1 = toolBar->addAction( tr( "LoadCommandController1" ), this, SLOT( loadCommandController1() ) );
@@ -89,6 +97,15 @@ CommandTreeForm::CommandTreeForm( QWidget* parent )
 
     m_impl->loadGroupController1 = toolBar->addAction( tr( "LoadGroupController1" ), this, SLOT( loadGroupController1() ) );
     m_impl->loadGroupController2 = toolBar->addAction( tr( "LoadGroupController2" ), this, SLOT( loadGroupController2() ) );
+
+    m_impl->loadObjectController1 = toolBar->addAction( tr( "LoadObjectController1" ), this, SLOT( loadObjectController1() ) );
+    m_impl->loadObjectController2 = toolBar->addAction( tr( "LoadObjectController2" ), this, SLOT( loadObjectController2() ) );
+
+    disableAllActions();
+
+    //connections
+    connect( m_impl->treeWidget1, SIGNAL( itemChanged( QTreeWidgetItem* , int ) ), this, SLOT( command1ItemSelected( QTreeWidgetItem* ) ) );
+    connect( m_impl->treeWidget2, SIGNAL( itemChanged( QTreeWidgetItem* , int ) ), this, SLOT( command2ItemSelected( QTreeWidgetItem* ) ) );
 }
 
 //------------------------------------------------------------------------------
@@ -120,7 +137,7 @@ void CommandTreeForm::loadCommandController2()
 
 void CommandTreeForm::loadCommandController( const int side )
 {
-  /*  (QTreeWidgetItem*)& cc = ( side == 1 ? m_impl->cController1 : m_impl->cController2 );
+    QTreeWidgetItem* cc = ( side == 1 ? m_impl->cController1 : m_impl->cController2 );
 
     if( cc != 0 )
     {
@@ -147,7 +164,12 @@ void CommandTreeForm::loadCommandController( const int side )
 
     cc = new QTreeWidgetItem( tw, QStringList( pApp.library( libID ).ccName ) );
 
-    m_impl->ids.insert( cc, id );*/
+    m_impl->ids.insert( cc, id );
+
+    if( side == 1 )
+        m_impl->cController1 = cc;
+    else
+        m_impl->cController2 = cc;
 }
 
 //------------------------------------------------------------------------------
@@ -166,9 +188,75 @@ void CommandTreeForm::loadGroupController2()
 
 //------------------------------------------------------------------------------
 
+void CommandTreeForm::loadObjectController1()
+{
+    return loadObjectController( 1 );
+}
+
+//------------------------------------------------------------------------------
+
+void CommandTreeForm::loadObjectController2()
+{
+    return loadObjectController( 2 );
+}
+
+//------------------------------------------------------------------------------
+
+void CommandTreeForm::command1ItemSelected( QTreeWidgetItem* item )
+{
+    itemSelected( item, 1 );
+}
+
+//------------------------------------------------------------------------------
+
+void CommandTreeForm::command2ItemSelected( QTreeWidgetItem* item )
+{
+    itemSelected( item, 2 );
+}
+
+//------------------------------------------------------------------------------
+
+void CommandTreeForm::loadObjectController( const int side )
+{
+    if( !m_impl->cController1 )
+    {
+        QMessageBox::warning( this, tr( "Error" ), tr( "CantLoadGroupControllerBeforeLoadingCommandsController" ) );
+
+        return;
+    }
+
+    int libID = ObjectControllerChooseForm::chooseObjectController( this );
+
+    if( libID < 1 )
+        return;
+
+    int id = pApp.registerObjectController( libID, 0, side, 0 );
+    
+    if ( id < 1 )
+    {
+        QMessageBox::warning( this, tr( "Error" ), tr( "ErrorDuringRegistrationObjectController" ) );
+
+        return;
+    }
+/*
+    QTreeWidgetItem* twi = side == 1 ? m_impl->cController1 : m_impl->cController2;
+
+    QTreeWidgetItem* newItem = new GroupItem( twi, pApp.library( libID ).gcName, id );
+
+    m_impl->ids.insert( newItem, id );*/
+}
+//------------------------------------------------------------------------------
+
 void CommandTreeForm::loadGroupController( const int side )
 {
-    int libID = CommandControllerChooseForm::chooseCommandController( this );
+    if( !m_impl->cController1 )
+    {
+        QMessageBox::warning( this, tr( "Error" ), tr( "CantLoadGroupControllerBeforeLoadingCommandsController" ) );
+
+        return;
+    }
+
+    int libID = GroupControllerChooseForm::chooseGroupController( this );
 
     if( libID < 1 )
         return;
@@ -177,7 +265,7 @@ void CommandTreeForm::loadGroupController( const int side )
     
     if ( id < 1 )
     {
-        QMessageBox::warning( this, tr( "Error" ), tr( "ErrorDuringRegistrationCommandController" ) );
+        QMessageBox::warning( this, tr( "Error" ), tr( "ErrorDuringRegistrationGroupController" ) );
 
         return;
     }
@@ -191,3 +279,40 @@ void CommandTreeForm::loadGroupController( const int side )
 
 //------------------------------------------------------------------------------
 
+void CommandTreeForm::disableAllActions()
+{
+    m_impl->loadCommandController1->setEnabled( !m_impl->cController1 );
+    m_impl->loadCommandController2->setEnabled( !m_impl->cController2 );
+
+    m_impl->loadGroupController1->setEnabled( false );
+    m_impl->loadGroupController2->setEnabled( false );
+
+    m_impl->loadObjectController1->setEnabled( false );
+    m_impl->loadObjectController2->setEnabled( false );
+}
+
+//------------------------------------------------------------------------------
+
+void CommandTreeForm::itemSelected( QTreeWidgetItem* item, const int side )
+{
+    disableAllActions();
+
+    if( item == m_impl->cController1 )
+    {
+        m_impl->loadGroupController1->setEnabled( true );
+        return;
+    }
+    if( item == m_impl->cController2 )
+    {
+        m_impl->loadGroupController2->setEnabled( true );
+        return;
+    }
+
+    if( dynamic_cast< GroupItem* >( item ) )
+    {
+        m_impl->loadObjectController1->setEnabled( side == 1 );
+        m_impl->loadObjectController2->setEnabled( side == 2 );
+    }
+}
+
+//------------------------------------------------------------------------------
