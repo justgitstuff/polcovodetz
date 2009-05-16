@@ -46,8 +46,10 @@ struct DriversStorage
 
     //IDs
     int                          ccID; //command controller id
-    QVector< int >               gcIDs;//list of group controllers ids
+    QMap< int, int >             gcIDs;//Map: group controller id to his library id;
     QMultiMap< int, int >        ocIDs;//Map: group controller id to object ids
+
+    QMap< int, int >             ocLibs;//Map: object controller id to his library id;
 
     //Classes
     ICommandInputDriver*         ciDriver;
@@ -172,7 +174,7 @@ bool PolkApp::reloadMap( const QString& fileName )
 
 bool PolkApp::startGame()
 {
-    bool isOk = m_impl->visualThread.start() 
+    /*bool isOk =*/ m_impl->visualThread.start() 
         && m_impl->command1Thread.start() 
         && m_impl->command2Thread.start();
 
@@ -387,10 +389,18 @@ bool PolkApp::registerCommandController( const int libraryID, const int side )
     Регистрирует контроллер группы. 
     libraryID - id библиотеки, откуда загружать контроллер
     side - сторона, за которую учавствет контроллер
+
+    ToDo: добавить проверку библиотеки!
 */
-int PolkApp::registerGroupController( const int /*libraryID*/, const int /*side*/ )
+int PolkApp::registerGroupController( const int libraryID, const int side )
 {
-    return -1;
+    DriversStorage& ds = side == 1 ? m_impl->drivers1 : m_impl->drivers2;
+
+    static int GROUP_ID = 0;
+    int groupID = ++GROUP_ID;
+    ds.gcIDs.insert( groupID, libraryID );
+
+    return groupID;
 }
 
 //-------------------------------------------------------
@@ -399,10 +409,26 @@ int PolkApp::registerGroupController( const int /*libraryID*/, const int /*side*
     libraryID - id библиотеки, откуда загружать контроллер
     gID - ID группового контроллера
     pObject - объект, которым будет управлять контроллер
+
+    ToDo: добавить проверку библиотеки!
 */
-int PolkApp::registerObjectController( const int /*libraryID*/, const int /*gID*/, const int /*pObject*/ )
+int PolkApp::registerObjectController( const int libraryID, const int side, const int gID, const int pObject )
 {
-    return -1;
+    if( pObject == 0 )
+        return -1;
+
+    DriversStorage& ds = side == 1 ? m_impl->drivers1 : m_impl->drivers2;
+
+    if( !ds.gcIDs.contains( gID ) )
+        return -1;
+
+    static int OBJECT_ID = 0;
+    int objectID = ++OBJECT_ID;
+
+    ds.ocIDs.insert( gID, objectID );
+    ds.ocLibs.insert( objectID, libraryID );
+
+    return objectID;
 }
 
 //-------------------------------------------------------

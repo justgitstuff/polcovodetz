@@ -12,6 +12,7 @@
 struct CommandTreeFormImpl;
 
 class QTreeWidget;
+class QTreeWidgetItem;
 
 //-----------------------------------------------------------------
 
@@ -26,8 +27,13 @@ private:
 
     void loadCommandController( const int side );
     void loadGroupController( const int side );
+    void loadObjectController( const int side );
 
     QTreeWidget* createTree( QWidget* parent );
+
+    void itemSelected( QTreeWidgetItem* item, const int side );
+
+    void disableAllActions();
 
 private slots:
     void loadCommandController1();
@@ -35,6 +41,12 @@ private slots:
 
     void loadGroupController1();
     void loadGroupController2();
+
+    void loadObjectController1();
+    void loadObjectController2();
+
+    void command1ItemSelected( QTreeWidgetItem* item );
+    void command2ItemSelected( QTreeWidgetItem* item );
 };
 
 //-----------------------------------------------------------------

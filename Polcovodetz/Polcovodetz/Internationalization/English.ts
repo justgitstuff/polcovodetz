@@ -2,6 +2,107 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="en_US" sourcelanguage="en">
 <context>
+    <name>CommandControllerChooseForm</name>
+    <message>
+        <location filename="../GUI/CommonControls/CommandControllerChooseForm.cpp" line="38"/>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/CommonControls/CommandControllerChooseForm.cpp" line="39"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/CommonControls/CommandControllerChooseForm.cpp" line="53"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/CommonControls/CommandControllerChooseForm.cpp" line="54"/>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CommandTreeForm</name>
+    <message>
+        <location filename="../GUI/TopLevelControls/CommandTreeForm.cpp" line="78"/>
+        <source>Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/TopLevelControls/CommandTreeForm.cpp" line="94"/>
+        <source>LoadCommandController1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/TopLevelControls/CommandTreeForm.cpp" line="95"/>
+        <source>LoadCommandController2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/TopLevelControls/CommandTreeForm.cpp" line="97"/>
+        <source>LoadGroupController1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/TopLevelControls/CommandTreeForm.cpp" line="98"/>
+        <source>LoadGroupController2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/TopLevelControls/CommandTreeForm.cpp" line="107"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/TopLevelControls/CommandTreeForm.cpp" line="134"/>
+        <location filename="../GUI/TopLevelControls/CommandTreeForm.cpp" line="146"/>
+        <location filename="../GUI/TopLevelControls/CommandTreeForm.cpp" line="212"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/TopLevelControls/CommandTreeForm.cpp" line="134"/>
+        <source>ControllerHasAlreadyAdded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/TopLevelControls/CommandTreeForm.cpp" line="146"/>
+        <source>ErrorDuringRegistrationCommandController</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/TopLevelControls/CommandTreeForm.cpp" line="212"/>
+        <source>ErrorDuringRegistrationGroupController</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GroupControllerChooseForm</name>
+    <message>
+        <location filename="../GUI/CommonControls/GroupControllerChooseForm.cpp" line="38"/>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/CommonControls/GroupControllerChooseForm.cpp" line="39"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/CommonControls/GroupControllerChooseForm.cpp" line="53"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../GUI/CommonControls/GroupControllerChooseForm.cpp" line="54"/>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainForm</name>
     <message>
         <location filename="../GUI/TopLevelControls/MainForm.cpp" line="49"/>
@@ -44,9 +145,13 @@
         <translation>Pause game</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="136"/>
         <source>LoadCommandController</source>
-        <translation>Load Command Controller</translation>
+        <translation type="obsolete">Load Command Controller</translation>
+    </message>
+    <message>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="136"/>
+        <source>LoadControlLibrary</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../GUI/TopLevelControls/MainForm.cpp" line="143"/>
@@ -128,27 +233,27 @@
 <context>
     <name>PolkApp</name>
     <message>
-        <location filename="../Core/PolkApp.cpp" line="246"/>
+        <location filename="../Core/PolkApp.cpp" line="248"/>
         <source>Can`tLoadLibrary: </source>
         <translation>Can`t load library:</translation>
     </message>
     <message>
-        <location filename="../Core/PolkApp.cpp" line="255"/>
+        <location filename="../Core/PolkApp.cpp" line="257"/>
         <source>Can`tLoadLoader: </source>
         <translation>Can`t load instance of loader:</translation>
     </message>
     <message>
-        <location filename="../Core/PolkApp.cpp" line="266"/>
+        <location filename="../Core/PolkApp.cpp" line="268"/>
         <source>Loader </source>
         <translation>Loader</translation>
     </message>
     <message>
-        <location filename="../Core/PolkApp.cpp" line="266"/>
+        <location filename="../Core/PolkApp.cpp" line="268"/>
         <source> WasLoaded</source>
         <translation>Instance was loaded</translation>
     </message>
     <message>
-        <location filename="../Core/PolkApp.cpp" line="310"/>
+        <location filename="../Core/PolkApp.cpp" line="312"/>
         <source>UnknownErrorDuringLoadLoader: </source>
         <translation>There were unknown errors during load library of loader:</translation>
     </message>

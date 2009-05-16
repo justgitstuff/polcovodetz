@@ -19,6 +19,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1D5805B8-BE60-4AD6-8A16-88AA3DDAF49B}"
 	ProjectSection(SolutionItems) = preProject
 		Common\ControllerSchema.vsd = Common\ControllerSchema.vsd
+		createText.bat = createText.bat
 	EndProjectSection
 EndProject
 Global
