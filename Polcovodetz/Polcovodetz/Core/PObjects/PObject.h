@@ -7,6 +7,7 @@
 //-------------------------------------------------------
 
 #include <QObject>
+#include <QString>
 #include <boost/shared_ptr.hpp>
 
 //-------------------------------------------------------
@@ -16,6 +17,19 @@ class PObjectSharedImpl;
 class QSize;
 class QPixmap;
 class QPointF;
+
+/**
+    Хранит инфорацию об экземпляре PObject.
+    Может пригодиться для отражения в GUI.
+
+    ToDo: добавить поля "максимальная скорость", "размеры" и пр.
+*/
+struct PObjectInfo
+{
+    int     id;
+    QString name;
+    QString description;
+};
 
 //-------------------------------------------------------
 
@@ -29,6 +43,8 @@ public:
     bool init( const QSize& );
 
     virtual ~PObject();
+
+    virtual int  rtti()const = 0;
 
     const QSize& boundSize()const;
           qint64 objectID()const{ return m_objectID; }

@@ -12,6 +12,7 @@
 #include <QFileDialog>
 #include <QGridLayout>
 #include <QGroupBox>
+#include <QFileDialog>
 #include <QMessageBox>
 #include <QTabWidget>
 #include <QTranslator>
@@ -67,18 +68,29 @@ MainForm::MainForm()
 
 QFrame* MainForm::getOptionFrame( QWidget* parent )
 {
-    QFrame* frame             = new QFrame( parent );
-    QGridLayout* mainLayout   = new QGridLayout( frame );
+    QFrame*      frame           = new QFrame( parent );
+    QVBoxLayout* mainLayout      = new QVBoxLayout( frame );
 
-    QGroupBox* mapBox         = new QGroupBox( frame ); 
-    QVBoxLayout* mapBoxLayout = new QVBoxLayout( mapBox );
+    QGroupBox*   mapBox          = new QGroupBox( frame ); 
+    QVBoxLayout* mapBoxLayout    = new QVBoxLayout( mapBox );
 
-    QPushButton* loadMap      = new QPushButton( tr( "LoadMap" ), mapBox );
+    QPushButton* loadMap         = new QPushButton( tr( "LoadMap" ), mapBox );
 
-    connect( loadMap, SIGNAL( clicked() ), this, SLOT( loadMap() ) );
+    QGroupBox*   scriptBox       = new QGroupBox( frame ); 
+    QVBoxLayout* scriptBoxLayout = new QVBoxLayout( scriptBox );
+
+    QPushButton* loadScript        = new QPushButton( tr( "InvokeScript" ), scriptBox );
+
+    connect( loadMap,    SIGNAL( clicked() ), this, SLOT( loadMap() ) );
+    connect( loadScript, SIGNAL( clicked() ), this, SLOT( invokeScript() ) );
 
     mapBoxLayout->addWidget( loadMap );
-    mainLayout->addWidget( mapBox, 0, 0 );
+
+    scriptBoxLayout->addWidget( loadScript );
+
+    mainLayout->addWidget( mapBox );
+    mainLayout->addWidget( scriptBox );
+    mainLayout->addStretch();
 
     return frame;
 }
@@ -283,6 +295,19 @@ void MainForm::addLibraryToTable( const LibDefinition& lib )
     m_impl->libraryTable->setSortingEnabled( true );
     m_impl->controllerTable->setSortingEnabled( true );
 
+}
+
+//------------------------------------------------------------------------------
+
+void MainForm::invokeScript()
+{
+    QString str = QFileDialog::getOpenFileName( this, tr( "ScriptInvoking" ), QString::null, tr( "ScriptFiles | *.script" ) );
+
+    if( str.isEmpty() )
+        return;
+
+    if( !pApp.invokeScript( str ) )
+        QMessageBox::warning( this, tr( "ScriptInvoking" ), tr( "ThereAreErrorsDuringInvokingScript" ) );
 }
 
 //------------------------------------------------------------------------------

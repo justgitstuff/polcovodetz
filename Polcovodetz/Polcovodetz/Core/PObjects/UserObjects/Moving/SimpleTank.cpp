@@ -23,3 +23,16 @@ const QPixmap& SimpleTank::image()const
 
 //-------------------------------------------------------
 
+PObjectInfo SimpleTank::info()
+{
+    PObjectInfo info;
+
+    info.id = SimpleTank::RTTI;
+    info.name = tr( "SimpleTank" );
+    info.description = tr( "SimpleTank" );
+
+    return info;
+}
+
+//-------------------------------------------------------
+

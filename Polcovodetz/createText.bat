@@ -16,8 +16,16 @@ cd..
 lupdate Polcovodetz/Polcovodetz.pro > %TEMP%\logs\lupdate.log
 lrelease Polcovodetz/Polcovodetz.pro > %TEMP%\logs\lrelease.log
 
-copy Polcovodetz\Internationalization\*.qm debug\
+@echo ***********************COPYING FILES********************
 
+copy Polcovodetz\Internationalization\*.qm debug\
+copy Polcovodetz\Internationalization\*.qm release\
+
+copy Scripts\*.script debug\
+copy Scripts\*.script release\
+
+copy Maps\*.map debug\
+copy Maps\*.map release\
 
 @echo ***********************DOCUMENTATION********************
 

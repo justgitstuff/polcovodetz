@@ -22,6 +22,11 @@ public:
     SimpleTank( const int side ):PObject( side ){};
 
     virtual const QPixmap& image()const;
+    virtual       int      rtti()const{ return SimpleTank::RTTI; }
+
+    static PObjectInfo info();
+
+    static const int RTTI = 1;
 };
 
 //-------------------------------------------------------

@@ -7,6 +7,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include <QList>
+#include <QVector>
 
 //-------------------------------------------------------
 
@@ -18,6 +19,10 @@ class QWidget;
 class GUIControler;
 
 class ICommandController;
+
+//-------------------------------------------------------
+
+typedef QVector< int > IDEnumeration;
 
 //-------------------------------------------------------
 /**
@@ -47,7 +52,7 @@ class PolkApp : public QObject
     Q_OBJECT;
 public:
 
-    typedef const QList<LibDefinition> LibDefinitions;
+    typedef const QList< LibDefinition > LibDefinitions;
 
                         PolkApp();
                         ~PolkApp();
@@ -64,6 +69,7 @@ public:
     bool                reloadMap( const QString& fileName );
 
     int                 loadLibrary( const QString& fileName );
+    bool                invokeScript( const QString& fileName );
 
     ICommandController* loadCommandController( const int libraryID );
 
@@ -71,8 +77,17 @@ public:
     int                 registerGroupController( const int libraryID, const int side );
     int                 registerObjectController( const int libraryID, const int side, const int gID, const int pObject );
 
+    int                 commandController( const int side );
+    IDEnumeration       groupControllers( const int side );
+    IDEnumeration       objectControllers( const int side, const int groupID );
+
+    int                 commandControllerLibId( const int side );
+    int                 groupControllerLibId( const int side, const int groupID );
+    int                 objectControllerLibId( const int side, const int objectID );
+    int                 objectControllerPObject( const int side, const int objectID );
+
     LibDefinitions      loadedLibraries()const;
-    LibDefinition       library( const int id );
+    LibDefinition       library( const int id )const;
 
 signals:
     void          newLibrary( const LibDefinition& );

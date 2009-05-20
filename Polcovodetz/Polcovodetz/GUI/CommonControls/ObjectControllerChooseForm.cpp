@@ -3,6 +3,8 @@
 
 #include <GUI/CommonControls/ObjectControllerChooseForm.h>
 
+#include <GUI/CommonControls/PObjectChooseBox.h>
+
 #include <Core/PolkApp.h>
 
 #include <QHBoxLayout>
@@ -15,11 +17,12 @@
 
 struct ObjectControllerChooseFormImpl
 {
-    QTableWidget* tableWidget;
+    QTableWidget*     tableWidget;
+    PObjectChooseBox* pObjects;
 
-    QVector<int>  ids;
+    QVector<int>      ids;
 
-    int           curentId;
+    int               curentId;
 }; 
 
 //------------------------------------------------------------------------------
@@ -32,6 +35,7 @@ ObjectControllerChooseForm::ObjectControllerChooseForm( QWidget* parent )
     QVBoxLayout* mainLayout    = new QVBoxLayout( this );
 
     m_impl->tableWidget        = new QTableWidget( this );
+    m_impl->pObjects           = new PObjectChooseBox( this );
 
     QHBoxLayout* buttonsLayout = new QHBoxLayout();
     
@@ -39,6 +43,7 @@ ObjectControllerChooseForm::ObjectControllerChooseForm( QWidget* parent )
     QPushButton* bCancel       = new QPushButton( tr( "Cancel" ), this );
 
     mainLayout->addWidget( m_impl->tableWidget );
+    mainLayout->addWidget( m_impl->pObjects );
     mainLayout->addLayout( buttonsLayout );
 
     buttonsLayout->addStretch();
@@ -95,14 +100,16 @@ void ObjectControllerChooseForm::accept()
 }
 
 //------------------------------------------------------------------------------
-
-int ObjectControllerChooseForm::chooseObjectController( QWidget* parent )
+/**
+    Возвращает пару: IObjectController id и PObject id
+*/
+QPair< int, int > ObjectControllerChooseForm::chooseObjectController( QWidget* parent )
 {
     ObjectControllerChooseForm form( parent );
 
     form.exec();
 
-    return form.m_impl->curentId;
+    return QPair< int, int >( form.m_impl->curentId, form.m_impl->pObjects->PObjectID() );
 }
 
 //------------------------------------------------------------------------------
