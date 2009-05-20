@@ -43,6 +43,7 @@ private slots:
     void loadCommandController();
 
     void addLibraryToTable( const LibDefinition& );
+    void invokeScript();
 };
 
 //-----------------------------------------------------------------

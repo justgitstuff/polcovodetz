@@ -5,11 +5,13 @@
 //-----------------------------------------------------------------
 
 #include <QDialog>
+#include <QPair>
 #include <boost/shared_ptr.hpp>
 
 //-----------------------------------------------------------------
 
 struct ObjectControllerChooseFormImpl;
+
 
 //-----------------------------------------------------------------
 
@@ -17,7 +19,7 @@ class ObjectControllerChooseForm : public QDialog
 {
     Q_OBJECT;
 public:
-    static int chooseObjectController( QWidget* parent = 0 );
+    static QPair< int, int > chooseObjectController( QWidget* parent = 0 );
 
 private:
     ObjectControllerChooseForm( QWidget* parent = 0 );

@@ -11,6 +11,7 @@
 
 struct CommandTreeFormImpl;
 
+class QAction;
 class QTreeWidget;
 class QTreeWidgetItem;
 
@@ -21,6 +22,9 @@ class CommandTreeForm : public QFrame
     Q_OBJECT;
 public:
     CommandTreeForm( QWidget* parent = 0 );
+
+public slots:
+    void refresh();
 
 private:
     boost::shared_ptr< CommandTreeFormImpl > m_impl;
@@ -35,6 +39,7 @@ private:
 
     void disableAllActions();
 
+
 private slots:
     void loadCommandController1();
     void loadCommandController2();
@@ -47,6 +52,7 @@ private slots:
 
     void command1ItemSelected( QTreeWidgetItem* item );
     void command2ItemSelected( QTreeWidgetItem* item );
+
 };
 
 //-----------------------------------------------------------------
