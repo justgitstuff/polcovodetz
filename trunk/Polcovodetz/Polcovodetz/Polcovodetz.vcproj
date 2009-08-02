@@ -513,18 +513,6 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_CommandControllerChooseForm.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\GeneratedFiles\Release\moc_CommandControllerChooseForm.cpp"
 				>
 				<FileConfiguration
@@ -537,7 +525,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_CommandThread.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_CommandControllerChooseForm.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -561,7 +549,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_CommandTreeForm.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_CommandThread.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -577,6 +565,18 @@
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_CommandTreeForm.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -609,18 +609,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_GUIControler.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\GeneratedFiles\Debug\moc_GUIControler.cpp"
 				>
 				<FileConfiguration
@@ -633,10 +621,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_IAbstractController.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_GUIControler.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -649,6 +637,18 @@
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_IAbstractController.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -681,6 +681,18 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_ICommandDrivers.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\GeneratedFiles\Release\moc_ICommandDrivers.cpp"
 				>
 				<FileConfiguration
@@ -693,10 +705,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_ICommandDrivers.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_IGroupController.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -728,10 +740,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_IGroupController.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_IGroupDrivers.cpp"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -744,18 +756,6 @@
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_IGroupDrivers.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -799,6 +799,18 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\GeneratedFiles\Release\moc_IObjectDrivers.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\GeneratedFiles\Debug\moc_IObjectDrivers.cpp"
 				>
 				<FileConfiguration
@@ -811,7 +823,19 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_IObjectDrivers.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_LibraryLoader.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Release\moc_LibraryLoader.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -847,18 +871,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_ObjectControllerChooseForm.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\GeneratedFiles\Release\moc_ObjectControllerChooseForm.cpp"
 				>
 				<FileConfiguration
@@ -871,10 +883,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_PaintArea2D.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_ObjectControllerChooseForm.cpp"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -895,10 +907,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_PObject.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_PaintArea2D.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -919,7 +931,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_PObjectChooseBox.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_PObject.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -943,10 +955,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_PObjectFactory.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_PObjectChooseBox.cpp"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -967,10 +979,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_PolkApp.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_PObjectFactory.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -983,6 +995,18 @@
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_PolkApp.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1039,7 +1063,43 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_SimpleTank.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_SimpleGroupDrivers.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Release\moc_SimpleGroupDrivers.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_SimpleObjectDrivers.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Release\moc_SimpleObjectDrivers.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -1063,10 +1123,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_VisualThread.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_SimpleTank.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1079,6 +1139,18 @@
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_VisualThread.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1102,6 +1174,36 @@
 		<Filter
 			Name="Core"
 			>
+			<File
+				RelativePath=".\Core\LibraryLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\LibraryLoader.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing LibraryLoader.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\Core\LibraryLoader.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_LibraryLoader.cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\Core\LibraryLoader.h"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_LibraryLoader.cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing LibraryLoader.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB -D_UNICODE -DUNICODE -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\Core\LibraryLoader.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_LibraryLoader.cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\Core\LibraryLoader.h"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_LibraryLoader.cpp&quot;"
+					/>
+				</FileConfiguration>
+			</File>
 			<File
 				RelativePath=".\Core\PObjectFactory.cpp"
 				>
@@ -1196,6 +1298,10 @@
 				Name="BaseClasses"
 				>
 				<File
+					RelativePath=".\Core\BaseClasses\AbstractMessage.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Core\BaseClasses\ILoader.h"
 					>
 					<FileConfiguration
@@ -1220,6 +1326,10 @@
 							Outputs=""
 						/>
 					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Core\BaseClasses\Messages.h"
+					>
 				</File>
 				<Filter
 					Name="Drivers"
@@ -1416,6 +1526,10 @@
 				Name="Common"
 				>
 				<File
+					RelativePath=".\Core\Common\ConcurrentQueue.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Core\Common\DualArray.h"
 					>
 				</File>
@@ -1542,6 +1656,36 @@
 				Name="MultiThreading"
 				>
 				<File
+					RelativePath=".\Core\MultiThreading\CalcThread.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Core\MultiThreading\CalcThread.h"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing VisualThread.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB  -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\Core\MultiThreading\VisualThread.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_VisualThread.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\Core\MultiThreading\VisualThread.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_VisualThread.cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing VisualThread.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB -D_UNICODE -DUNICODE  -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\Core\MultiThreading\VisualThread.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_VisualThread.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\Core\MultiThreading\VisualThread.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_VisualThread.cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\Core\MultiThreading\CommandThread.cpp"
 					>
 				</File>
@@ -1568,36 +1712,6 @@
 							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB -D_UNICODE -DUNICODE  -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\Core\MultiThreading\CommandThread.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_CommandThread.cpp&quot;&#x0D;&#x0A;"
 							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\Core\MultiThreading\CommandThread.h"
 							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_CommandThread.cpp&quot;"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\Core\MultiThreading\VisualThread.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Core\MultiThreading\VisualThread.h"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							Description="Moc&apos;ing VisualThread.h..."
-							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB  -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\Core\MultiThreading\VisualThread.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_VisualThread.cpp&quot;&#x0D;&#x0A;"
-							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\Core\MultiThreading\VisualThread.h"
-							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_VisualThread.cpp&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							Description="Moc&apos;ing VisualThread.h..."
-							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB -D_UNICODE -DUNICODE  -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\Core\MultiThreading\VisualThread.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_VisualThread.cpp&quot;&#x0D;&#x0A;"
-							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\Core\MultiThreading\VisualThread.h"
-							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_VisualThread.cpp&quot;"
 						/>
 					</FileConfiguration>
 				</File>
@@ -1632,6 +1746,66 @@
 							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB -D_UNICODE -DUNICODE -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\Core\Drivers\SimpleCommandDrivers.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_SimpleCommandDrivers.cpp&quot;&#x0D;&#x0A;"
 							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\Core\Drivers\SimpleCommandDrivers.h"
 							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_SimpleCommandDrivers.cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Core\Drivers\SimpleGroupDrivers.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Core\Drivers\SimpleGroupDrivers.h"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing SimpleGroupDrivers.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\Core\Drivers\SimpleGroupDrivers.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_SimpleGroupDrivers.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\Core\Drivers\SimpleGroupDrivers.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_SimpleGroupDrivers.cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing SimpleGroupDrivers.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB -D_UNICODE -DUNICODE -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\Core\Drivers\SimpleGroupDrivers.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_SimpleGroupDrivers.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\Core\Drivers\SimpleGroupDrivers.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_SimpleGroupDrivers.cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Core\Drivers\SimpleObjectDrivers.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Core\Drivers\SimpleObjectDrivers.h"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing SimpleObjectDrivers.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\Core\Drivers\SimpleObjectDrivers.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_SimpleObjectDrivers.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\Core\Drivers\SimpleObjectDrivers.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_SimpleObjectDrivers.cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing SimpleObjectDrivers.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_OPENGL_LIB -D_UNICODE -DUNICODE -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtXml\.&quot; -I&quot;$(QTDIR)\include\QtOpenGL\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;.\Core\Drivers\SimpleObjectDrivers.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_SimpleObjectDrivers.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\Core\Drivers\SimpleObjectDrivers.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_SimpleObjectDrivers.cpp&quot;"
 						/>
 					</FileConfiguration>
 				</File>

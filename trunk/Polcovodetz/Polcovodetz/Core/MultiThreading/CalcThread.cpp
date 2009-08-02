@@ -1,7 +1,7 @@
 
 //-------------------------------------------------------
 
-#include <Core/MultiThreading/VisualThread.h>
+#include <Core/MultiThreading/CalcThread.h>
 
 #include <QMutex>
 
@@ -11,7 +11,7 @@ const int SLEEP_TIMEOUT = 50;
 
 //-------------------------------------------------------
 
-struct VisualThreadImpl
+struct CalcThreadImpl
 {
     BattleState* battleState;
 
@@ -22,17 +22,17 @@ struct VisualThreadImpl
 
 //-------------------------------------------------------
 
-VisualThread::VisualThread()
+CalcThread::CalcThread()
             :QThread()
 {
-    m_impl.reset( new VisualThreadImpl() );
+    m_impl.reset( new CalcThreadImpl() );
 
     m_impl->stopped = true;
 }
 
 //-------------------------------------------------------
 
-bool VisualThread::init( BattleState* battle )
+bool CalcThread::init( BattleState* battle )
 {
     m_impl->battleState = battle;
 
@@ -41,7 +41,7 @@ bool VisualThread::init( BattleState* battle )
 
 //-------------------------------------------------------
 
-bool VisualThread::start()
+bool CalcThread::start()
 {
     m_impl->stopped = false;
 

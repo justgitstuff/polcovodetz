@@ -6,6 +6,15 @@
 //-------------------------------------------------------
 
 #include <ICommandDrivers.h>
+#include <boost/shared_ptr.hpp>
+
+//-------------------------------------------------------
+
+class CommandThread;
+class IGroupInputDriver;
+
+struct SimpleCommandInputDriverImpl;
+struct SimpleCommandOutputDriverImpl;
 
 //-------------------------------------------------------
 
@@ -18,13 +27,19 @@ class SimpleCommandInputDriver : public ICommandInputDriver
     Q_OBJECT;
 
 public:
-    SimpleCommandInputDriver(){};
+    SimpleCommandInputDriver();
+
+    bool init( const boost::shared_ptr< ICommandController >&, CommandThread& );
+
+    void sendMessage( CoreCommandMessage* );
+    void sendMessage( GroupCommandMessage* );
 
 signals:
-    /**
-        Сигнал приема сообщений.
-    */
-    void message( CommandInputMessage* mesage );
+    void message( CoreCommandMessage* );
+    void message( GroupCommandMessage* );
+
+private:
+    boost::shared_ptr< SimpleCommandInputDriverImpl > m_impl;
 };
 
 //-------------------------------------------------------
@@ -39,12 +54,12 @@ class SimpleCommandOutputDriver : public ICommandOutputDriver
 public:
     SimpleCommandOutputDriver(){};
 
-public slots:
+    bool init( const boost::shared_ptr< ICommandController >& );
 
-    /**
-      Слот для принятия сообщений
-    */
-    virtual void message( const CommandOutputMessage& ){};
+    bool dConnect( const boost::shared_ptr< IGroupInputDriver >& );
+
+private slots:
+
 };
 
 //-------------------------------------------------------

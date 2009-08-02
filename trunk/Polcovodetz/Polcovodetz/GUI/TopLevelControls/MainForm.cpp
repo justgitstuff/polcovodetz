@@ -7,6 +7,7 @@
 #include <GUI/SpecialControls/PaintArea2D.h>
 
 #include <Core/PolkApp.h>
+#include <Core/LibraryLoader.h>
 
 #include <QApplication>
 #include <QFileDialog>
@@ -60,7 +61,7 @@ MainForm::MainForm()
 
     mainTabWidget->setMovable( true );
 
-    connect( &pApp, SIGNAL( newLibrary( const LibDefinition& ) ), this, SLOT( addLibraryToTable( const LibDefinition& ) ) );
+    connect( &libLoader, SIGNAL( newLibrary( const LibDefinition& ) ), this, SLOT( addLibraryToTable( const LibDefinition& ) ) );
     return;
 }
 
@@ -166,7 +167,7 @@ QFrame* MainForm::getControllersFrame( QWidget* parent )
     m_impl->controllerTable->setSortingEnabled( true );
 
     buttonsLayout->addWidget( m_impl->loadCommandControllerButton );
-    buttonsLayout->addWidget( pApp.loadInfoView() );
+    buttonsLayout->addWidget( libLoader.loadInfoView() );
 
     return splitter;
 }
@@ -235,7 +236,7 @@ void MainForm::loadCommandController()
 
     if( !fileName.isEmpty() )
     {
-        if ( !pApp.loadLibrary( fileName ) )
+        if ( !libLoader.loadLibrary( fileName ) )
         {
             QMessageBox::critical( this, tr( "LoadingError" ), tr( "ErrorDuringLoadNativeControllerFile" ) );
         }        

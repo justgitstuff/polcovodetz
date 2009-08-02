@@ -2,6 +2,7 @@
 
 #include <GUI/TopLevelControls/CommandTreeForm.h>
 
+#include <Core/LibraryLoader.h>
 #include <Core/PObjectFactory.h>
 #include <Core/PolkApp.h>
 #include <Core/ResourceManager.h>
@@ -194,7 +195,7 @@ void CommandTreeForm::loadCommandController( const int side )
 
     QTreeWidget* tw = side == 1 ? m_impl->treeWidget1 : m_impl->treeWidget2;
 
-    cc = new QTreeWidgetItem( tw, QStringList( pApp.library( libID ).ccName ) );
+    cc = new QTreeWidgetItem( tw, QStringList( libLoader.library( libID ).ccName ) );
 
     m_impl->ids.insert( cc, id );
 
@@ -276,7 +277,7 @@ void CommandTreeForm::loadObjectController( const int side )
 
     QTreeWidgetItem* newItem = new ObjectItem( 
         group, 
-        pApp.library( libID.first ).ocName + tr( " ON " ) + pof.pObjectInfo( libID.second ).name, id );
+        libLoader.library( libID.first ).ocName + tr( " ON " ) + pof.pObjectInfo( libID.second ).name, id );
 
     m_impl->ids.insert( newItem, id );
 
@@ -309,7 +310,7 @@ void CommandTreeForm::loadGroupController( const int side )
 
     QTreeWidgetItem* twi = side == 1 ? m_impl->cController1 : m_impl->cController2;
 
-    QTreeWidgetItem* newItem = new GroupItem( twi, pApp.library( libID ).gcName, id );
+    QTreeWidgetItem* newItem = new GroupItem( twi, libLoader.library( libID ).gcName, id );
 
     m_impl->ids.insert( newItem, id );
 
@@ -374,7 +375,7 @@ void CommandTreeForm::refresh()
 
     if( cc1 != 0 )
     {
-        m_impl->cController1 = new QTreeWidgetItem( m_impl->treeWidget1, QStringList( pApp.library( pApp.commandControllerLibId( 1 ) ).ccName ) );
+        m_impl->cController1 = new QTreeWidgetItem( m_impl->treeWidget1, QStringList( libLoader.library( pApp.commandControllerLibId( 1 ) ).ccName ) );
 
         IDEnumeration groups = pApp.groupControllers( 1 );
         for( IDEnumeration::const_iterator iter = groups.constBegin();
@@ -385,7 +386,7 @@ void CommandTreeForm::refresh()
 
             int libId = pApp.groupControllerLibId( 1, id );
 
-            GroupItem* group = new GroupItem( m_impl->cController1, pApp.library( libId ).gcName, id );
+            GroupItem* group = new GroupItem( m_impl->cController1, libLoader.library( libId ).gcName, id );
 
             m_impl->ids.insert( group, id );
 
@@ -399,7 +400,7 @@ void CommandTreeForm::refresh()
 
                 int libId = pApp.objectControllerLibId( 1, id );
 
-                new ObjectItem( group, pApp.library( libId ).ocName + tr( " ON " ) + pof.pObjectInfo( pApp.objectControllerPObject( 1, id ) ).name, id );
+                new ObjectItem( group, libLoader.library( libId ).ocName + tr( " ON " ) + pof.pObjectInfo( pApp.objectControllerPObject( 1, id ) ).name, id );
             }
         }
     }
@@ -408,7 +409,7 @@ void CommandTreeForm::refresh()
 
     if( cc2 != 0 )
     {
-        m_impl->cController2 = new QTreeWidgetItem( m_impl->treeWidget2, QStringList( pApp.library( pApp.commandControllerLibId( 2 ) ).ccName ) );
+        m_impl->cController2 = new QTreeWidgetItem( m_impl->treeWidget2, QStringList( libLoader.library( pApp.commandControllerLibId( 2 ) ).ccName ) );
 
         IDEnumeration groups = pApp.groupControllers( 2 );
         for( IDEnumeration::const_iterator iter = groups.constBegin();
@@ -419,7 +420,7 @@ void CommandTreeForm::refresh()
 
             int libId = pApp.groupControllerLibId( 2, id );
 
-            GroupItem* group = new GroupItem( m_impl->cController2, pApp.library( libId ).gcName, id );
+            GroupItem* group = new GroupItem( m_impl->cController2, libLoader.library( libId ).gcName, id );
 
             m_impl->ids.insert( group, id );
 
@@ -433,7 +434,7 @@ void CommandTreeForm::refresh()
 
                 int libId = pApp.objectControllerLibId( 2, id );
 
-                new ObjectItem( group, pApp.library( libId ).ocName + tr( " ON " ) + pof.pObjectInfo( pApp.objectControllerPObject( 2, id ) ).name, id );
+                new ObjectItem( group, libLoader.library( libId ).ocName + tr( " ON " ) + pof.pObjectInfo( pApp.objectControllerPObject( 2, id ) ).name, id );
             }
         }
     }

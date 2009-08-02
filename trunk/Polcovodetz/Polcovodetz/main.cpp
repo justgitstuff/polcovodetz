@@ -17,7 +17,9 @@ int main(int argc, char *argv[])
 
     QTranslator translator;
 
-    translator.load( "Russian" );/**Translate*/
+    /**Translate*/
+    if( !translator.load( "Russian" ) )
+        translator.load( "English" );
 
     a.installTranslator( &translator );
 

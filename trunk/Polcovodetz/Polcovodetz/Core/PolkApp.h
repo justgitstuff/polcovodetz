@@ -6,42 +6,23 @@
 #include <Core/PObjects/PObject.h>
 #include <boost/shared_ptr.hpp>
 
-#include <QList>
 #include <QVector>
 
 //-------------------------------------------------------
 
-struct PolkAppImpl;
+struct  PolkAppImpl;
 
-class Map;
-class QPoint;
-class QWidget;
-class GUIControler;
+class  Map;
+class  QPoint;
+class  QWidget;
+class  GUIControler;
 
-class ICommandController;
+struct DriversStorage;
+class  ICommandController;
 
 //-------------------------------------------------------
 
 typedef QVector< int > IDEnumeration;
-
-//-------------------------------------------------------
-/**
-    Хранит инфорацию о подгружаемой библиотеке.
-*/
-struct LibDefinition
-{
-    int     id;
-
-    QString name;
-    QString descritpion;
-
-    QString ccName;
-    QString ccDescription;
-    QString gcName;
-    QString gcDescription;
-    QString ocName;
-    QString ocDescription;
-};
 
 //-------------------------------------------------------
 /** Главный управляющий класс проекта.
@@ -51,14 +32,10 @@ class PolkApp : public QObject
 {
     Q_OBJECT;
 public:
-
-    typedef const QList< LibDefinition > LibDefinitions;
-
                         PolkApp();
                         ~PolkApp();
 
     QWidget*            currentView()const;
-    QWidget*            loadInfoView()const;
 
     const Map&          map()const;
     
@@ -68,10 +45,7 @@ public:
 
     bool                reloadMap( const QString& fileName );
 
-    int                 loadLibrary( const QString& fileName );
     bool                invokeScript( const QString& fileName );
-
-    ICommandController* loadCommandController( const int libraryID );
 
     bool                registerCommandController( const int libraryID, const int side );
     int                 registerGroupController( const int libraryID, const int side );
@@ -86,12 +60,6 @@ public:
     int                 objectControllerLibId( const int side, const int objectID );
     int                 objectControllerPObject( const int side, const int objectID );
 
-    LibDefinitions      loadedLibraries()const;
-    LibDefinition       library( const int id )const;
-
-signals:
-    void          newLibrary( const LibDefinition& );
-
 public slots:
     bool          startGame();
     bool          pauseGame();
@@ -102,8 +70,6 @@ private:
 
     void          refreshCoordinate( const PtrPObject& obj, const QPoint& old ); 
     void          refreshCoordinate( const PtrPObject& obj ); 
-
-    void          createCommandDrivers( const int side );
 };
 
 //-------------------------------------------------------

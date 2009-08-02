@@ -11,14 +11,10 @@
 
 class IGroupController;
 
-//-------------------------------------------------------
-/**
-  Сообщение, посылаемое к IGroupController
-*/
-struct GroupInputMessage
-{
-    GroupInputMessage(){};
-};
+class ObjectGroupMessage;
+class GroupObjectMessage;
+class GroupCommandMessage;
+class CommandGroupMessage;
 
 //-------------------------------------------------------
 /**
@@ -27,12 +23,6 @@ struct GroupInputMessage
 class IGroupInputDriver : public QObject
 {
     Q_OBJECT;
-
-public:
-    IGroupInputDriver();
-
-signals:
-    void message( GroupInputMessage* mesage );
 };
 
 //-------------------------------------------------------
@@ -50,13 +40,6 @@ struct GroupOutputMessage
 class IGroupOutputDriver : public QObject
 {
     Q_OBJECT;
-
-public:
-    IGroupOutputDriver();
-
-signals:
-    void message( GroupInputMessage* mesage );
-
 };
 
 //-------------------------------------------------------
