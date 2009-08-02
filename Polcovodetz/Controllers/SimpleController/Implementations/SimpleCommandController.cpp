@@ -2,6 +2,9 @@
 #include <Implementations/SimpleCommandController.h>
 
 #include <ICommandDrivers.h>
+#include <Messages.h>
+
+#include <QDebug>
 
 //-------------------------------------------------------
 
@@ -54,11 +57,13 @@ bool SimpleCommandController::init( ICommandInputDriver* inDriver , ICommandOutp
     m_impl->inDriver  = inDriver;
     m_impl->outDriver = outDriver;
 
-    connect( inDriver, SIGNAL( message( CommandInputMessage* ) ), 
-             this,     SLOT( inputMessage( CommandInputMessage* ) ) );
+    __asm int 3;
 
-    connect( this,    SIGNAL( outputMessage( CommandOutputMessage* ) ), 
-             this,     SLOT( message( CommandOutputMessage* ) ) );
+    connect( inDriver,  SIGNAL( message( CoreCommandMessage* ) ), 
+             this,      SLOT( message( CoreCommandMessage* ) ) );
+
+    connect( inDriver,  SIGNAL( message( GroupCommandMessage* ) ), 
+             this,      SLOT( message( GroupCommandMessage* ) ) );
 
     return true; 
 };
@@ -67,7 +72,17 @@ bool SimpleCommandController::init( ICommandInputDriver* inDriver , ICommandOutp
 /**
     В сущности, все действия должны приниматься здесь.
 */
-void SimpleCommandController::inputMessage( CommandInputMessage* /*mesage*/ )
+void SimpleCommandController::message( CoreCommandMessage* )
+{
+    qDebug() << "Started!";
+    return;
+}
+
+//-------------------------------------------------------
+/**
+    В сущности, все действия должны приниматься здесь.
+*/
+void SimpleCommandController::message( GroupCommandMessage* )
 {
     return;
 }

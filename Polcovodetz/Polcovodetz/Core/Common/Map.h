@@ -2,11 +2,14 @@
 #ifndef  __MAP_
 #define  __MAP_
 
-#include <Core/Common/DualArray.h>
+//-------------------------------------------------------
+
+#include <boost/shared_ptr.hpp>
 
 //-------------------------------------------------------
 
-class QIODevice;
+struct MapImpl;
+class  QIODevice;
 
 //-------------------------------------------------------
 
@@ -26,14 +29,15 @@ public:
 
     void setObjectAt( const int x, const int y, const MapObject );
 
-    int width()const{ return m_values.width(); }
-    int height()const{ return m_values.height(); }
+    int width()const;
+    int height()const;
+
+    int objectCount( const MapObject& obj )const;
 
     bool loadFromFile( QIODevice& );
 
 private:
-    typedef DualArray< MapObject > MapArray; 
-    MapArray m_values;
+    boost::shared_ptr< MapImpl > m_impl;          
 };
 
 

@@ -1,4 +1,4 @@
-﻿
+﻿ 
 
 #ifndef  __ICOMMAND_CONTROLLER
 #define  __ICOMMAND_CONTROLLER
@@ -6,6 +6,7 @@
 //-------------------------------------------------------
 
 #include <IAbstractController.h>
+#include <Messages.h>
 
 //-------------------------------------------------------
 
@@ -40,6 +41,10 @@ public:
        долго конфигурировался.
     */
     virtual bool init( ICommandInputDriver*, ICommandOutputDriver* ) = 0;
+
+signals:
+    void sendTopMessage( CommandCoreMessage* );
+    void sendDownMessage( CommandGroupMessage* );
 };
 
 //-------------------------------------------------------

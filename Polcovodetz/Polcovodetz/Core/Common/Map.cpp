@@ -1,19 +1,36 @@
 
 #include <Core/Common/Map.h>
 
+#include <Core/Common/DualArray.h>
+
 #include <QIODevice>
+#include <QMap>
+
+//--------------------------------------------------------------------------
+
+typedef DualArray< Map::MapObject > MapArray; 
+
+//--------------------------------------------------------------------------
+
+struct MapImpl
+{
+    MapArray values;
+
+    QMap< Map::MapObject, int > objectCounts;
+};
 
 //--------------------------------------------------------------------------
 
 Map::Map( const int width, const int height )
-:m_values( width, height, Empty )
+:m_impl( new MapImpl() )
 {
+    m_impl->values = MapArray( width, height, Empty );
 }
 
 //--------------------------------------------------------------------------
 
 Map::Map()
-:m_values()
+:m_impl( new MapImpl() )
 { }
 
 //--------------------------------------------------------------------------
@@ -25,17 +42,17 @@ Map::~Map()
 
 Map::MapObject Map::objectAt( const int x,  const int y ) const 
 {
-    if ( x < 0 || y < 0 || x >= m_values.width() || y >= m_values.height() )
+    if ( x < 0 || y < 0 || x >= m_impl->values.width() || y >= m_impl->values.height() )
         return Empty;
 
-    return m_values.objectAt( x, y );
+    return m_impl->values.objectAt( x, y );
 } 
 
 //--------------------------------------------------------------------------
 
 void Map::setObjectAt( const int x, const int y, const MapObject obj )
 {
-    m_values.setObjectAt( x, y, obj );
+    m_impl->values.setObjectAt( x, y, obj );
 }
 
 //--------------------------------------------------------------------------
@@ -67,12 +84,35 @@ bool Map::loadFromFile( QIODevice& dev )
                 return false;
 
             newMap.setObjectAt( wid, hey, (MapObject)value );
+
+            m_impl->objectCounts[ (MapObject)value ]++;
         }
     }
 
-    m_values = newMap;
+    m_impl->values = newMap;
 
     return true;
+}
+
+//--------------------------------------------------------------------------
+
+int Map::objectCount( const MapObject& obj )const
+{
+    return m_impl->objectCounts[ obj ];
+}
+
+//--------------------------------------------------------------------------
+
+int Map::width()const
+{ 
+    return m_impl->values.width(); 
+}
+
+//--------------------------------------------------------------------------
+
+int Map::height()const
+{ 
+    return m_impl->values.height(); 
 }
 
 //--------------------------------------------------------------------------

@@ -15,7 +15,7 @@ class BattleState;
 
 //-------------------------------------------------------
 //Рассчитывает скорости и т. п.
-class VisualThread : public QThread
+class CalcThread : public QThread
 {
     Q_OBJECT;
 public:

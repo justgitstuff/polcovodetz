@@ -5,6 +5,7 @@
 
 #include <GUI/CommonControls/PObjectChooseBox.h>
 
+#include <Core/LibraryLoader.h>
 #include <Core/PolkApp.h>
 
 #include <QHBoxLayout>
@@ -58,7 +59,7 @@ ObjectControllerChooseForm::ObjectControllerChooseForm( QWidget* parent )
     m_impl->tableWidget->setHorizontalHeaderItem( 0, new QTableWidgetItem( tr( "Name" ) ) );
     m_impl->tableWidget->setHorizontalHeaderItem( 1, new QTableWidgetItem( tr( "Description" ) ) );
 
-    PolkApp::LibDefinitions defs = pApp.loadedLibraries();
+    LibraryLoader::LibDefinitions defs = libLoader.loadedLibraries();
 
     int row = 0;
 

@@ -11,32 +11,16 @@
 
 class IObjectController;
 
-//-------------------------------------------------------
-
-struct ObjectInputMessage
-{
-    ObjectInputMessage(){};
-};
+class ObjectGroupMessage;
+class GroupObjectMessage;
+class ObjectCoreMessage;
+class CoreObjectMessage;
 
 //-------------------------------------------------------
 
 class IObjectInputDriver : public QObject
 {
     Q_OBJECT;
-
-public:
-    IObjectInputDriver();
-
-signals:
-    void message( ObjectInputMessage* mesage );
-
-};
-
-//-------------------------------------------------------
-
-struct ObjectOutputMessage
-{
-    ObjectOutputMessage(){};
 };
 
 //-------------------------------------------------------
@@ -44,13 +28,6 @@ struct ObjectOutputMessage
 class IObjectOutputDriver : public QObject
 {
     Q_OBJECT;
-
-public:
-    IObjectOutputDriver();
-
-signals:
-    void message( ObjectInputMessage* mesage );
-
 };
 
 //-------------------------------------------------------
