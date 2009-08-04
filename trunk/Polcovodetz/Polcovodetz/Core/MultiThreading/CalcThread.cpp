@@ -13,7 +13,7 @@ const int SLEEP_TIMEOUT = 50;
 
 struct CalcThreadImpl
 {
-    BattleState* battleState;
+   // BattleState* battleState;
 
     QMutex       pauseLocker;
 
@@ -32,10 +32,8 @@ CalcThread::CalcThread()
 
 //-------------------------------------------------------
 
-bool CalcThread::init( BattleState* battle )
+bool CalcThread::init()
 {
-    m_impl->battleState = battle;
-
     return true;
 }
 
@@ -43,20 +41,15 @@ bool CalcThread::init( BattleState* battle )
 
 bool CalcThread::start()
 {
-    m_impl->stopped = false;
-
     return false;
 }
 
 //-------------------------------------------------------
 
-void VisualThread::run()
+void CalcThread::run()
 {
     while( !m_impl->stopped )
     {
-/*        BattleState* battle = m_impl->battleState;
-
-        BattleState::ActiveObjects = battle->objects();*/
 
         msleep( SLEEP_TIMEOUT );
     }

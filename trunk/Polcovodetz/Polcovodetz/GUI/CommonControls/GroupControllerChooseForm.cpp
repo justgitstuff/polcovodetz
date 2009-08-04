@@ -58,17 +58,20 @@ GroupControllerChooseForm::GroupControllerChooseForm( QWidget* parent )
 
     int row = 0;
 
-    foreach( LibDefinition def, defs )
+    for( LibraryLoader::LibDefinitions::ConstIterator iter = defs.constBegin();
+        iter != defs.constEnd();
+        iter++
+        )
     {
-        if( def.ccName.isEmpty() )
+        if( iter->ccName.isEmpty() )
             continue;
 
         m_impl->tableWidget->insertRow( row );
 
-        m_impl->tableWidget->setItem( row, 0, new QTableWidgetItem( def.ccName ) );
-        m_impl->tableWidget->setItem( row, 1, new QTableWidgetItem( def.ccDescription ) );
+        m_impl->tableWidget->setItem( row, 0, new QTableWidgetItem( iter->ccName ) );
+        m_impl->tableWidget->setItem( row, 1, new QTableWidgetItem( iter->ccDescription ) );
 
-        m_impl->ids.append( def.id );
+        m_impl->ids.append( iter->id );
 
         row++;
     }

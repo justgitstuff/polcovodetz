@@ -13,14 +13,14 @@ class  QIODevice;
 
 //-------------------------------------------------------
 
+enum MapObject { Empty = 0, 
+                 Grassland, Brick, Water, Stone, 
+                 FirstCommandBox, SecondCommandBox,
+                 Count };
+    
 class Map
 {
 public:
-    enum MapObject { Empty = 0, 
-                     Grassland, Brick, Water, Stone, 
-                     FirstCommandBox, SecondCommandBox,
-                     Count };
-    
     Map();
     Map( const int width, const int height );
     ~Map();

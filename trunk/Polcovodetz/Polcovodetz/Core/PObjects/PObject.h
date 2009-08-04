@@ -16,7 +16,7 @@ class PObjectSharedImpl;
 
 class QSize;
 class QPixmap;
-class QPointF;
+class QPoint;
 
 /**
     Хранит инфорацию об экземпляре PObject.
@@ -51,8 +51,10 @@ public:
           int    side()const{ return m_side; }
 
     int          rotation()const;
-    QPointF      position()const;
-    QPointF      speed()const;
+    QPoint       position()const;
+    QPoint       speed()const;
+
+    bool         canFly()const{ return false; }
 
     virtual const QPixmap& image()const = 0;
 

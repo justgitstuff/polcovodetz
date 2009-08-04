@@ -29,7 +29,7 @@ QPixmap mergePixmap( const QPixmap& background, const QPixmap& data )
 
 //-------------------------------------------------------------------
 
-const QPixmap& createMapObject( const Map::MapObject object )
+const QPixmap& createMapObject( const MapObject object )
 {    
     static const QPixmap empty( empty_xpm );
     static const QPixmap brick( brick_xpm );
@@ -42,17 +42,17 @@ const QPixmap& createMapObject( const Map::MapObject object )
 
     switch( object )
     {
-    case Map::Brick :
+    case Brick :
         return brick;
-    case Map::Water :
+    case Water :
         return water;
-    case Map::Stone :
+    case Stone :
         return stone;
-    case Map::Grassland :
+    case Grassland :
         return grass;
-    case Map::FirstCommandBox :
+    case FirstCommandBox :
         return blueStartPlace;
-    case Map::SecondCommandBox :
+    case SecondCommandBox :
         return redStartPlace;
     default:
         return empty;
@@ -82,7 +82,7 @@ QPixmap MapView::createBackground()
     {
         for( int y = 0; y < pApp.map().height(); y ++ )
         {
-            Map::MapObject who = pApp.map().objectAt( x, y );
+            MapObject who = pApp.map().objectAt( x, y );
 
             painter.drawPixmap( x * rectangleWigth, y * rectangleHeight, createMapObject( who ) );
         }

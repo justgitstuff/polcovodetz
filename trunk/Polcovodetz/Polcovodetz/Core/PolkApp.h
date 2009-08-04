@@ -16,6 +16,9 @@ class  Map;
 class  QPoint;
 class  QWidget;
 class  GUIControler;
+class  PrtPObject;
+
+enum   MapObject;
 
 struct DriversStorage;
 class  ICommandController;
@@ -32,44 +35,49 @@ class PolkApp : public QObject
 {
     Q_OBJECT;
 public:
-                        PolkApp();
-                        ~PolkApp();
+                               PolkApp();
+                               ~PolkApp();
 
-    QWidget*            currentView()const;
+           QWidget*            currentView()const;
 
-    const Map&          map()const;
-    
-    bool                addObjectOnScene( const int side, const PtrPObject& );
+           const Map&          map()const;
+            
+           bool                addObjectOnScene( const int side, const PtrPObject& );
 
-    //bool          addObject();
+            //bool          addObject();
 
-    bool                reloadMap( const QString& fileName );
+           bool                reloadMap( const QString& fileName );
 
-    bool                invokeScript( const QString& fileName );
+           bool                invokeScript( const QString& fileName );
 
-    bool                registerCommandController( const int libraryID, const int side );
-    int                 registerGroupController( const int libraryID, const int side );
-    int                 registerObjectController( const int libraryID, const int side, const int gID, const int pObject );
+           bool                registerCommandController( const int libraryID, const int side );
+           int                 registerGroupController( const int libraryID, const int side );
+           int                 registerObjectController( const int libraryID, const int side, const int gID, const int pObject );
 
-    int                 commandController( const int side );
-    IDEnumeration       groupControllers( const int side );
-    IDEnumeration       objectControllers( const int side, const int groupID );
+           int                 commandController( const int side );
+           IDEnumeration       groupControllers( const int side );
+           IDEnumeration       objectControllers( const int side, const int groupID );
 
-    int                 commandControllerLibId( const int side );
-    int                 groupControllerLibId( const int side, const int groupID );
-    int                 objectControllerLibId( const int side, const int objectID );
-    int                 objectControllerPObject( const int side, const int objectID );
+           int                 commandControllerLibId( const int side );
+           int                 groupControllerLibId( const int side, const int groupID );
+           int                 objectControllerLibId( const int side, const int objectID );
+           int                 objectControllerPObject( const int side, const int objectID );
 
 public slots:
-    bool          startGame();
-    bool          pauseGame();
-    bool          stopGame();
+           bool          startGame();
+           bool          pauseGame();
+           bool          stopGame();
+
+           bool          refreshState();
 
 private:
-    boost::shared_ptr< PolkAppImpl > m_impl;   
+           boost::shared_ptr< PolkAppImpl > m_impl;   
 
-    void          refreshCoordinate( const PtrPObject& obj, const QPoint& old ); 
-    void          refreshCoordinate( const PtrPObject& obj ); 
+           void          refreshCoordinate( const PtrPObject& obj, const QPoint& old ); 
+           void          refreshCoordinate( const PtrPObject& obj ); 
+
+inline     bool          canComeIn( const PtrPObject& who, const MapObject where );
+
 };
 
 //-------------------------------------------------------
