@@ -40,7 +40,7 @@ PObject::~PObject()
 
 //-------------------------------------------------------
 
-QPointF PObject::position()const
+QPoint PObject::position()const
 {
     return s_impl->coordinate;
 }

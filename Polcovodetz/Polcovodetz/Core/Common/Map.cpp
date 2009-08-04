@@ -8,7 +8,7 @@
 
 //--------------------------------------------------------------------------
 
-typedef DualArray< Map::MapObject > MapArray; 
+typedef DualArray< MapObject > MapArray; 
 
 //--------------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ struct MapImpl
 {
     MapArray values;
 
-    QMap< Map::MapObject, int > objectCounts;
+    QMap< MapObject, int > objectCounts;
 };
 
 //--------------------------------------------------------------------------
@@ -40,7 +40,7 @@ Map::~Map()
 
 //--------------------------------------------------------------------------
 
-Map::MapObject Map::objectAt( const int x,  const int y ) const 
+MapObject Map::objectAt( const int x,  const int y ) const 
 {
     if ( x < 0 || y < 0 || x >= m_impl->values.width() || y >= m_impl->values.height() )
         return Empty;

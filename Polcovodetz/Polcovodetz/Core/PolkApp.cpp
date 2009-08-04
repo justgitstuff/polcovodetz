@@ -19,6 +19,7 @@
 #include <QMultiMap>
 #include <QPluginLoader>
 #include <QPoint>
+#include <QSize>
 #include <QTextEdit>
 
 //-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!
@@ -31,13 +32,17 @@
 
 //-------------------------------------------------------
 
+//typedef MapObject MapObject;
+
+//-------------------------------------------------------
+
 PolkApp pApp;
 
 //-------------------------------------------------------
 
 struct PolkAppImpl
 {    
-    PolkAppImpl():command1(), command2(){};
+    PolkAppImpl():command1(), command2(), calcThread(){};
     typedef QMap< long, PtrPObject >  PObjectMap;
     typedef QMap< long, int >         PObjectSideMap;
  
@@ -53,7 +58,7 @@ struct PolkAppImpl
 
     GUIControler*         currentView;
 
-    VisualThread          visualThread;
+    CalcThread            calcThread;
 
     CommandThread         command1;
     CommandThread         command2;
@@ -84,7 +89,7 @@ bool PolkApp::addObjectOnScene( const int side, const PtrPObject& obj )
 
     m_impl->currentView->addObject( obj );
 
-    obj->sImpl()->coordinate = QPointF( 0, 0 );
+    obj->sImpl()->coordinate = QPoint( 0, 0 );
 
     refreshCoordinate( obj );
 
@@ -415,6 +420,228 @@ int PolkApp::objectControllerPObject( const int side, const int objectID )
     GET_THREAD( side );
 
     return ct.objectControllerPObject( objectID );
+}
+
+//-------------------------------------------------------
+
+bool PolkApp::canComeIn( const PtrPObject& who, const MapObject where )
+{
+    if( where == Brick || where == Stone || where == Empty )
+        return false;
+
+    if( where == Water && !who->canFly() )
+        return false;
+    
+    return true;
+}
+
+//-------------------------------------------------------
+
+bool PolkApp::refreshState()
+{
+    for( PolkAppImpl::PObjectMap::Iterator objectsIter = m_impl->objectIDs.begin();
+        objectsIter !=m_impl->objectIDs.end();
+        objectsIter++ )
+    {
+        PtrPObject objectVal = objectsIter.value();
+
+        PObjectSharedImpl* info = objectVal->sImpl();
+
+        int x0 = info->coordinate.x();
+        int y0 = info->coordinate.y();
+
+        int dx0 = info->speed.x();
+        int dy0 = info->speed.y();
+
+        if( dx0 == 0 && dy0 == 0 )
+            continue;
+
+        int x1 = x0 + dx0;
+        int y1 = y0 + dy0;
+        
+        int cX = x0 % 32;
+        int cY = y0 % 32;
+
+        int sx1 = cX * 32 - 32;
+        int sx2 = sx1 + 32;
+        int sx3 = sx2 + 32;
+//        int sx4 = sx3 + 32;
+
+        int sy1 = cY * 32 - 32;
+        int sy2 = sy1 + 32;
+        int sy3 = sy2 + 32;
+//        int sy4 = sy3 + 32;        
+
+        if( dy0 != 0 )
+        {
+            if( dy0 > 0 )
+            {
+                MapObject obj = m_impl->map.objectAt( cX, cY + 1 );
+                if( !canComeIn( objectVal, obj ) )
+                {
+                    if( y1 < sy2 )
+                        y1 = sy2;
+                }
+            }
+            else
+            {
+                MapObject obj = m_impl->map.objectAt( cX, cY - 1 );
+                if( !canComeIn( objectVal, obj )  )
+                {
+                    if( y1 > sy3 )
+                        y1 = sy3;
+                }
+            }
+        }
+        if( dx0 != 0 )
+        {
+            if( dx0 > 0 )
+            {
+                MapObject obj = m_impl->map.objectAt( cX + 1, cY );
+                if( !canComeIn( objectVal, obj ) )
+                {
+                    if( x1 < sx2 )
+                        x1 = sx2;
+                }
+            }
+            else
+            {
+                MapObject obj = m_impl->map.objectAt( cX + 1, cY );
+                if( !canComeIn( objectVal, obj ) )
+                {
+                    if( x1 > sx3 )
+                        x1 = sx3;
+                }
+            }
+
+            info->coordinate.setX( x1 );
+            info->coordinate.setY( y1 );
+        }
+
+        if( dx0 == 0 || dy0 == 0 )
+        {
+            info->coordinate.setX( x1 );
+            info->coordinate.setY( y1 );
+
+            continue;        
+        }
+
+        if( x1 > sx3 && y1 > sy3 )
+        {
+            if( !canComeIn( objectVal, m_impl->map.objectAt( cX + 1, cY + 1 ) ) )
+            {
+                y1 = y1 > sy3 ? sy3 : y1;
+                x1 = x1 > sx3 ? sx3 : x1;
+            }
+        }
+
+        if( x1 < sx2 && y1 > sy3 )
+        {
+            if( !canComeIn( objectVal, m_impl->map.objectAt( cX - 1, cY + 1 ) ) )
+            {
+                y1 = y1 > sy3 ? sy3 : y1;
+                x1 = x1 < sx2 ? sx2 : x1;
+            }
+        }
+
+        if( x1 > sx3 && y1 < sy2 )
+        {
+            if( !canComeIn( objectVal, m_impl->map.objectAt( cX + 1, cY - 1 ) ) )
+            {
+                y1 = y1 < sy2 ? sy2 : y1;
+                x1 = x1 > sx3 ? sx3 : x1;
+            }
+        }
+
+        if( x1 < sx2 && y1 < sy2 )
+        {
+            if( !canComeIn( objectVal, m_impl->map.objectAt( cX - 1, cY - 1 ) ) )
+            {
+                y1 = y1 < sy2 ? sy2 : y1;
+                x1 = x1 < sx2 ? sx2 : x1;
+            }
+        }
+
+        info->coordinate.setX( x1 );
+        info->coordinate.setY( y1 );
+   }
+
+    return false;
+}
+
+//-------------------------------------------------------
+
+inline bool isLeft( const int x1,  const int x2,  const int x3, const int y1,  const int y2,  const int y3 )
+{
+    int res = 
+        x1 * y2 - x2 * y1 +
+        x2 * y3 - x3 * x2 + 
+        x3 * y1 - x1 * y3;
+
+    return res > 0;
+}
+
+//-------------------------------------------------------
+
+inline bool isLeft( const QPoint& p1, const QPoint& p2, const QPoint& p3 )
+{
+    int x1 = p1.x();
+    int x2 = p2.x();
+    int x3 = p3.x();
+    int y1 = p1.y();
+    int y2 = p2.y();
+    int y3 = p3.y();
+
+    return isLeft( x1, x2, x3, y1, y2, y3 );
+}
+
+//-------------------------------------------------------
+
+inline bool permutateRectangle( const QPoint& pos1, const QPoint& pos2, const QRect& rect )
+{
+    int x1 = pos1.x();
+    int x2 = pos2.x();
+
+    int y1 = pos1.y();
+    int y2 = pos2.y();
+
+    int rx1 = rect.x();
+    int rx2 = rect.x() + rect.width();
+
+    int ry1 = rect.y();
+    int ry2 = rect.y() + rect.height();
+
+    if( x1 < rx1 && x2 < rx1 )
+        return false;
+
+    if( x1 > rx2 && x2 > rx2 )
+        return false;
+
+    if( y1 < ry1 && y2 < ry1 )
+        return false;
+
+    if( y1 > ry2 && y2 > ry2 )
+        return false;
+
+    bool p1 = isLeft( x1, x2, rx1, y1, y2, ry1 );
+    bool p2 = isLeft( x1, x2, rx2, y1, y2, ry1 );
+    bool p3 = isLeft( x1, x2, rx1, y1, y2, ry2 );
+    bool p4 = isLeft( x1, x2, rx2, y1, y2, ry2 );
+
+    return ( p1 & p2 & p3 & p4 ) | ( (!p1) & (!p2) & (!p3) & (!p4) );//все слева или все справа
+}
+
+//-------------------------------------------------------
+
+inline bool permutateRectangle( const QPoint& pos1, const QPoint& pos2, const QSize& size, const QRect& rect )
+{
+    QRect rect2 = rect;
+    rect2.setX( rect.x() - size.width() );
+    rect2.setY( rect.y() - size.height() );
+    rect2.setWidth( rect.width() + size.width() * 2 );
+    rect2.setHeight( rect.height() + size.height() * 2 );
+
+    return permutateRectangle( pos1, pos2, rect );
 }
 
 //-------------------------------------------------------

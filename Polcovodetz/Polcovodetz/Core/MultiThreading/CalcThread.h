@@ -9,9 +9,7 @@
 
 //-------------------------------------------------------
 
-struct VisualThreadImpl;
-
-class BattleState;
+struct CalcThreadImpl;
 
 //-------------------------------------------------------
 //Рассчитывает скорости и т. п.
@@ -19,9 +17,9 @@ class CalcThread : public QThread
 {
     Q_OBJECT;
 public:
-    VisualThread();
+    CalcThread();
 
-    bool init( BattleState* );
+    bool init();
 
     bool start(); //asynchronus
     bool pause(); //asynchronus
@@ -31,7 +29,7 @@ protected:
     void run();
 
 private:
-    boost::shared_ptr< VisualThreadImpl > m_impl;          
+    boost::shared_ptr< CalcThreadImpl > m_impl;          
 };
 
 //-------------------------------------------------------

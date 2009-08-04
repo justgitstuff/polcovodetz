@@ -6,7 +6,7 @@
 
 //-------------------------------------------------------
 
-#include <QPointF>
+#include <QPoint>
 
 //-------------------------------------------------------
 
@@ -21,8 +21,8 @@ class PObjectSharedImpl
     friend class PolkApp;
 private:
 
-    QPointF coordinate;
-    QPointF speed;
+    QPoint  coordinate;
+    QPoint  speed;
     qreal   rotation;
 };
 
