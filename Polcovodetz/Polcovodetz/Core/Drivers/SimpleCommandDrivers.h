@@ -34,6 +34,8 @@ public:
     void sendMessage( CoreCommandMessage* );
     void sendMessage( GroupCommandMessage* );
 
+    bool registerKey( int key );
+
 signals:
     void message( CoreCommandMessage* );
     void message( GroupCommandMessage* );

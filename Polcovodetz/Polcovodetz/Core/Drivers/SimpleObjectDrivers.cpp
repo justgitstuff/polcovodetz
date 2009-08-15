@@ -33,3 +33,10 @@ bool SimpleObjectOutputDriver::dConnect( const PtrPObject& )
 
 //-------------------------------------------------------
 
+bool SimpleObjectInputDriver::registerKey( int /*key */)
+{
+    return false;
+}
+
+//-------------------------------------------------------
+

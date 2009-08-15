@@ -5,7 +5,7 @@
 
 //-------------------------------------------------------
 
-#include <QObject>
+#include <IAbstractDrivers.h>
 
 //-------------------------------------------------------
 
@@ -23,7 +23,7 @@ class CommandGroupMessage;
  1) Уведомить CommandThread о новом сообщении ( т. е. передать ему его )
  2) Когда подойдет его очереь, будет запущена функция ICommandInputDriver::message( CoreCommandMessage* mesage )
 */
-class ICommandInputDriver : public QObject
+class ICommandInputDriver : public IAbstractInputDriver
 {
     Q_OBJECT;
 
@@ -45,7 +45,7 @@ signals:
  Драйвер для соединения ICommandController
  и его подчиненных. 
 */
-class ICommandOutputDriver : public QObject
+class ICommandOutputDriver : public IAbstractOutputDriver
 {
     Q_OBJECT;
 };

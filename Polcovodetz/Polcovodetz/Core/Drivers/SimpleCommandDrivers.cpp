@@ -63,3 +63,10 @@ bool SimpleCommandOutputDriver::dConnect( const boost::shared_ptr< IGroupInputDr
 
 //-------------------------------------------------------
 
+bool SimpleCommandInputDriver::registerKey( int /*key */)
+{
+    return false;
+}
+
+//-------------------------------------------------------
+

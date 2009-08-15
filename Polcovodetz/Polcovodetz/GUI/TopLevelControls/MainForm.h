@@ -44,6 +44,7 @@ private slots:
 
     void addLibraryToTable( const LibDefinition& );
     void invokeScript();
+    void updateControllersTable();
 };
 
 //-----------------------------------------------------------------

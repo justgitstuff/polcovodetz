@@ -46,7 +46,7 @@ MainForm::MainForm()
 {
     m_impl.reset( new MainFormImpl() );
 
-    show();
+    showMaximized();
 
     setWindowTitle( tr( "Polcovodetz" ) );
 
@@ -61,7 +61,11 @@ MainForm::MainForm()
 
     mainTabWidget->setMovable( true );
 
+    updateControllersTable();
+
     connect( &libLoader, SIGNAL( newLibrary( const LibDefinition& ) ), this, SLOT( addLibraryToTable( const LibDefinition& ) ) );
+
+
     return;
 }
 
@@ -296,6 +300,23 @@ void MainForm::addLibraryToTable( const LibDefinition& lib )
     m_impl->libraryTable->setSortingEnabled( true );
     m_impl->controllerTable->setSortingEnabled( true );
 
+}
+
+//------------------------------------------------------------------------------
+
+void MainForm::updateControllersTable()
+{
+    LibraryLoader::LibDefinitions defs = libLoader.loadedLibraries();
+
+    m_impl->libraryTable->clear();
+    m_impl->controllerTable->clear();
+
+    for( LibraryLoader::LibDefinitions::ConstIterator iter = defs.constBegin();
+        iter != defs.constEnd();
+        iter++ )
+    {
+        this->addLibraryToTable( *iter );
+    }
 }
 
 //------------------------------------------------------------------------------
