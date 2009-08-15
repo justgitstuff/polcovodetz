@@ -5,7 +5,7 @@
 
 //-------------------------------------------------------
 
-#include <QObject>
+#include <IAbstractDrivers.h>
 
 //-------------------------------------------------------
 
@@ -20,7 +20,7 @@ class CommandGroupMessage;
 /**
  Драйвер для соединения IGroupController и PolkApp
 */
-class IGroupInputDriver : public QObject
+class IGroupInputDriver : public IAbstractInputDriver
 {
     Q_OBJECT;
 };
@@ -37,7 +37,7 @@ struct GroupOutputMessage
  Драйвер для соединения ICommandController
  и его подчиненных. 
 */
-class IGroupOutputDriver : public QObject
+class IGroupOutputDriver : public IAbstractOutputDriver
 {
     Q_OBJECT;
 };

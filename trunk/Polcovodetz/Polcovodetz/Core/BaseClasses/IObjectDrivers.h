@@ -5,7 +5,7 @@
 
 //-------------------------------------------------------
 
-#include <QObject>
+#include <IAbstractDrivers.h>
 
 //-------------------------------------------------------
 
@@ -18,14 +18,15 @@ class CoreObjectMessage;
 
 //-------------------------------------------------------
 
-class IObjectInputDriver : public QObject
+class IObjectInputDriver : public IAbstractInputDriver
 {
+public:
     Q_OBJECT;
 };
 
 //-------------------------------------------------------
 
-class IObjectOutputDriver : public QObject
+class IObjectOutputDriver : public IAbstractOutputDriver
 {
     Q_OBJECT;
 };

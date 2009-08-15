@@ -57,8 +57,6 @@ bool SimpleCommandController::init( ICommandInputDriver* inDriver , ICommandOutp
     m_impl->inDriver  = inDriver;
     m_impl->outDriver = outDriver;
 
-    __asm int 3;
-
     connect( inDriver,  SIGNAL( message( CoreCommandMessage* ) ), 
              this,      SLOT( message( CoreCommandMessage* ) ) );
 
@@ -74,7 +72,7 @@ bool SimpleCommandController::init( ICommandInputDriver* inDriver , ICommandOutp
 */
 void SimpleCommandController::message( CoreCommandMessage* )
 {
-    qDebug() << "Started!";
+    //qDebug() << "Started!";
     return;
 }
 

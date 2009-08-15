@@ -11,6 +11,7 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QMap>
+#include <QMessageBox>
 #include <QMutex>
 #include <QMutexLocker>
 
@@ -59,4 +60,13 @@ void PaintArea2D::resizeEvent( QResizeEvent* event )
 }
 
 //--------------------------------------------------------------------------
+ 
+void PaintArea2D::keyPressEvent( QKeyEvent* key )
+{
+    if( key->key() == QKeyEvent::Enter )
+    {
+        pApp.userPressKey( key->key() );
+    }
+}
 
+//--------------------------------------------------------------------------

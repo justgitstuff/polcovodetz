@@ -3,6 +3,7 @@
 
 #include <Core/PolkApp.h>
 
+#include <Core/BaseClasses/IAbstractDrivers.h>
 #include <Core/BaseClasses/Messages.h>
 #include <Core/Common/Map.h>
 #include <Core/LibraryLoader.h>
@@ -43,10 +44,14 @@ PolkApp pApp;
 struct PolkAppImpl
 {    
     PolkAppImpl():command1(), command2(), calcThread(){};
-    typedef QMap< long, PtrPObject >  PObjectMap;
-    typedef QMap< long, int >         PObjectSideMap;
+    typedef QMap< long, PtrPObject >           PObjectMap;
+    typedef QMap< long, int >                  PObjectSideMap;
+
+    typedef QMap< int, IAbstractInputDriver* > KeyMap;
  
-    typedef QMultiMap< int, long >    PObjectCoordinateMap;//coordinate to list of ids
+    typedef QMultiMap< int, long >             PObjectCoordinateMap;//coordinate to list of ids
+
+    KeyMap                keyMap;
 
     Map                   map;
 
@@ -642,6 +647,29 @@ inline bool permutateRectangle( const QPoint& pos1, const QPoint& pos2, const QS
     rect2.setHeight( rect.height() + size.height() * 2 );
 
     return permutateRectangle( pos1, pos2, rect );
+}
+
+//-------------------------------------------------------
+
+void PolkApp::userPressKey( int key )
+{
+    if( !m_impl->keyMap.contains( key ) )
+        return;
+
+    m_impl->keyMap[ key ]->processKey( key );
+}
+
+
+//-------------------------------------------------------
+
+bool PolkApp::registerKey( int key, IAbstractInputDriver* driver )
+{
+    if( m_impl->keyMap.contains( key ) )
+        return false;
+
+    m_impl->keyMap[ key ] = driver;
+
+    return true;
 }
 
 //-------------------------------------------------------

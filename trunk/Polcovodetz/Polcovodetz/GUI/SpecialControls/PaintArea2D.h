@@ -32,6 +32,9 @@ public:
 protected:
     void resizeEvent( QResizeEvent* );
 
+protected:
+    void virtual keyPressEvent( QKeyEvent* );
+
 private:
     boost::shared_ptr< PaintArea2DImpl > m_impl;
 
@@ -39,6 +42,7 @@ private:
 
     double          m_scaleX;
     double          m_scaleY;
+
 };
 
 //-----------------------------------------------------------------

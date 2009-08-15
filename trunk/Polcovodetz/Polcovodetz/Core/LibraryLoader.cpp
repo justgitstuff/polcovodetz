@@ -9,6 +9,8 @@
 #include <Core/BaseClasses/ILoader.h>
 #include <Core/PolkApp.h>
 
+#include <Core/HumanControllers/HumanObjectController.h>
+
 #include <QLibrary>
 #include <QMap>
 #include <QTextEdit>
@@ -45,6 +47,18 @@ LibraryLoader::LibraryLoader()
     m_impl.reset( new LibraryLoaderImpl() );
 
     m_impl->loadInfoView = 0;
+
+    LibDefinition libDef;
+    HumanObjectController hoc;
+    
+    libDef.id = 1;
+    libDef.name = tr( "EmbeddedHumanControllersLibrary" );
+    libDef.ocName = hoc.name();
+    libDef.ocDescription = hoc.description();
+    
+    m_impl->libraryInfoMap.insert( 1, libDef );
+    boost::shared_ptr< ILoader > embLib;
+    m_impl->libraryMap.insert( 1, embLib );
 }
 
 //-------------------------------------------------------
@@ -52,9 +66,6 @@ LibraryLoader::LibraryLoader()
 LibraryLoader::~LibraryLoader()
 {
 }
-
-//-------------------------------------------------------
-
 
 //-------------------------------------------------------
 /**
@@ -99,7 +110,7 @@ int LibraryLoader::loadLibrary( const QString& fileName )
 
         boost::shared_ptr< ILoader > newLib( lib );
 
-        static int SHARED_LIB_ID = 1;
+        static int SHARED_LIB_ID = 2;
 
         int id = SHARED_LIB_ID++;
 

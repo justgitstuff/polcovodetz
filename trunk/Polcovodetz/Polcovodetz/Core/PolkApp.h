@@ -21,6 +21,7 @@ class  PrtPObject;
 enum   MapObject;
 
 struct DriversStorage;
+class  IAbstractInputDriver;
 class  ICommandController;
 
 //-------------------------------------------------------
@@ -63,12 +64,16 @@ public:
            int                 objectControllerLibId( const int side, const int objectID );
            int                 objectControllerPObject( const int side, const int objectID );
 
+           bool                registerKey( int key, IAbstractInputDriver* driver );
+
 public slots:
            bool          startGame();
            bool          pauseGame();
            bool          stopGame();
 
            bool          refreshState();
+
+           void          userPressKey( int key );
 
 private:
            boost::shared_ptr< PolkAppImpl > m_impl;   

@@ -157,6 +157,32 @@
 				Name="Drivers"
 				>
 				<File
+					RelativePath="..\..\Polcovodetz\Core\BaseClasses\IAbstractDrivers.h"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing IAbstractDrivers.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -D_WINDLL -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;..\..\Polcovodetz\Core\BaseClasses\IAbstractDrivers.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_IAbstractDrivers.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\IAbstractDrivers.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_IAbstractDrivers.cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing IAbstractDrivers.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -D_WINDLL -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(SolutionDir)Polcovodetz\Core\BaseClasses\.&quot; &quot;..\..\Polcovodetz\Core\BaseClasses\IAbstractDrivers.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_IAbstractDrivers.cpp&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;..\..\Polcovodetz\Core\BaseClasses\IAbstractDrivers.h"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_IAbstractDrivers.cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath="..\..\Polcovodetz\Core\BaseClasses\ICommandDrivers.h"
 					>
 					<FileConfiguration
@@ -482,6 +508,18 @@
 			SourceControlFiles="false"
 			>
 			<File
+				RelativePath=".\GeneratedFiles\Release\moc_IAbstractController.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\GeneratedFiles\Debug\moc_IAbstractController.cpp"
 				>
 				<FileConfiguration
@@ -494,7 +532,45 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_IAbstractController.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_IAbstractDrivers.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_IAbstractDrivers.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Release\moc_ICommandController.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -518,7 +594,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_ICommandController.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_ICommandDrivers.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -534,18 +610,6 @@
 				>
 				<FileConfiguration
 					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\GeneratedFiles\Release\moc_ICommandDrivers.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -650,18 +714,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_SimpleCommandController.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\GeneratedFiles\Debug\moc_SimpleCommandController.cpp"
 				>
 				<FileConfiguration
@@ -674,10 +726,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_SimpleGroupController.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_SimpleCommandController.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -698,7 +750,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_SimpleObjectController.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_SimpleGroupController.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -714,6 +766,18 @@
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_SimpleObjectController.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool

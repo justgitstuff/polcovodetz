@@ -35,6 +35,13 @@ public:
 
     /**Краткое описание работы ( для отображения в таблице )*/
     virtual QString description()const                                  = 0;
+
+    /**True, если собираемся обрабатывать нажатия клавиш*/
+    virtual bool wantListenKeys(){ return false; }
+
+public slots:
+    /**Здесь можно реагировать на нажатия клавиш*/
+    virtual void keyPressed( int ){ ; }
 };
 
 //-------------------------------------------------------

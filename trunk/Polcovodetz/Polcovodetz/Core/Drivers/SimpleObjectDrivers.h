@@ -28,6 +28,8 @@ public:
     bool init( const boost::shared_ptr< IObjectController >& );
 
     bool dConnect( const boost::shared_ptr< IGroupOutputDriver >& );
+    
+    bool registerKey( int key );
 };
 
 //-------------------------------------------------------

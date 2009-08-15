@@ -68,13 +68,13 @@ ObjectControllerChooseForm::ObjectControllerChooseForm( QWidget* parent )
         iter++
         )
     {
-        if( iter->ccName.isEmpty() )
+        if( iter->ocName.isEmpty() )
             continue;
 
         m_impl->tableWidget->insertRow( row );
 
-        m_impl->tableWidget->setItem( row, 0, new QTableWidgetItem( iter->ccName ) );
-        m_impl->tableWidget->setItem( row, 1, new QTableWidgetItem( iter->ccDescription ) );
+        m_impl->tableWidget->setItem( row, 0, new QTableWidgetItem( iter->ocName ) );
+        m_impl->tableWidget->setItem( row, 1, new QTableWidgetItem( iter->ocDescription ) );
 
         m_impl->ids.append( iter->id );
 
