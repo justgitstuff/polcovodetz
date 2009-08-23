@@ -386,8 +386,8 @@
 <context>
     <name>SimpleTank</name>
     <message>
-        <location filename="../Core/PObjects/UserObjects/Moving/SimpleTank.cpp" line="31"/>
-        <location filename="../Core/PObjects/UserObjects/Moving/SimpleTank.cpp" line="32"/>
+        <location filename="../Core/PObjects/UserObjects/Moving/SimpleTank.cpp" line="43"/>
+        <location filename="../Core/PObjects/UserObjects/Moving/SimpleTank.cpp" line="44"/>
         <source>SimpleTank</source>
         <translation>Простейший танк</translation>
     </message>

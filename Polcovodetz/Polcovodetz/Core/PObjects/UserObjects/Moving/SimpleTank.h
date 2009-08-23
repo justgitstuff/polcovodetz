@@ -23,6 +23,8 @@ public:
 
     virtual const QPixmap& image()const;
     virtual       int      rtti()const{ return SimpleTank::RTTI; }
+    
+    virtual       QSize    boundSize()const;
 
     virtual       QPoint   maxSpeed()const;
 
