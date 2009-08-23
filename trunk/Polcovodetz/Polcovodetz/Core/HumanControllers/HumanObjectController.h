@@ -16,7 +16,7 @@ class  ObjectInputMessage;
 
 //-------------------------------------------------------
 
-class HumanObjectController : IObjectController
+class HumanObjectController : public IObjectController
 {
 public:
                    HumanObjectController();
@@ -26,8 +26,13 @@ public:
 
    virtual bool    init( IObjectInputDriver*, IObjectOutputDriver* );
 
+    /**True, если собираемся обрабатывать нажатия клавиш*/
+   virtual bool wantListenKeys()const{ return true; }
+
 public slots:
-   void HumanObjectController::inputMessage( ObjectInputMessage* /*mesage*/ );
+           void inputMessage( ObjectInputMessage* /*mesage*/ );
+   virtual void keyPressed( const Qt::Key );
+
 
 private:
     boost::shared_ptr< HumanObjectControllerImpl > m_impl;

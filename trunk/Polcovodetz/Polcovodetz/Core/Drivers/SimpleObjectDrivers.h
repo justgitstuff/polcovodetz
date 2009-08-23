@@ -11,7 +11,12 @@
 
 //-------------------------------------------------------
 
+struct SimpleObjectInputDriverImpl;
+struct SimpleObjectOutputDriverImpl;
+
 class IGroupOutputDriver;
+
+class CommandThread;
 
 //-------------------------------------------------------
 
@@ -23,13 +28,22 @@ class SimpleObjectInputDriver : public IObjectInputDriver
     Q_OBJECT;
 
 public:
-    SimpleObjectInputDriver(){};
+    SimpleObjectInputDriver();
+    ~SimpleObjectInputDriver();
 
     bool init( const boost::shared_ptr< IObjectController >& );
 
     bool dConnect( const boost::shared_ptr< IGroupOutputDriver >& );
     
-    bool registerKey( int key );
+    bool registerKey( Qt::Key key );
+
+    /**
+    Вызывается ядром для уведомления нажатия клавиши
+    */
+    virtual void processKey( Qt::Key key );
+
+private:
+    boost::shared_ptr< SimpleObjectInputDriverImpl > m_impl;
 };
 
 //-------------------------------------------------------
@@ -41,11 +55,28 @@ class SimpleObjectOutputDriver : public IObjectOutputDriver
     Q_OBJECT;
 
 public:
-    SimpleObjectOutputDriver(){};
+    SimpleObjectOutputDriver( CommandThread* thread );
 
     bool init( const boost::shared_ptr< IObjectController >& );
 
     bool dConnect( const PtrPObject& );
+
+    
+    virtual PtrPObject& pObject();
+
+    /**
+        Устанавливает скорость как процент от максимальной.
+        Значения - от 0 до 100
+    */
+    virtual void setSpeed( const int persent );
+
+    /**
+        Устанавливает текущий поворот объекта
+    */
+    virtual void setRotation( const ObjectRotation& rotation );    
+
+private:
+    boost::shared_ptr< SimpleObjectOutputDriverImpl > m_impl;
 };
 
 //-------------------------------------------------------

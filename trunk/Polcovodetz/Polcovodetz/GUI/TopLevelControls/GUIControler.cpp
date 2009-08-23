@@ -1,7 +1,10 @@
 
 #include <GUI/TopLevelControls/GUIControler.h>
+
+#include <Core/PolkApp.h>
 #include <GUI/SpecialControls/MapView.h>
 
+#include <QDebug>
 #include <QGraphicsPixmapItem>
 #include <QMap>
 #include <QMutex>
@@ -12,13 +15,15 @@
 
 struct GUIControlerImpl
 {
+    typedef QMap< qint64, PtrPObject >           ObjectMap;
+    typedef QMap< qint64, QGraphicsPixmapItem* > ViewMap;
+
     MapView*                             mapView;
 
     QMutex                               objectsMutex;
 
-    QVector< PtrPObject >                objects;
-    QMap< qint64, uint >                 objectsIndexes;//indexes of objects
-    QMap< qint64, QGraphicsPixmapItem* > drawingItems;
+    ObjectMap                            objects;//indexes of objects
+    ViewMap                              drawingItems;
 
     GUIControlerImpl(){ mapView = 0; }
 };
@@ -37,12 +42,12 @@ bool GUIControler::addObject( const PtrPObject& obj )
 {
     QMutexLocker( &m_impl->objectsMutex );
 
-    m_impl->objects.append( obj );
-    int index = m_impl->objects.count() - 1;
-    m_impl->objectsIndexes.insert( obj->objectID(), index );
+    m_impl->objects.insert( obj->objectID(), obj );
 
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem( 0, this );
     item->setPixmap( obj->image() );
+
+    m_impl->drawingItems.insert( obj->objectID(), item );
 
     return true;
 }
@@ -53,18 +58,11 @@ bool GUIControler::deleteObject( const qint64 id )
 {
     QMutexLocker( &m_impl->objectsMutex );
 
-    int deletedIndex = m_impl->objectsIndexes[ id ];
-    int replacedID = m_impl->objects[  m_impl->objects.count() - 1 ]->objectID();
+    if( !m_impl->objects.contains( id ) )
+        return false;
 
-    m_impl->objectsIndexes[ replacedID ] = deletedIndex;
-
-    m_impl->objects[ deletedIndex ] = m_impl->objects[  m_impl->objects.count() ];
-
-    QGraphicsPixmapItem* item = m_impl->drawingItems[ id ];
-    
-    removeItem( item );
-
-    delete item;
+    m_impl->objects.remove( id );
+    m_impl->drawingItems.remove( id );
 
     return true;
 }
@@ -77,6 +75,30 @@ void GUIControler::updateMap()
         m_impl->mapView = new MapView( NULL, this );
 
     m_impl->mapView->updateMap();
+}
+
+//--------------------------------------------------------------------------
+
+void GUIControler::updateObjects()
+{
+    for( GUIControlerImpl::ObjectMap::ConstIterator iter = m_impl->objects.constBegin();
+         iter != m_impl->objects.constEnd();
+         iter++ )
+    {
+        qint64 id = iter.key();
+        PtrPObject object = iter.value();
+        QGraphicsPixmapItem* view = m_impl->drawingItems[ id ];
+
+        if( view == 0 )
+            continue;
+
+        qreal x = ((qreal)( object->position().x() * SQUARE_SIZE ) ) / PolkApp::SQUARE_SIZE;
+        qreal y = ((qreal)( object->position().y() * SQUARE_SIZE ) ) / PolkApp::SQUARE_SIZE;
+
+        qDebug() << x << ' ' << y << '\n';
+
+        view->setPos( x, y );
+    }
 }
 
 //--------------------------------------------------------------------------

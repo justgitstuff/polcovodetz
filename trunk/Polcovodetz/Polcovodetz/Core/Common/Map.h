@@ -10,6 +10,7 @@
 
 struct MapImpl;
 class  QIODevice;
+class  QPoint;
 
 //-------------------------------------------------------
 
@@ -35,6 +36,8 @@ public:
     int objectCount( const MapObject& obj )const;
 
     bool loadFromFile( QIODevice& );
+
+    QPoint getRandomTankPlace( const int side )const;
 
 private:
     boost::shared_ptr< MapImpl > m_impl;          

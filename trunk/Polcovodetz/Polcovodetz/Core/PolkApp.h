@@ -36,6 +36,8 @@ class PolkApp : public QObject
 {
     Q_OBJECT;
 public:
+static const int               SQUARE_SIZE = 1000;
+
                                PolkApp();
                                ~PolkApp();
 
@@ -64,7 +66,15 @@ public:
            int                 objectControllerLibId( const int side, const int objectID );
            int                 objectControllerPObject( const int side, const int objectID );
 
-           bool                registerKey( int key, IAbstractInputDriver* driver );
+           bool                registerKey( Qt::Key key, IAbstractInputDriver* driver );
+
+           bool                setSpeed( const PtrPObject&, const QPoint& persent );
+           bool                setRotation( const PtrPObject&, int angle );
+
+           /**
+            Выдает новый объект на карте с заданным rtti 
+           */
+           PtrPObject          getNewObject( const int side, const int rtti );
 
 public slots:
            bool          startGame();
@@ -73,7 +83,7 @@ public slots:
 
            bool          refreshState();
 
-           void          userPressKey( int key );
+           void          userPressKey( Qt::Key key );
 
 private:
            boost::shared_ptr< PolkAppImpl > m_impl;   

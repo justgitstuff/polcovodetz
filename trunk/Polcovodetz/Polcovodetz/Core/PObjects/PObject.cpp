@@ -20,6 +20,10 @@ PObject::PObject( const int side )
         m_side( side )
 {
     s_impl.reset( new PObjectSharedImpl() );
+
+    s_impl->speed = QPoint( 0, 0 );
+    s_impl->rotation = 0;
+    s_impl->coordinate = QPoint( 0, 0 );
 }
 
 //-------------------------------------------------------
@@ -43,6 +47,13 @@ PObject::~PObject()
 QPoint PObject::position()const
 {
     return s_impl->coordinate;
+}
+
+//-------------------------------------------------------
+
+QPoint PObject::maxSpeed()const
+{
+    return QPoint( 1, 1 );
 }
 
 //-------------------------------------------------------

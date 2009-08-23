@@ -3,11 +3,13 @@
 
 #include <Core/MultiThreading/CalcThread.h>
 
+#include <Core/PolkApp.h>
+
 #include <QMutex>
 
 //-------------------------------------------------------
 
-const int SLEEP_TIMEOUT = 50;
+const int SLEEP_TIMEOUT = 25;
 
 //-------------------------------------------------------
 
@@ -41,17 +43,25 @@ bool CalcThread::init()
 
 bool CalcThread::start()
 {
-    return false;
+    QThread::start();
+
+    m_impl->stopped = false;
+
+    return true;
 }
 
 //-------------------------------------------------------
 
 void CalcThread::run()
 {
-    while( !m_impl->stopped )
-    {
+    sleep( 1 );
 
+    while( true )
+    {
         msleep( SLEEP_TIMEOUT );
+
+        if( !m_impl->stopped )
+            pApp.refreshState();
     }
 }
 

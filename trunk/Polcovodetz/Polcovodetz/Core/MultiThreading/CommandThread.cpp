@@ -12,6 +12,7 @@
 #include <Core/Drivers/SimpleGroupDrivers.h>
 #include <Core/Drivers/SimpleObjectDrivers.h>
 #include <Core/LibraryLoader.h>
+#include <Core/PolkApp.h>
 
 #include <QApplication>
 #include <QMap>
@@ -44,7 +45,7 @@ namespace
 
 struct CommandThreadImpl
 {
-    CommandThreadImpl():ccID( 0 ){}
+    CommandThreadImpl():ccID( 0 ), driverStorage(){}
     //IDs
     int                          ccID; //command controller library id
     QMap< int, int >             gcIDs;//Map: group controller id to his library id;
@@ -54,6 +55,7 @@ struct CommandThreadImpl
 
     QMap< int, int >             ocPObjs;//Map: object controller id to his PObject id;
 
+    QVector< boost::shared_ptr< IAbstractDriver > >      driverStorage;
 
     boost::shared_ptr< ICommandInputDriver >             ciDriver;
     boost::shared_ptr< ICommandOutputDriver >            coDriver;
@@ -63,17 +65,19 @@ struct CommandThreadImpl
     QMap< int, boost::shared_ptr< IGroupController > >   gControllers;//map: group controller id to his controller
     QMap< int, QVector< boost::shared_ptr< IObjectController > > >  oControllers;//map: group controller id to his controller
 
-
     ConcurrentQueue< ActionPtr >   actionsQueue;
 
     bool paused;
+
+    int side;
 };
 
 //-------------------------------------------------------
 
-CommandThread::CommandThread()
+CommandThread::CommandThread( const int side )
 :QThread(), m_impl( new CommandThreadImpl() )
 {
+    m_impl->side = side;
 }
 
 //-------------------------------------------------------
@@ -289,6 +293,8 @@ bool CommandThread::connectDrivers()
 
     m_impl->gControllers.clear();
 
+    m_impl->cController->init( cid, cod );
+
     for( QMap< int, int >::ConstIterator iter = m_impl->gcIDs.constBegin();
         iter != m_impl->gcIDs.constEnd();
         iter++ )
@@ -303,10 +309,15 @@ bool CommandThread::connectDrivers()
         gid->init( gc );
         god->init( gc );
 
+        gc->init( gid.get(), god.get() );
+
         cod->dConnect( gid );
         gid->dConnect( m_impl->coDriver );
 
         QVector< int > oIDs = m_impl->ocIDs[ id ];
+
+        m_impl->driverStorage.append( gid );
+        m_impl->driverStorage.append( god );
 
         m_impl->oControllers[ id ].clear();
 
@@ -317,7 +328,7 @@ bool CommandThread::connectDrivers()
             boost::shared_ptr< IObjectController > oc( libLoader.loadObjectController( m_impl->ocLibs[ *iter ] ) );
 
             boost::shared_ptr< SimpleObjectInputDriver >  oid ( new SimpleObjectInputDriver() );
-            boost::shared_ptr< SimpleObjectOutputDriver > ood ( new SimpleObjectOutputDriver() );
+            boost::shared_ptr< SimpleObjectOutputDriver > ood ( new SimpleObjectOutputDriver( this ) );
             
             oid->init( oc );
             ood->init( oc );
@@ -325,7 +336,14 @@ bool CommandThread::connectDrivers()
             god->dConnect( oid );
             oid->dConnect( god );
 
+            oc->init( oid.get(), ood.get() );
+
+            ood->dConnect( pApp.getNewObject( m_impl->side, 1 ) );
+
             m_impl->oControllers[ id ].append( oc );
+
+            m_impl->driverStorage.append( oid );
+            m_impl->driverStorage.append( ood );
         }
 
         m_impl->gControllers[ id ] = gc;        
@@ -358,6 +376,20 @@ int CommandThread::sendCoreCommandMessage( CoreCommandMessage* message )
         return 0;
 
     return 1;
+}
+
+//-------------------------------------------------------
+
+bool CommandThread::setSpeed( const PtrPObject& object, const QPoint& persent )
+{
+    return pApp.setSpeed( object, persent );
+}
+
+//-------------------------------------------------------
+
+bool CommandThread::setRotation( const PtrPObject& object, int angle )
+{
+    return pApp.setRotation( object, angle );
 }
 
 //-------------------------------------------------------

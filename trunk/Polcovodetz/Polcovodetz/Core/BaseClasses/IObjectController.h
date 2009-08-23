@@ -6,6 +6,7 @@
 //-------------------------------------------------------
 
 #include <IAbstractController.h>
+#include <Messages.h>
 
 //-------------------------------------------------------
 
@@ -39,6 +40,10 @@ public:
        долго конфигурировался.
     */
     virtual bool    init( IObjectInputDriver*, IObjectOutputDriver* ) = 0;
+
+signals:
+    void sendTopMessage( ObjectGroupMessage* );
+    //void sendDownMessage( GroupObjectMessage* );
 };
 
 //-------------------------------------------------------

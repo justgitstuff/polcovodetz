@@ -7,6 +7,15 @@
 #include <Core/PObjects/Resources/RedSimpleTank.xpm>
 
 #include <QPixmap>
+#include <QPoint>
+
+//-------------------------------------------------------
+
+SimpleTank::SimpleTank( const int side )
+:PObject( side )
+{
+    
+}
 
 //-------------------------------------------------------
 
@@ -32,6 +41,13 @@ PObjectInfo SimpleTank::info()
     info.description = tr( "SimpleTank" );
 
     return info;
+}
+
+//-------------------------------------------------------
+
+QPoint SimpleTank::maxSpeed()const
+{     
+    return QPoint( 1, 1 );
 }
 
 //-------------------------------------------------------

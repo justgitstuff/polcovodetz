@@ -59,6 +59,28 @@ class CommandGroupMessage : public AbstractMessage
 };
 
 //-------------------------------------------------------
+/**
+    Класс - сообщение от коммандующего группой к командиру объекта
+*/
+class GroupObjectMessage : public AbstractMessage
+{
+    enum Type 
+    {
+        GameStarted
+    };
+
+};
+//-------------------------------------------------------
+/**
+    Класс - сообщение от командира объекта к командиру группы
+*/
+class ObjectGroupMessage : public AbstractMessage
+{
+    enum Type 
+    { };
+};
+
+//-------------------------------------------------------
 
 #endif //__MESSAGES
 

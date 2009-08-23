@@ -31,6 +31,7 @@
 
 #define GET_THREAD(side) CommandThread& ct = side == 1 ? m_impl->command1 : m_impl->command2;
 
+
 //-------------------------------------------------------
 
 //typedef MapObject MapObject;
@@ -43,11 +44,11 @@ PolkApp pApp;
 
 struct PolkAppImpl
 {    
-    PolkAppImpl():command1(), command2(), calcThread(){};
+    PolkAppImpl():command1( 1 ), command2( 2 ), calcThread(){};
     typedef QMap< long, PtrPObject >           PObjectMap;
     typedef QMap< long, int >                  PObjectSideMap;
 
-    typedef QMap< int, IAbstractInputDriver* > KeyMap;
+    typedef QVector< QPair< Qt::Key, IAbstractInputDriver* > > KeyMap;
  
     typedef QMultiMap< int, long >             PObjectCoordinateMap;//coordinate to list of ids
 
@@ -139,8 +140,8 @@ bool PolkApp::reloadMap( const QString& fileName )
 
 bool PolkApp::startGame()
 {
-    bool isOk = /*m_impl->visualThread.start() 
-        &&*/ m_impl->command1.start() 
+    bool isOk = m_impl->calcThread.start() 
+        && m_impl->command1.start() 
         && m_impl->command2.start();
 
     if( !isOk )
@@ -148,7 +149,7 @@ bool PolkApp::startGame()
 
     /* подкрепление ВСЕХ драйверов КРОМЕ драйвера от объекта к PObject`у*/
     /* посылка сообщений о пустых местах к СС */
-   // addObjectOnScene( 1, PtrPObject( new SimpleTank( 1 ) ) );
+    //addObjectOnScene( 1, PtrPObject( new SimpleTank( 1 ) ) );
     
     m_impl->command1.sendCoreCommandMessage( new CoreCommandMessage( CoreCommandMessage::GameStarted ) );
     m_impl->command2.sendCoreCommandMessage( new CoreCommandMessage( CoreCommandMessage::GameStarted ) );
@@ -458,24 +459,52 @@ bool PolkApp::refreshState()
         int dx0 = info->speed.x();
         int dy0 = info->speed.y();
 
+        switch( info->rotation )
+        {
+        case 0:
+            break;
+
+        case 90:
+            {
+                int tmp = dx0;
+                dx0 = dy0;
+                dy0 = -tmp;
+                break;
+            }
+
+        case 180:
+            dx0 = -dx0;
+            dy0 = -dy0;
+            break;
+
+        case 270:
+            {
+                int tmp = dx0;
+                dx0 = -dy0;
+                dy0 = tmp;
+            }
+            break;
+
+        default:
+            dx0 = dy0 = 0;
+        }
+
         if( dx0 == 0 && dy0 == 0 )
             continue;
 
         int x1 = x0 + dx0;
         int y1 = y0 + dy0;
         
-        int cX = x0 % 32;
-        int cY = y0 % 32;
+        int cX = x0 % SQUARE_SIZE;
+        int cY = y0 % SQUARE_SIZE;
 
-        int sx1 = cX * 32 - 32;
-        int sx2 = sx1 + 32;
-        int sx3 = sx2 + 32;
-//        int sx4 = sx3 + 32;
+        int sx1 = cX * SQUARE_SIZE - SQUARE_SIZE;
+        int sx2 = sx1 + SQUARE_SIZE;
+        int sx3 = sx2 + SQUARE_SIZE;
 
-        int sy1 = cY * 32 - 32;
-        int sy2 = sy1 + 32;
-        int sy3 = sy2 + 32;
-//        int sy4 = sy3 + 32;        
+        int sy1 = cY * SQUARE_SIZE - SQUARE_SIZE;
+        int sy2 = sy1 + SQUARE_SIZE;
+        int sy3 = sy2 + SQUARE_SIZE;      
 
         if( dy0 != 0 )
         {
@@ -571,7 +600,9 @@ bool PolkApp::refreshState()
         info->coordinate.setY( y1 );
    }
 
-    return false;
+   m_impl->currentView->updateObjects();
+
+   return true;
 }
 
 //-------------------------------------------------------
@@ -651,25 +682,85 @@ inline bool permutateRectangle( const QPoint& pos1, const QPoint& pos2, const QS
 
 //-------------------------------------------------------
 
-void PolkApp::userPressKey( int key )
+void PolkApp::userPressKey( Qt::Key key )
 {
-    if( !m_impl->keyMap.contains( key ) )
+    for( int i = 0; i < m_impl->keyMap.size(); i++ )
+    {
+        if( m_impl->keyMap[ i ].first == key )
+        {
+            m_impl->keyMap[ i ].second->processKey( key );
+
+            return;
+        }
+    }
+    /*if( !m_impl->keyMap.contains( key ) )
         return;
 
-    m_impl->keyMap[ key ]->processKey( key );
+    IAbstractInputDriver* iDriver = m_impl->keyMap[ key ];
+
+    iDriver->processKey( key );*/
 }
 
 
 //-------------------------------------------------------
 
-bool PolkApp::registerKey( int key, IAbstractInputDriver* driver )
+bool PolkApp::registerKey( Qt::Key key, IAbstractInputDriver* driver )
 {
-    if( m_impl->keyMap.contains( key ) )
+   /* if( m_impl->keyMap.contains( key ) )
         return false;
 
-    m_impl->keyMap[ key ] = driver;
+    m_impl->keyMap.insert( key, driver );*/
+
+    m_impl->keyMap.append( QPair< Qt::Key, IAbstractInputDriver* >( key, driver ) );
 
     return true;
+}
+
+//-------------------------------------------------------
+
+bool PolkApp::setSpeed( const PtrPObject& object, const QPoint& persent )
+{
+    if( persent.x() > 100 || persent.y() > 100 ||  persent.x() < 0 || persent.y() < 0 )
+        return false;
+
+    QPoint max = object->maxSpeed();
+
+    object->sImpl()->speed = QPoint( max.x() * persent.x() / 100, max.y() * persent.y() / 100 );
+
+    return true;
+}
+
+//-------------------------------------------------------
+
+bool PolkApp::setRotation( const PtrPObject&/* object*/, int/* angle*/ )
+{
+    return true;
+}
+
+//-------------------------------------------------------
+
+PtrPObject PolkApp::getNewObject( const int side, const int rtti )
+{
+    PtrPObject result;
+
+    switch( rtti )
+    {
+    case SimpleTank::RTTI :
+        {
+            result = PtrPObject( new SimpleTank( side ) );
+
+            QPoint point = m_impl->map.getRandomTankPlace( side );
+
+            result->sImpl()->coordinate = QPoint( point.x() * 1000, point.y() * 1000 );
+
+            break;
+        }
+    }
+
+    if( result.get() )
+        addObjectOnScene( side, result );
+
+    return result;
 }
 
 //-------------------------------------------------------

@@ -24,12 +24,12 @@ public:
     /**
     Позволяет зарегистрировать слушатель клавиши
     */
-    virtual bool registerKey( int key ) = 0;
+    virtual bool registerKey( Qt::Key key ) = 0;
 
     /**
     Вызывается ядром для уведомления нажатия клавиши
     */
-    virtual void processKey( int /*key*/ ){ return; }
+    virtual void processKey( Qt::Key /*key*/ ){ return; }
 
 };
 

@@ -5,6 +5,9 @@
 
 #include <IObjectDrivers.h>
 
+#include <QDebug>
+#include <QKeyEvent>
+
 //-------------------------------------------------------
 
 struct HumanObjectControllerImpl
@@ -19,7 +22,6 @@ HumanObjectController::HumanObjectController()
 :IObjectController(), m_impl( new HumanObjectControllerImpl() )
 {
 }
-
 
 //-------------------------------------------------------
 /**
@@ -62,8 +64,58 @@ bool HumanObjectController::init( IObjectInputDriver* inDriver , IObjectOutputDr
     connect( this,    SIGNAL( outputMessage( ObjectOutputMessage* ) ), 
              this,     SLOT( message( ObjectOutputMessage* ) ) );
 
+    inDriver->registerKey( Qt::Key_Left );
+    inDriver->registerKey( Qt::Key_Right );
+    inDriver->registerKey( Qt::Key_Up );
+    inDriver->registerKey( Qt::Key_Down );
+
     return true; 
 };
+
+//-------------------------------------------------------
+
+void HumanObjectController::keyPressed( const Qt::Key key )
+{
+    switch( key )
+    {
+    case Qt::Key_Left :
+        {
+            qDebug("Left!");
+
+            m_impl->outDriver->setRotation( ToLeft );
+            m_impl->outDriver->setSpeed( 100 );
+
+            break;
+        }
+    case Qt::Key_Right :
+        {
+            qDebug("Right!");
+            
+            m_impl->outDriver->setRotation( ToRight );
+            m_impl->outDriver->setSpeed( 100 );
+
+            break;
+        }
+    case Qt::Key_Up :
+        {
+            qDebug("Up!");
+            
+            m_impl->outDriver->setRotation( ToTop );
+            m_impl->outDriver->setSpeed( 100 );
+
+            break;
+        }
+    case Qt::Key_Down :
+        {
+            qDebug("Down!");
+            
+            m_impl->outDriver->setRotation( ToBottom );
+            m_impl->outDriver->setSpeed( 100 );
+
+            break;
+        }
+    }
+}
 
 //-------------------------------------------------------
 /**

@@ -30,7 +30,7 @@ public:
 
     bool dConnect( const boost::shared_ptr< ICommandOutputDriver >& );
 
-    bool registerKey( int );
+    bool registerKey( Qt::Key );
 };
 
 //-------------------------------------------------------
