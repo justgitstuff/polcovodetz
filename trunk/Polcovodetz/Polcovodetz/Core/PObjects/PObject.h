@@ -44,15 +44,15 @@ public:
 
     virtual ~PObject();
 
-    virtual int  rtti()const = 0;
+    virtual int    rtti()const = 0;
 
-    const QSize& boundSize()const;
-          qint64 objectID()const{ return m_objectID; }
-          int    side()const{ return m_side; }
+    virtual QSize  boundSize()const = 0;
+            qint64 objectID()const{ return m_objectID; }
+            int    side()const{ return m_side; }
 
-    int          rotation()const;
-    QPoint       position()const;
-    QPoint       speed()const;
+    int            rotation()const;
+    QPoint         position()const;
+    QPoint         speed()const;
 
     virtual QPoint maxSpeed()const = 0;
 

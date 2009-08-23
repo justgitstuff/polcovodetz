@@ -54,7 +54,7 @@ bool CalcThread::start()
 
 void CalcThread::run()
 {
-    sleep( 1 );
+    sleep( 5 );
 
     while( true )
     {

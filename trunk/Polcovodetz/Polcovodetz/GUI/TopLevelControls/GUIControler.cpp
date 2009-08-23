@@ -95,10 +95,12 @@ void GUIControler::updateObjects()
         qreal x = ((qreal)( object->position().x() * SQUARE_SIZE ) ) / PolkApp::SQUARE_SIZE;
         qreal y = ((qreal)( object->position().y() * SQUARE_SIZE ) ) / PolkApp::SQUARE_SIZE;
 
-        qDebug() << x << ' ' << y << '\n';
+//        qDebug() << x << ' ' << y;
 
         view->setPos( x, y );
     }
+
+    update();
 }
 
 //--------------------------------------------------------------------------

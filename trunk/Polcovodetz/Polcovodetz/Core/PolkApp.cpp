@@ -147,6 +147,8 @@ bool PolkApp::startGame()
     if( !isOk )
         return false;
 
+    //QObject::thread()->
+
     /* подкрепление ВСЕХ драйверов КРОМЕ драйвера от объекта к PObject`у*/
     /* посылка сообщений о пустых местах к СС */
     //addObjectOnScene( 1, PtrPObject( new SimpleTank( 1 ) ) );
@@ -492,11 +494,16 @@ bool PolkApp::refreshState()
         if( dx0 == 0 && dy0 == 0 )
             continue;
 
+        QSize size = objectVal->boundSize();
+
+        int height = size.height();
+        int width = size.width();
+
         int x1 = x0 + dx0;
         int y1 = y0 + dy0;
-        
-        int cX = x0 % SQUARE_SIZE;
-        int cY = y0 % SQUARE_SIZE;
+
+        int cX = x0 / SQUARE_SIZE;
+        int cY = y0 / SQUARE_SIZE;
 
         int sx1 = cX * SQUARE_SIZE - SQUARE_SIZE;
         int sx2 = sx1 + SQUARE_SIZE;
@@ -504,7 +511,7 @@ bool PolkApp::refreshState()
 
         int sy1 = cY * SQUARE_SIZE - SQUARE_SIZE;
         int sy2 = sy1 + SQUARE_SIZE;
-        int sy3 = sy2 + SQUARE_SIZE;      
+        int sy3 = sy2 + SQUARE_SIZE;
 
         if( dy0 != 0 )
         {
@@ -513,8 +520,8 @@ bool PolkApp::refreshState()
                 MapObject obj = m_impl->map.objectAt( cX, cY + 1 );
                 if( !canComeIn( objectVal, obj ) )
                 {
-                    if( y1 < sy2 )
-                        y1 = sy2;
+                    if( y1 + height > sy3 )
+                        y1 = sy3 - height;
                 }
             }
             else
@@ -522,8 +529,8 @@ bool PolkApp::refreshState()
                 MapObject obj = m_impl->map.objectAt( cX, cY - 1 );
                 if( !canComeIn( objectVal, obj )  )
                 {
-                    if( y1 > sy3 )
-                        y1 = sy3;
+                    if( y1 < sy2 )
+                        y1 = sy2;
                 }
             }
         }
@@ -534,8 +541,8 @@ bool PolkApp::refreshState()
                 MapObject obj = m_impl->map.objectAt( cX + 1, cY );
                 if( !canComeIn( objectVal, obj ) )
                 {
-                    if( x1 < sx2 )
-                        x1 = sx2;
+                    if( x1 + width > sx3 )
+                        x1 = sx3 - width;
                 }
             }
             else
@@ -543,8 +550,8 @@ bool PolkApp::refreshState()
                 MapObject obj = m_impl->map.objectAt( cX + 1, cY );
                 if( !canComeIn( objectVal, obj ) )
                 {
-                    if( x1 > sx3 )
-                        x1 = sx3;
+                    if( x1 < sx2 )
+                        x1 = sx2;
                 }
             }
 
@@ -732,8 +739,9 @@ bool PolkApp::setSpeed( const PtrPObject& object, const QPoint& persent )
 
 //-------------------------------------------------------
 
-bool PolkApp::setRotation( const PtrPObject&/* object*/, int/* angle*/ )
+bool PolkApp::setRotation( const PtrPObject& object, int angle )
 {
+    object->sImpl()->rotation = angle;
     return true;
 }
 

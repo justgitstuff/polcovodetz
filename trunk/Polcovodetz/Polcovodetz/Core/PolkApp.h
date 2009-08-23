@@ -36,7 +36,7 @@ class PolkApp : public QObject
 {
     Q_OBJECT;
 public:
-static const int               SQUARE_SIZE = 1000;
+static const int               SQUARE_SIZE = 10000;
 
                                PolkApp();
                                ~PolkApp();

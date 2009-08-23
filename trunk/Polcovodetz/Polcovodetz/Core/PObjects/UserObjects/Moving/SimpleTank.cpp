@@ -3,11 +3,14 @@
 
 #include <Core/PObjects/UserObjects/Moving/SimpleTank.h>
 
+#include <Core/PolkApp.h>
+
 #include <Core/PObjects/Resources/BlueSimpleTank.xpm>
 #include <Core/PObjects/Resources/RedSimpleTank.xpm>
 
 #include <QPixmap>
 #include <QPoint>
+#include <QSize>
 
 //-------------------------------------------------------
 
@@ -47,7 +50,14 @@ PObjectInfo SimpleTank::info()
 
 QPoint SimpleTank::maxSpeed()const
 {     
-    return QPoint( 1, 1 );
+    return QPoint( 10, 10 );
+}
+
+//-------------------------------------------------------
+
+QSize SimpleTank::boundSize()const
+{
+    return QSize( PolkApp::SQUARE_SIZE * 8 / 10, PolkApp::SQUARE_SIZE * 8 / 10 );
 }
 
 //-------------------------------------------------------
