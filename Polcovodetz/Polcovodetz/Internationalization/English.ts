@@ -145,27 +145,32 @@
 <context>
     <name>LibraryLoader</name>
     <message>
-        <location filename="../Core/LibraryLoader.cpp" line="78"/>
+        <location filename="../Core/LibraryLoader.cpp" line="55"/>
+        <source>EmbeddedHumanControllersLibrary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Core/LibraryLoader.cpp" line="89"/>
         <source>Can`tLoadLibrary: </source>
         <translation type="unfinished">Can`t load library:</translation>
     </message>
     <message>
-        <location filename="../Core/LibraryLoader.cpp" line="87"/>
+        <location filename="../Core/LibraryLoader.cpp" line="98"/>
         <source>Can`tLoadLoader: </source>
         <translation type="unfinished">Can`t load instance of loader:</translation>
     </message>
     <message>
-        <location filename="../Core/LibraryLoader.cpp" line="98"/>
+        <location filename="../Core/LibraryLoader.cpp" line="109"/>
         <source>Loader </source>
         <translation type="unfinished">Loader</translation>
     </message>
     <message>
-        <location filename="../Core/LibraryLoader.cpp" line="98"/>
+        <location filename="../Core/LibraryLoader.cpp" line="109"/>
         <source> WasLoaded</source>
         <translation type="unfinished">Instance was loaded</translation>
     </message>
     <message>
-        <location filename="../Core/LibraryLoader.cpp" line="142"/>
+        <location filename="../Core/LibraryLoader.cpp" line="153"/>
         <source>UnknownErrorDuringLoadLoader: </source>
         <translation type="unfinished">There were unknown errors during load library of loader:</translation>
     </message>
@@ -198,22 +203,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="78"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="82"/>
         <source>LoadMap</source>
         <translation>Load map</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="83"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="87"/>
         <source>InvokeScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="124"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="128"/>
         <source>StartGame</source>
         <translation>Start game</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="125"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="129"/>
         <source>PauseGame</source>
         <translation>Pause game</translation>
     </message>
@@ -222,99 +227,99 @@
         <translation type="obsolete">Load Command Controller</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="149"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="153"/>
         <source>LoadControlLibrary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="156"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="160"/>
         <source>LibraryName</source>
         <translation>Library name</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="157"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="161"/>
         <source>LibraryDescription</source>
         <translation>Library description</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="162"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="166"/>
         <source>ControllerType</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="163"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="167"/>
         <source>ControllerName</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="164"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="168"/>
         <source>ControllerDescription</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="213"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="217"/>
         <source>OpenMapFile</source>
         <translation>Open map file</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="215"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="219"/>
         <source>MapFiles *.pmap</source>
         <translation>Map files .map</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="222"/>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="241"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="226"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="245"/>
         <source>LoadingError</source>
         <translation>Loading error</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="222"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="226"/>
         <source>ErrorDuringLoadMapFile</source>
         <translation>There are unknown errors during load map file</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="232"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="236"/>
         <source>NativeControllerFile</source>
         <translation>File of Native controller library</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="234"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="238"/>
         <source>All files *.*</source>
         <translation>All files *.*</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="241"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="245"/>
         <source>ErrorDuringLoadNativeControllerFile</source>
         <translation>There are unknown errors during loading file with native controller</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="266"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="270"/>
         <source>CommandController</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="276"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="280"/>
         <source>GroupController</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="286"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="290"/>
         <source>ObjectController</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="305"/>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="311"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="326"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="332"/>
         <source>ScriptInvoking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="305"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="326"/>
         <source>ScriptFiles | *.script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="311"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="332"/>
         <source>ThereAreErrorsDuringInvokingScript</source>
         <translation type="unfinished"></translation>
     </message>

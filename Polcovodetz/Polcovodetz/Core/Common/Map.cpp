@@ -5,6 +5,7 @@
 
 #include <QIODevice>
 #include <QMap>
+#include <QPoint>
 
 //--------------------------------------------------------------------------
 
@@ -113,6 +114,27 @@ int Map::width()const
 int Map::height()const
 { 
     return m_impl->values.height(); 
+}
+
+//--------------------------------------------------------------------------
+
+QPoint Map::getRandomTankPlace( const int side )const
+{
+    for( int x = 0; x < m_impl->values.width(); x++ )
+    {
+        for( int y = 0; y < m_impl->values.height(); y++ )
+        {
+            MapObject obj = m_impl->values.objectAt( x, y );
+
+            if( obj == FirstCommandBox && side == 1 )
+                return QPoint( x, y );
+
+            if( obj == SecondCommandBox && side == 2 )
+                return QPoint( x, y );
+        }
+    }
+
+    return QPoint( -1, -1 );
 }
 
 //--------------------------------------------------------------------------

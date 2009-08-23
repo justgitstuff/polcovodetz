@@ -4,7 +4,10 @@
 
 //-------------------------------------------------------
 
+#include <Core/PObjects/PObject.h>
+
 #include <QThread>
+
 #include <boost/shared_ptr.hpp>
 
 //-------------------------------------------------------
@@ -22,7 +25,7 @@ class CommandThread : public QThread
 {
     Q_OBJECT;
 public:
-    CommandThread();
+    CommandThread( const int side );
 
     bool                registerCommandController( const int libraryID );
     int                 registerGroupController( const int libraryID );
@@ -38,6 +41,10 @@ public:
     int                 objectControllerPObject( const int objectID );
 
     int                 sendCoreCommandMessage( CoreCommandMessage* message );
+
+    bool                setSpeed( const PtrPObject&, const QPoint& persent );
+    bool                setRotation( const PtrPObject&, int angle );
+
 
     bool start(); //asynchronus
     bool pause(); //asynchronus

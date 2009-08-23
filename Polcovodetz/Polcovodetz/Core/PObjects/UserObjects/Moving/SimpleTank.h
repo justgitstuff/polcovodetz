@@ -19,10 +19,13 @@ class SimpleTank : public PObject
     Q_OBJECT;
 
 public:
-    SimpleTank( const int side ):PObject( side ){};
+    SimpleTank( const int side );
 
     virtual const QPixmap& image()const;
     virtual       int      rtti()const{ return SimpleTank::RTTI; }
+
+    virtual       QPoint   maxSpeed()const;
+
 
     static PObjectInfo info();
 

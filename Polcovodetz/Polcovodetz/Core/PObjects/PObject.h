@@ -54,6 +54,8 @@ public:
     QPoint       position()const;
     QPoint       speed()const;
 
+    virtual QPoint maxSpeed()const = 0;
+
     bool         canFly()const{ return false; }
 
     virtual const QPixmap& image()const = 0;

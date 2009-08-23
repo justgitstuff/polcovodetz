@@ -23,6 +23,13 @@ class CommandGroupMessage;
 class IGroupInputDriver : public IAbstractInputDriver
 {
     Q_OBJECT;
+
+signals:
+    /**
+        Сигнал приема сообщений.
+    */
+    void message( CommandGroupMessage* mesage );
+    void message( ObjectGroupMessage* mesage );
 };
 
 //-------------------------------------------------------

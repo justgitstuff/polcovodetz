@@ -63,7 +63,7 @@ bool SimpleCommandOutputDriver::dConnect( const boost::shared_ptr< IGroupInputDr
 
 //-------------------------------------------------------
 
-bool SimpleCommandInputDriver::registerKey( int /*key */)
+bool SimpleCommandInputDriver::registerKey( Qt::Key /*key */)
 {
     return false;
 }

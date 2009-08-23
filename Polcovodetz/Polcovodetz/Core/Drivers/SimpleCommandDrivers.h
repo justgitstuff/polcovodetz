@@ -34,7 +34,7 @@ public:
     void sendMessage( CoreCommandMessage* );
     void sendMessage( GroupCommandMessage* );
 
-    bool registerKey( int key );
+    bool registerKey( Qt::Key key );
 
 signals:
     void message( CoreCommandMessage* );

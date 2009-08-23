@@ -201,6 +201,9 @@ ICommandController* LibraryLoader::loadCommandController( const int libraryID )
 
 IGroupController* LibraryLoader::loadGroupController( const int libraryID )
 {
+   /* if( libraryID == 1 )
+        return new HumanObjectController();*/
+
     if( !m_impl->libraryMap.contains( libraryID ) )
         return 0;
 
@@ -220,6 +223,9 @@ IGroupController* LibraryLoader::loadGroupController( const int libraryID )
 
 IObjectController* LibraryLoader::loadObjectController( const int libraryID )
 {
+    if( libraryID == 1 )
+        return new HumanObjectController();
+
     if( !m_impl->libraryMap.contains( libraryID ) )
         return 0;
 

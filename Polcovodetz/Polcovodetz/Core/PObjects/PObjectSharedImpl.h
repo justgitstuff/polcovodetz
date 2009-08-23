@@ -23,7 +23,11 @@ private:
 
     QPoint  coordinate;
     QPoint  speed;
-    qreal   rotation;
+
+    /**
+        Поворот. От 0 до 360
+    */
+    int     rotation;
 };
 
 //-------------------------------------------------------

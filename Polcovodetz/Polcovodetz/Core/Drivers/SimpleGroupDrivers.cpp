@@ -33,7 +33,7 @@ bool SimpleGroupOutputDriver::dConnect( const boost::shared_ptr< IObjectInputDri
 
 //-------------------------------------------------------
 
-bool SimpleGroupInputDriver::registerKey( int /*key */)
+bool SimpleGroupInputDriver::registerKey( Qt::Key /*key */)
 {
     return false;
 }

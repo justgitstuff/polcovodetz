@@ -145,27 +145,32 @@
 <context>
     <name>LibraryLoader</name>
     <message>
-        <location filename="../Core/LibraryLoader.cpp" line="78"/>
+        <location filename="../Core/LibraryLoader.cpp" line="55"/>
+        <source>EmbeddedHumanControllersLibrary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Core/LibraryLoader.cpp" line="89"/>
         <source>Can`tLoadLibrary: </source>
         <translation type="unfinished">Невозможно загрузить библиотеку:</translation>
     </message>
     <message>
-        <location filename="../Core/LibraryLoader.cpp" line="87"/>
+        <location filename="../Core/LibraryLoader.cpp" line="98"/>
         <source>Can`tLoadLoader: </source>
         <translation type="unfinished">Невозможно загрузить библиотеку контоллеров:</translation>
     </message>
     <message>
-        <location filename="../Core/LibraryLoader.cpp" line="98"/>
+        <location filename="../Core/LibraryLoader.cpp" line="109"/>
         <source>Loader </source>
         <translation type="unfinished">Библиотека контроллеров</translation>
     </message>
     <message>
-        <location filename="../Core/LibraryLoader.cpp" line="98"/>
+        <location filename="../Core/LibraryLoader.cpp" line="109"/>
         <source> WasLoaded</source>
         <translation type="unfinished">Был загружен</translation>
     </message>
     <message>
-        <location filename="../Core/LibraryLoader.cpp" line="142"/>
+        <location filename="../Core/LibraryLoader.cpp" line="153"/>
         <source>UnknownErrorDuringLoadLoader: </source>
         <translation type="unfinished">При загрузке файла карты были ошибки: </translation>
     </message>
@@ -198,22 +203,22 @@
         <translation>Дерево комманды</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="78"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="82"/>
         <source>LoadMap</source>
         <translation>Загрузка карты</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="83"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="87"/>
         <source>InvokeScript</source>
         <translation>Запустить скрипт</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="124"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="128"/>
         <source>StartGame</source>
         <translation>Старт игры</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="125"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="129"/>
         <source>PauseGame</source>
         <translation>Пауза в игре</translation>
     </message>
@@ -222,99 +227,99 @@
         <translation type="obsolete">Загрузка конроллера комманды</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="149"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="153"/>
         <source>LoadControlLibrary</source>
         <translation>Загрузить библиотеку контролеров</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="156"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="160"/>
         <source>LibraryName</source>
         <translation>Имя библиотеки</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="157"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="161"/>
         <source>LibraryDescription</source>
         <translation>Описание библиотеки</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="162"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="166"/>
         <source>ControllerType</source>
         <translation>Тип контролера</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="163"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="167"/>
         <source>ControllerName</source>
         <translation>Имя контролера</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="164"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="168"/>
         <source>ControllerDescription</source>
         <translation>Описание контролера</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="213"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="217"/>
         <source>OpenMapFile</source>
         <translation>Отктрыть файл с картой</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="215"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="219"/>
         <source>MapFiles *.pmap</source>
         <translation>Файлы карт *.map</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="222"/>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="241"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="226"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="245"/>
         <source>LoadingError</source>
         <translation>Ошибка загрузки</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="222"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="226"/>
         <source>ErrorDuringLoadMapFile</source>
         <translation>При загрузке файла карты были ошибки</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="232"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="236"/>
         <source>NativeControllerFile</source>
         <translation>Бинарный файл контроллера</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="234"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="238"/>
         <source>All files *.*</source>
         <translation>Все файлы *.*</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="241"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="245"/>
         <source>ErrorDuringLoadNativeControllerFile</source>
         <translation>При загрузке бинарного файла были ошибки</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="266"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="270"/>
         <source>CommandController</source>
         <translation>Контроллер комманды</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="276"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="280"/>
         <source>GroupController</source>
         <translation>Контроллер группы</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="286"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="290"/>
         <source>ObjectController</source>
         <translation>Контролер единичного объекта</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="305"/>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="311"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="326"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="332"/>
         <source>ScriptInvoking</source>
         <translation>Запуск скрипта</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="305"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="326"/>
         <source>ScriptFiles | *.script</source>
         <translation>Файлы скриптов | *.script</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="311"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="332"/>
         <source>ThereAreErrorsDuringInvokingScript</source>
         <translation>Ошибки при исполнении скрипта</translation>
     </message>
