@@ -15,7 +15,7 @@
 //-------------------------------------------------------
 
 SimpleTank::SimpleTank( const int side )
-:PObject( side )
+:AbstractMoveObject( side )
 {
     
 }
@@ -50,14 +50,20 @@ PObjectInfo SimpleTank::info()
 
 QPoint SimpleTank::maxSpeed()const
 {     
-    return QPoint( 10, 10 );
+    return QPoint( 1024, 1024 );
 }
 
 //-------------------------------------------------------
 
 QSize SimpleTank::boundSize()const
 {
-    return QSize( PolkApp::SQUARE_SIZE * 8 / 10, PolkApp::SQUARE_SIZE * 8 / 10 );
+    int width  = image().width() * PolkApp::SQUARE_SIZE / 32;
+    int height = image().height() * PolkApp::SQUARE_SIZE / 32;
+
+    if( rotation() == 90 || rotation() == 270 )
+        return QSize( height, width );
+
+    return QSize( width, height );
 }
 
 //-------------------------------------------------------

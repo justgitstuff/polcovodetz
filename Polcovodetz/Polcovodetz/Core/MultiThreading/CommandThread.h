@@ -45,6 +45,8 @@ public:
     bool                setSpeed( const PtrPObject&, const QPoint& persent );
     bool                setRotation( const PtrPObject&, int angle );
 
+    void                disposeObject( const PtrPObject& );
+
 
     bool start(); //asynchronus
     bool pause(); //asynchronus

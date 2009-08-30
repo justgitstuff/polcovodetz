@@ -65,6 +65,8 @@ struct CommandThreadImpl
     QMap< int, boost::shared_ptr< IGroupController > >   gControllers;//map: group controller id to his controller
     QMap< int, QVector< boost::shared_ptr< IObjectController > > >  oControllers;//map: group controller id to his controller
 
+    QMap< qint64, boost::shared_ptr< SimpleObjectOutputDriver > > objectsMap;
+
     ConcurrentQueue< ActionPtr >   actionsQueue;
 
     bool paused;
@@ -338,7 +340,10 @@ bool CommandThread::connectDrivers()
 
             oc->init( oid.get(), ood.get() );
 
-            ood->dConnect( pApp.getNewObject( m_impl->side, 1 ) );
+            PtrPObject newObj = pApp.getNewObject( m_impl->side, 1 );
+            ood->dConnect( newObj );
+
+            m_impl->objectsMap[ newObj->objectID() ] = ood;
 
             m_impl->oControllers[ id ].append( oc );
 
@@ -390,6 +395,17 @@ bool CommandThread::setSpeed( const PtrPObject& object, const QPoint& persent )
 bool CommandThread::setRotation( const PtrPObject& object, int angle )
 {
     return pApp.setRotation( object, angle );
+}
+
+//-------------------------------------------------------
+
+void CommandThread::disposeObject( const PtrPObject& object )
+{
+    qint64 id = object->objectID();
+
+    m_impl->objectsMap[ id ]->dConnect( PtrPObject() );
+
+    m_impl->objectsMap.remove( id );
 }
 
 //-------------------------------------------------------

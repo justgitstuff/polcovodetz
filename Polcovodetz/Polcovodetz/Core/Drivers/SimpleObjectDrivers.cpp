@@ -90,6 +90,7 @@ SimpleObjectOutputDriver::SimpleObjectOutputDriver( CommandThread* thread )
 bool SimpleObjectOutputDriver::dConnect( const PtrPObject& object )
 {
     m_impl->connectedObject = object;
+
     return true;
 }
 

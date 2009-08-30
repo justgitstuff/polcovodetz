@@ -11,6 +11,7 @@
 #include <Core/MultiThreading/CommandThread.h>
 #include <Core/PObjects/PObject.h>
 #include <Core/PObjects/PObjectSharedImpl.h>
+
 #include <GUI/SpecialControls/PaintArea2D.h>
 
 #include <QtDebug>
@@ -25,16 +26,12 @@
 
 //-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!
 
+#include <Core/PObjects/UserObjects/Moving/AbstractMoveObject.h>
 #include <Core/PObjects/UserObjects/Moving/SimpleTank.h>
 
 //-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!
 
 #define GET_THREAD(side) CommandThread& ct = side == 1 ? m_impl->command1 : m_impl->command2;
-
-
-//-------------------------------------------------------
-
-//typedef MapObject MapObject;
 
 //-------------------------------------------------------
 
@@ -68,7 +65,23 @@ struct PolkAppImpl
 
     CommandThread         command1;
     CommandThread         command2;
+
+    PObjectMap            removedObjects;
+
 };
+
+//-------------------------------------------------------
+
+inline MapObject objectAt( int x, int y )
+{
+    if( y < 0 || x < 0 )
+        return Empty;
+
+    int nx = x / PolkApp::SQUARE_SIZE;
+    int ny = y / PolkApp::SQUARE_SIZE;
+
+    return pApp.map().objectAt( nx, ny );
+}
 
 //-------------------------------------------------------
 
@@ -95,7 +108,7 @@ bool PolkApp::addObjectOnScene( const int side, const PtrPObject& obj )
 
     m_impl->currentView->addObject( obj );
 
-    obj->sImpl()->coordinate = QPoint( 0, 0 );
+ //   obj->sImpl()->coordinate = QPoint( 0, 0 );
 
     refreshCoordinate( obj );
 
@@ -453,38 +466,43 @@ bool PolkApp::refreshState()
     {
         PtrPObject objectVal = objectsIter.value();
 
+        int id = objectVal->objectID();
+
         PObjectSharedImpl* info = objectVal->sImpl();
 
-        int x0 = info->coordinate.x();
-        int y0 = info->coordinate.y();
+        QPoint point = info->coordinate;
+        QPoint speed = info->speed;
 
-        int dx0 = info->speed.x();
-        int dy0 = info->speed.y();
+        int x0 = point.x();
+        int y0 = point.y();
+
+        int dx0 = speed.x();
+        int dy0 = speed.y();
 
         switch( info->rotation )
         {
         case 0:
-            break;
-
-        case 90:
             {
                 int tmp = dx0;
-                dx0 = dy0;
+                dx0 = +dy0;
                 dy0 = -tmp;
                 break;
             }
 
-        case 180:
-            dx0 = -dx0;
-            dy0 = -dy0;
+        case 90:
             break;
 
-        case 270:
+        case 180:
             {
                 int tmp = dx0;
                 dx0 = -dy0;
-                dy0 = tmp;
+                dy0 = +tmp;
+                break;
             }
+
+        case 270:
+            dx0 = -dx0;
+            dy0 = -dy0;
             break;
 
         default:
@@ -502,35 +520,24 @@ bool PolkApp::refreshState()
         int x1 = x0 + dx0;
         int y1 = y0 + dy0;
 
-        int cX = x0 / SQUARE_SIZE;
-        int cY = y0 / SQUARE_SIZE;
-
-        int sx1 = cX * SQUARE_SIZE - SQUARE_SIZE;
-        int sx2 = sx1 + SQUARE_SIZE;
-        int sx3 = sx2 + SQUARE_SIZE;
-
-        int sy1 = cY * SQUARE_SIZE - SQUARE_SIZE;
-        int sy2 = sy1 + SQUARE_SIZE;
-        int sy3 = sy2 + SQUARE_SIZE;
-
         if( dy0 != 0 )
         {
             if( dy0 > 0 )
             {
-                MapObject obj = m_impl->map.objectAt( cX, cY + 1 );
-                if( !canComeIn( objectVal, obj ) )
+                MapObject objLeft  = objectAt( x1, y1 + height );
+                MapObject objRight = objectAt( x1 + width, y1 + height );
+                if( !canComeIn( objectVal, objLeft ) || !canComeIn( objectVal, objRight ) )
                 {
-                    if( y1 + height > sy3 )
-                        y1 = sy3 - height;
+                    y1 = y0;//cY * SQUARE_SIZE + SQUARE_SIZE - height;
                 }
             }
             else
             {
-                MapObject obj = m_impl->map.objectAt( cX, cY - 1 );
-                if( !canComeIn( objectVal, obj )  )
+                MapObject objLeft  = objectAt( x1, y1 );
+                MapObject objRight = objectAt( x1 + width, y1 );
+                if( !canComeIn( objectVal, objLeft ) || !canComeIn( objectVal, objRight ) )
                 {
-                    if( y1 < sy2 )
-                        y1 = sy2;
+                    y1 = y0;//cY * SQUARE_SIZE;
                 }
             }
         }
@@ -538,68 +545,79 @@ bool PolkApp::refreshState()
         {
             if( dx0 > 0 )
             {
-                MapObject obj = m_impl->map.objectAt( cX + 1, cY );
-                if( !canComeIn( objectVal, obj ) )
+                MapObject objTop = objectAt( x1 + width, y1 );
+                MapObject objBottom = objectAt( x1 + width, y1 + height );
+                if( !canComeIn( objectVal, objTop ) || !canComeIn( objectVal, objBottom ) )
                 {
-                    if( x1 + width > sx3 )
-                        x1 = sx3 - width;
+                    x1 = x0;//cX * SQUARE_SIZE + SQUARE_SIZE - width;
                 }
             }
             else
             {
-                MapObject obj = m_impl->map.objectAt( cX + 1, cY );
-                if( !canComeIn( objectVal, obj ) )
+                MapObject objTop = objectAt( x1, y1 );
+                MapObject objBottom = objectAt( x1, y1 + height );
+                if( !canComeIn( objectVal, objTop ) || !canComeIn( objectVal, objBottom ) )
                 {
-                    if( x1 < sx2 )
-                        x1 = sx2;
+                    x1 = x0;//cX * SQUARE_SIZE;
                 }
             }
-
-            info->coordinate.setX( x1 );
-            info->coordinate.setY( y1 );
         }
 
-        if( dx0 == 0 || dy0 == 0 )
-        {
-            info->coordinate.setX( x1 );
-            info->coordinate.setY( y1 );
+        const QRect mySelf( point, size );
 
-            continue;        
-        }
-
-        if( x1 > sx3 && y1 > sy3 )
+        for( PolkAppImpl::PObjectMap::ConstIterator iter = m_impl->objectIDs.constBegin();
+            iter != m_impl->objectIDs.constEnd();
+            iter++ )
         {
-            if( !canComeIn( objectVal, m_impl->map.objectAt( cX + 1, cY + 1 ) ) )
+            PtrPObject anotherObj = iter.value();
+
+            if( anotherObj->objectID() == id )
+                continue;
+
+            QPoint p = anotherObj->position();
+            QSize  s = anotherObj->boundSize();
+
+            QRect another( p, s );
+
+            PObject::OnCollision onCollision = objectVal->onCollision();
+
+            bool permutate = false;
+
+            if( dy0 > 0 )
             {
-                y1 = y1 > sy3 ? sy3 : y1;
-                x1 = x1 > sx3 ? sx3 : x1;
+                permutate |= another.contains( x1, y1 + width ) || another.contains( x1 + width, y1 + height );
+                permutate |= mySelf.contains( another.left(), another.bottom() ) ||mySelf.contains( another.right(), another.bottom() ) ;
+            } else if( dy0 < 0 )
+            {
+                permutate |= another.contains( x1, y1 ) || another.contains( x1 + width, y1 );
+                permutate |= mySelf.contains( another.left(), another.top() ) ||mySelf.contains( another.right(), another.top() ) ;
             }
-        }
 
-        if( x1 < sx2 && y1 > sy3 )
-        {
-            if( !canComeIn( objectVal, m_impl->map.objectAt( cX - 1, cY + 1 ) ) )
+            if( dx0 > 0 )
             {
-                y1 = y1 > sy3 ? sy3 : y1;
-                x1 = x1 < sx2 ? sx2 : x1;
+                permutate |= another.contains( x1 + width, y1 ) || another.contains( x1 + width, y1 + height );
+                permutate |= mySelf.contains( another.left(), another.bottom() ) ||mySelf.contains( another.left(), another.top() ) ;
+            } else if( dx0 < 0 )
+            {
+                permutate |= another.contains( x1, y1 ) || another.contains( x1, y1 + height );
+                permutate |= mySelf.contains( another.right(), another.bottom() ) ||mySelf.contains( another.right(), another.top() ) ;
             }
-        }
 
-        if( x1 > sx3 && y1 < sy2 )
-        {
-            if( !canComeIn( objectVal, m_impl->map.objectAt( cX + 1, cY - 1 ) ) )
+            if( permutate )
             {
-                y1 = y1 < sy2 ? sy2 : y1;
-                x1 = x1 > sx3 ? sx3 : x1;
-            }
-        }
-
-        if( x1 < sx2 && y1 < sy2 )
-        {
-            if( !canComeIn( objectVal, m_impl->map.objectAt( cX - 1, cY - 1 ) ) )
-            {
-                y1 = y1 < sy2 ? sy2 : y1;
-                x1 = x1 < sx2 ? sx2 : x1;
+                if( onCollision & PObject::Revert )
+                {
+                    x1 = x0;
+                    y1 = y0;
+                }
+                if( onCollision & PObject::DisposeMyself )
+                {
+                    disposeObject( objectVal );
+                }
+                if( onCollision & PObject::DisposeAnother )
+                {
+                    disposeObject( anotherObj );
+                }
             }
         }
 
@@ -610,81 +628,6 @@ bool PolkApp::refreshState()
    m_impl->currentView->updateObjects();
 
    return true;
-}
-
-//-------------------------------------------------------
-
-inline bool isLeft( const int x1,  const int x2,  const int x3, const int y1,  const int y2,  const int y3 )
-{
-    int res = 
-        x1 * y2 - x2 * y1 +
-        x2 * y3 - x3 * x2 + 
-        x3 * y1 - x1 * y3;
-
-    return res > 0;
-}
-
-//-------------------------------------------------------
-
-inline bool isLeft( const QPoint& p1, const QPoint& p2, const QPoint& p3 )
-{
-    int x1 = p1.x();
-    int x2 = p2.x();
-    int x3 = p3.x();
-    int y1 = p1.y();
-    int y2 = p2.y();
-    int y3 = p3.y();
-
-    return isLeft( x1, x2, x3, y1, y2, y3 );
-}
-
-//-------------------------------------------------------
-
-inline bool permutateRectangle( const QPoint& pos1, const QPoint& pos2, const QRect& rect )
-{
-    int x1 = pos1.x();
-    int x2 = pos2.x();
-
-    int y1 = pos1.y();
-    int y2 = pos2.y();
-
-    int rx1 = rect.x();
-    int rx2 = rect.x() + rect.width();
-
-    int ry1 = rect.y();
-    int ry2 = rect.y() + rect.height();
-
-    if( x1 < rx1 && x2 < rx1 )
-        return false;
-
-    if( x1 > rx2 && x2 > rx2 )
-        return false;
-
-    if( y1 < ry1 && y2 < ry1 )
-        return false;
-
-    if( y1 > ry2 && y2 > ry2 )
-        return false;
-
-    bool p1 = isLeft( x1, x2, rx1, y1, y2, ry1 );
-    bool p2 = isLeft( x1, x2, rx2, y1, y2, ry1 );
-    bool p3 = isLeft( x1, x2, rx1, y1, y2, ry2 );
-    bool p4 = isLeft( x1, x2, rx2, y1, y2, ry2 );
-
-    return ( p1 & p2 & p3 & p4 ) | ( (!p1) & (!p2) & (!p3) & (!p4) );//все слева или все справа
-}
-
-//-------------------------------------------------------
-
-inline bool permutateRectangle( const QPoint& pos1, const QPoint& pos2, const QSize& size, const QRect& rect )
-{
-    QRect rect2 = rect;
-    rect2.setX( rect.x() - size.width() );
-    rect2.setY( rect.y() - size.height() );
-    rect2.setWidth( rect.width() + size.width() * 2 );
-    rect2.setHeight( rect.height() + size.height() * 2 );
-
-    return permutateRectangle( pos1, pos2, rect );
 }
 
 //-------------------------------------------------------
@@ -759,7 +702,7 @@ PtrPObject PolkApp::getNewObject( const int side, const int rtti )
 
             QPoint point = m_impl->map.getRandomTankPlace( side );
 
-            result->sImpl()->coordinate = QPoint( point.x() * 1000, point.y() * 1000 );
+            result->sImpl()->coordinate = QPoint( point.x() * SQUARE_SIZE, point.y() * SQUARE_SIZE );            
 
             break;
         }
@@ -769,6 +712,27 @@ PtrPObject PolkApp::getNewObject( const int side, const int rtti )
         addObjectOnScene( side, result );
 
     return result;
+}
+
+//-------------------------------------------------------
+
+void PolkApp::disposeObject( const PtrPObject& object )
+{
+    int side = object->side();
+
+    GET_THREAD( side );
+
+    ct.disposeObject( object );
+
+    qint64 id = object->objectID();
+
+    m_impl->objectIDs.remove( id );
+
+    m_impl->removedObjects[ id ] = object;
+
+    m_impl->currentView->deleteObject( id );
+
+    return;
 }
 
 //-------------------------------------------------------

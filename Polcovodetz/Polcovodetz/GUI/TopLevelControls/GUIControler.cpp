@@ -25,6 +25,8 @@ struct GUIControlerImpl
     ObjectMap                            objects;//indexes of objects
     ViewMap                              drawingItems;
 
+    QMap< qint64, int >                  rotationMap;
+
     GUIControlerImpl(){ mapView = 0; }
 };
 
@@ -42,12 +44,17 @@ bool GUIControler::addObject( const PtrPObject& obj )
 {
     QMutexLocker( &m_impl->objectsMutex );
 
-    m_impl->objects.insert( obj->objectID(), obj );
+    const qint64 id = obj->objectID();
+
+    m_impl->objects.insert( id, obj );
 
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem( 0, this );
+    item->setZValue( 1 );
     item->setPixmap( obj->image() );
 
-    m_impl->drawingItems.insert( obj->objectID(), item );
+    m_impl->drawingItems.insert( id, item );
+
+    m_impl->rotationMap[ id ] = 0;
 
     return true;
 }
@@ -94,10 +101,38 @@ void GUIControler::updateObjects()
 
         qreal x = ((qreal)( object->position().x() * SQUARE_SIZE ) ) / PolkApp::SQUARE_SIZE;
         qreal y = ((qreal)( object->position().y() * SQUARE_SIZE ) ) / PolkApp::SQUARE_SIZE;
+        
+        int newRotation = object->rotation();
+        const QPixmap& image = object->image();
+        int width  = image.width();
+        int height = image.height();
 
-//        qDebug() << x << ' ' << y;
+        switch( newRotation )
+        {
+        case 90:
+            x += height;
+            break;
+        case 180:
+            x += width;
+            y += height;
+            break;
+        case 270:
+            y += width;
+            break;
+        }
 
         view->setPos( x, y );
+
+        int oldRotation = m_impl->rotationMap[ id ];
+        if( oldRotation != newRotation )
+        {
+            int diff = newRotation - oldRotation;
+
+            view->rotate( diff );
+
+            m_impl->rotationMap[ id ] = newRotation;
+        }
+
     }
 
     update();
