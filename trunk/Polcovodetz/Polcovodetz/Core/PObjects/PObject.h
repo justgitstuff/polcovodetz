@@ -38,29 +38,39 @@ class PObject : QObject
     Q_OBJECT;
 
 public:
+
+    enum OnCollision
+    {
+        Nothing        = 0,
+        Revert         = 1 << 0,
+        DisposeMyself  = 1 << 1,
+        DisposeAnother = 1 << 2
+    };
+
     PObject( const int side );
 
     bool init( const QSize& );
 
     virtual ~PObject();
 
-    virtual int    rtti()const = 0;
+    virtual int            rtti()const = 0;
 
-    virtual QSize  boundSize()const = 0;
-            qint64 objectID()const{ return m_objectID; }
-            int    side()const{ return m_side; }
+    virtual QSize          boundSize()const = 0;
+            qint64         objectID()const{ return m_objectID; }
+            int            side()const{ return m_side; }
 
-    int            rotation()const;
-    QPoint         position()const;
-    QPoint         speed()const;
+    int                    rotation()const;
+    QPoint                 position()const;
+    QPoint                 speed()const;
 
-    virtual QPoint maxSpeed()const = 0;
+    virtual QPoint         maxSpeed()const = 0;
 
-    bool         canFly()const{ return false; }
+    virtual bool           canFly()const = 0;
+    virtual OnCollision    onCollision()const = 0;
 
     virtual const QPixmap& image()const = 0;
 
-    PObjectSharedImpl* sImpl()const{ return s_impl.get(); }
+    PObjectSharedImpl*     sImpl()const{ return s_impl.get(); }
 
 private:
     QSize*       m_boundingSize;

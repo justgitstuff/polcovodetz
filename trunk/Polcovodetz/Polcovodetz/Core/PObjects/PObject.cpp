@@ -58,3 +58,10 @@ QPoint PObject::maxSpeed()const
 
 //-------------------------------------------------------
 
+int PObject::rotation()const
+{
+    return s_impl->rotation;
+}
+
+//-------------------------------------------------------
+

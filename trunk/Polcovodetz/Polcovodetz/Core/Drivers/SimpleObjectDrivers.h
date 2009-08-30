@@ -60,7 +60,6 @@ public:
     bool init( const boost::shared_ptr< IObjectController >& );
 
     bool dConnect( const PtrPObject& );
-
     
     virtual PtrPObject& pObject();
 

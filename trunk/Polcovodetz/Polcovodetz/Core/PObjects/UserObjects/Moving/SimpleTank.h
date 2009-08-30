@@ -6,7 +6,7 @@
 
 //-------------------------------------------------------
 
-#include <Core/PObjects/PObject.h>
+#include <Core/PObjects/UserObjects/Moving/AbstractMoveObject.h>
 
 //-------------------------------------------------------
 
@@ -14,7 +14,7 @@ class QPixmap;
 
 //-------------------------------------------------------
 
-class SimpleTank : public PObject
+class SimpleTank : public AbstractMoveObject
 {
     Q_OBJECT;
 
@@ -27,6 +27,7 @@ public:
     virtual       QSize    boundSize()const;
 
     virtual       QPoint   maxSpeed()const;
+    virtual OnCollision    onCollision()const{ return Revert; }
 
 
     static PObjectInfo info();

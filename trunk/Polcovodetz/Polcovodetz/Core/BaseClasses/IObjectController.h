@@ -32,8 +32,7 @@ class IObjectController : public IAbstractController
 {
     Q_OBJECT;
 
-public:
-    
+public:    
 
     /**Инициализация. Запускается ядром ДО начала игры.
        Из-за асинхронности класс может опаздать к началу игры, т. к. 

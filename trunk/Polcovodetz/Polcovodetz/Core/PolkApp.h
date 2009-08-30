@@ -36,7 +36,7 @@ class PolkApp : public QObject
 {
     Q_OBJECT;
 public:
-static const int               SQUARE_SIZE = 10000;
+static const int               SQUARE_SIZE = 2 << 14;
 
                                PolkApp();
                                ~PolkApp();
@@ -72,9 +72,14 @@ static const int               SQUARE_SIZE = 10000;
            bool                setRotation( const PtrPObject&, int angle );
 
            /**
+            Выводит объект из системы.
+           */
+           void                disposeObject( const PtrPObject& object );
+
+           /**
             Выдает новый объект на карте с заданным rtti 
            */
-           PtrPObject          getNewObject( const int side, const int rtti );
+           PtrPObject          getNewObject( const int side, const int rtti );           
 
 public slots:
            bool          startGame();
