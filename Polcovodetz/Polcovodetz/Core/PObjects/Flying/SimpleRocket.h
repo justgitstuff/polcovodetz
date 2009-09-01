@@ -1,12 +1,12 @@
 
 //-------------------------------------------------------
 
-#ifndef  __SIMPLE_TANK__
-#define  __SIMPLE_TANK__
+#ifndef  __SIMPLE_ROCKET__
+#define  __SIMPLE_ROCKET__
 
 //-------------------------------------------------------
 
-#include <Core/PObjects/UserObjects/Moving/AbstractMoveObject.h>
+#include <Core/PObjects/PObject.h>
 
 //-------------------------------------------------------
 
@@ -14,32 +14,34 @@ class QPixmap;
 
 //-------------------------------------------------------
 
-class SimpleTank : public AbstractMoveObject
+class SimpleRocket : public PObject
 {
     Q_OBJECT;
 
 public:
-    SimpleTank( const int side );
+    SimpleRocket( const int side );
 
     virtual const QPixmap& image()const;
-    virtual       int      rtti()const{ return SimpleTank::RTTI; }
+    virtual       int      rtti()const{ return SimpleRocket::RTTI; }
     
     virtual       QSize    boundSize()const;
 
+    virtual       bool     canFly()const{ return true; }
+
     virtual       QPoint   maxSpeed()const;
-    virtual OnCollision    onCollision()const{ return Revert; }
-    virtual OnCollision    onStop()const{ return Revert; }
+    virtual OnCollision    onCollision()const{ return DisposeTwice; }
+    virtual OnCollision    onStop()const{ return DisposeTwice; }
 
 
 
     static PObjectInfo info();
 
-    static const int RTTI = 1;
+    static const int RTTI = 2;
 };
 
 //-------------------------------------------------------
 
-#endif //__SIMPLE_TANK__
+#endif //__SIMPLE_ROCKET__
 
 //-------------------------------------------------------
 

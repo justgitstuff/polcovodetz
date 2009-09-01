@@ -130,12 +130,13 @@ void GUIControler::updateObjects()
 
             view->rotate( diff );
 
-            m_impl->rotationMap[ id ] = newRotation;
+            m_impl->rotationMap[ id ] = newRotation;            
         }
 
     }
 
-    update();
+    
+  //  update();
 }
 
 //--------------------------------------------------------------------------
