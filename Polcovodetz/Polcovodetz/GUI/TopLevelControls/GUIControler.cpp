@@ -99,40 +99,26 @@ void GUIControler::updateObjects()
         if( view == 0 )
             continue;
 
-        qreal x = ((qreal)( object->position().x() * SQUARE_SIZE ) ) / PolkApp::SQUARE_SIZE;
-        qreal y = ((qreal)( object->position().y() * SQUARE_SIZE ) ) / PolkApp::SQUARE_SIZE;
+        int x = ( object->position().x() * SQUARE_SIZE ) / PolkApp::SQUARE_SIZE;
+        int y = ( object->position().y() * SQUARE_SIZE ) / PolkApp::SQUARE_SIZE;
         
         int newRotation = object->rotation();
         const QPixmap& image = object->image();
+
         int width  = image.width();
         int height = image.height();
-
-        switch( newRotation )
-        {
-        case 90:
-            x += height;
-            break;
-        case 180:
-            x += width;
-            y += height;
-            break;
-        case 270:
-            y += width;
-            break;
-        }
-
-        view->setPos( x, y );
 
         int oldRotation = m_impl->rotationMap[ id ];
         if( oldRotation != newRotation )
         {
-            int diff = newRotation - oldRotation;
+            view->setPixmap( object->image( newRotation ) );
 
-            view->rotate( diff );
+            m_impl->rotationMap[ id ] = newRotation;  
 
-            m_impl->rotationMap[ id ] = newRotation;            
+            update( QRect( x - width/2, y-height/2, width*2, height*2 ) );
         }
 
+        view->setPos( x, y );
     }
 
     

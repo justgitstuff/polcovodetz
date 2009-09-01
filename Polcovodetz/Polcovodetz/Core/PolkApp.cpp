@@ -186,6 +186,8 @@ bool PolkApp::startGame()
     m_impl->command1.sendCoreCommandMessage( new CoreCommandMessage( CoreCommandMessage::GameStarted ) );
     m_impl->command2.sendCoreCommandMessage( new CoreCommandMessage( CoreCommandMessage::GameStarted ) );
 
+    m_impl->currentView->update();
+
     return true;
 }
 
@@ -649,7 +651,7 @@ bool PolkApp::refreshState()
 
 //-------------------------------------------------------
 
-void PolkApp::userPressKey( Qt::Key key )
+bool PolkApp::userPressKey( Qt::Key key )
 {
     for( int i = 0; i < m_impl->keyMap.size(); i++ )
     {
@@ -657,7 +659,7 @@ void PolkApp::userPressKey( Qt::Key key )
         {
             m_impl->keyMap[ i ].second->processKey( key );
 
-            return;
+            return true;
         }
     }
     /*if( !m_impl->keyMap.contains( key ) )
@@ -666,6 +668,7 @@ void PolkApp::userPressKey( Qt::Key key )
     IAbstractInputDriver* iDriver = m_impl->keyMap[ key ];
 
     iDriver->processKey( key );*/
+    return false;
 }
 
 

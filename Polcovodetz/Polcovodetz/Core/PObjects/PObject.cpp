@@ -7,6 +7,7 @@
 #include <Core/PolkApp.h>
 
 #include <QImage>
+#include <QPixmap>
 #include <QThreadStorage>
 
 //-------------------------------------------------------
@@ -61,6 +62,34 @@ QPoint PObject::maxSpeed()const
 int PObject::rotation()const
 {
     return s_impl->rotation;
+}
+
+//-------------------------------------------------------
+
+QPixmap PObject::image( const int angle )
+{
+    const QPixmap& img = image();
+
+    switch( angle )
+    {
+    case 90:
+        {
+            return img.transformed( QMatrix( 0, -1, -1, 0, 1, 1 ) );
+            break;
+        }
+    case 270:
+        {
+            return img.transformed( QMatrix( 0, 1, 1, 0, 1, 1 ) );
+            break;
+        }
+    case 180:
+        {
+            return img.transformed( QMatrix( -1, 0, 0, -1, 1, 1 ) );
+            break;
+        }
+    }
+
+    return QPixmap( img );
 }
 
 //-------------------------------------------------------
