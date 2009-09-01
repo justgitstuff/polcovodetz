@@ -44,7 +44,8 @@ public:
         Nothing        = 0,
         Revert         = 1 << 0,
         DisposeMyself  = 1 << 1,
-        DisposeAnother = 1 << 2
+        DisposeAnother = 1 << 2,
+        DisposeTwice   = DisposeMyself | DisposeAnother
     };
 
     PObject( const int side );
@@ -67,6 +68,11 @@ public:
 
     virtual bool           canFly()const = 0;
     virtual OnCollision    onCollision()const = 0;
+
+    /**
+        Когда объект столкнулся со строением на карте.
+    */
+    virtual OnCollision    onStop()const = 0;
 
     virtual const QPixmap& image()const = 0;
 

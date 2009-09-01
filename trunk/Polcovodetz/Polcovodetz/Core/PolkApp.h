@@ -94,7 +94,7 @@ private:
            boost::shared_ptr< PolkAppImpl > m_impl;   
 
            void          refreshCoordinate( const PtrPObject& obj, const QPoint& old ); 
-           void          refreshCoordinate( const PtrPObject& obj ); 
+           void          refreshCoordinate( const PtrPObject& obj );
 
 inline     bool          canComeIn( const PtrPObject& who, const MapObject where );
 

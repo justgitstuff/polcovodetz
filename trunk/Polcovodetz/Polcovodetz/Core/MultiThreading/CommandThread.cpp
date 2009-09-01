@@ -113,7 +113,7 @@ void CommandThread::run()
     {        
         if( m_impl->paused )
         {
-            QThread::sleep( 1 );
+            QThread::sleep( 1000 );
 
             continue;
         }
@@ -122,7 +122,7 @@ void CommandThread::run()
 
         qApp->processEvents();
 
-        QThread::sleep( 1 );
+        QThread::sleep( 100 );
     }
     return;
 }

@@ -81,7 +81,24 @@ inline MapObject objectAt( int x, int y )
     int ny = y / PolkApp::SQUARE_SIZE;
 
     return pApp.map().objectAt( nx, ny );
-}
+};
+
+//-------------------------------------------------------
+
+inline void calculateObject( const PtrPObject& object, int x0, int y0, int& x1, int& y1 )
+{
+    if( object->onStop() & PObject::Revert )
+    {
+        x1 = x0;
+        y1 = y0;
+    }
+    if( object->onStop() & PObject::DisposeMyself )
+    {
+        pApp.disposeObject( object );
+
+        x1 = y1 = -PolkApp::SQUARE_SIZE;
+    }
+};
 
 //-------------------------------------------------------
 
@@ -528,7 +545,7 @@ bool PolkApp::refreshState()
                 MapObject objRight = objectAt( x1 + width, y1 + height );
                 if( !canComeIn( objectVal, objLeft ) || !canComeIn( objectVal, objRight ) )
                 {
-                    y1 = y0;//cY * SQUARE_SIZE + SQUARE_SIZE - height;
+                    calculateObject( objectVal, x0, y0, x1, y1 );//cY * SQUARE_SIZE + SQUARE_SIZE - height;
                 }
             }
             else
@@ -537,7 +554,7 @@ bool PolkApp::refreshState()
                 MapObject objRight = objectAt( x1 + width, y1 );
                 if( !canComeIn( objectVal, objLeft ) || !canComeIn( objectVal, objRight ) )
                 {
-                    y1 = y0;//cY * SQUARE_SIZE;
+                    calculateObject( objectVal, x0, y0, x1, y1 );//cY * SQUARE_SIZE;
                 }
             }
         }
@@ -549,7 +566,7 @@ bool PolkApp::refreshState()
                 MapObject objBottom = objectAt( x1 + width, y1 + height );
                 if( !canComeIn( objectVal, objTop ) || !canComeIn( objectVal, objBottom ) )
                 {
-                    x1 = x0;//cX * SQUARE_SIZE + SQUARE_SIZE - width;
+                    calculateObject( objectVal, x0, y0, x1, y1 );//cX * SQUARE_SIZE + SQUARE_SIZE - width;
                 }
             }
             else
@@ -558,7 +575,7 @@ bool PolkApp::refreshState()
                 MapObject objBottom = objectAt( x1, y1 + height );
                 if( !canComeIn( objectVal, objTop ) || !canComeIn( objectVal, objBottom ) )
                 {
-                    x1 = x0;//cX * SQUARE_SIZE;
+                    calculateObject( objectVal, x0, y0, x1, y1 );//cX * SQUARE_SIZE;
                 }
             }
         }
