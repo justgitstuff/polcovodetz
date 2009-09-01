@@ -88,7 +88,7 @@ public slots:
 
            bool          refreshState();
 
-           void          userPressKey( Qt::Key key );
+           bool          userPressKey( Qt::Key key );
 
 private:
            boost::shared_ptr< PolkAppImpl > m_impl;   

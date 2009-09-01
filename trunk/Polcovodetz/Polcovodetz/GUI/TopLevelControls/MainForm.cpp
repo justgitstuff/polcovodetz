@@ -203,6 +203,13 @@ void MainForm::keyPressEvent( QKeyEvent* event )
             }
             break;
         }
+    case Qt::Key_F11:
+        {
+            if( isFullScreen() )
+                showNormal();
+            else
+                showFullScreen();
+        }
     default:
         return QMainWindow::keyPressEvent( event );
     }

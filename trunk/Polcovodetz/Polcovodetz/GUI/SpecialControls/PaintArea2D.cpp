@@ -63,7 +63,8 @@ void PaintArea2D::resizeEvent( QResizeEvent* event )
  
 void PaintArea2D::keyPressEvent( QKeyEvent* key )
 {
-    pApp.userPressKey( ( Qt::Key )key->key() );
+    if( !pApp.userPressKey( ( Qt::Key )key->key() ) )
+        QGraphicsView::keyPressEvent( key );
 }
 
 //--------------------------------------------------------------------------

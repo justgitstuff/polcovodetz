@@ -76,6 +76,8 @@ public:
 
     virtual const QPixmap& image()const = 0;
 
+                  QPixmap  image( const int angle );
+
     PObjectSharedImpl*     sImpl()const{ return s_impl.get(); }
 
 private:
