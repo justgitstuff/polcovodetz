@@ -28,6 +28,8 @@ struct GUIControlerImpl
     QMap< qint64, int >                  rotationMap;
 
     GUIControlerImpl(){ mapView = 0; }
+
+    int index;
 };
 
 //--------------------------------------------------------------------------
@@ -121,7 +123,8 @@ void GUIControler::updateObjects()
         view->setPos( x, y );
     }
 
-    
+    if( m_impl->index % 400 == 0 )
+        update();
   //  update();
 }
 

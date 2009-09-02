@@ -15,7 +15,7 @@
 //-------------------------------------------------------
 
 SimpleRocket::SimpleRocket( const int side )
-:PObject( side )
+:AbstractRocket( side )
 {
     
 }
