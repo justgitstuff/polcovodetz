@@ -6,7 +6,7 @@
 
 //-------------------------------------------------------
 
-#include <Core/PObjects/PObject.h>
+#include <Core/PObjects/UserObjects/AbstractRocket.h>
 
 //-------------------------------------------------------
 
@@ -14,7 +14,7 @@ class QPixmap;
 
 //-------------------------------------------------------
 
-class SimpleRocket : public PObject
+class SimpleRocket : public AbstractRocket
 {
     Q_OBJECT;
 
