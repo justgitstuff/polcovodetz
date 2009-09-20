@@ -6,7 +6,7 @@
 
 //-------------------------------------------------------
 
-#include <Core/PObjects/UserObjects/AbstractRocket.h>
+#include <Core/PObjects/UserObjects/Flying/AbstractRocket.h>
 
 //-------------------------------------------------------
 
@@ -19,7 +19,7 @@ class SimpleRocket : public AbstractRocket
     Q_OBJECT;
 
 public:
-    SimpleRocket( const int side );
+    SimpleRocket( const int side, const int base );
 
     virtual const QPixmap& image()const;
     virtual       int      rtti()const{ return SimpleRocket::RTTI; }
@@ -32,7 +32,7 @@ public:
     virtual OnCollision    onCollision()const{ return DisposeTwice; }
     virtual OnCollision    onStop()const{ return DisposeTwice; }
 
-
+    virtual       int      powerfulness()const{ return 1; }
 
     static PObjectInfo info();
 

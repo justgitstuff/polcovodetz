@@ -403,10 +403,28 @@ void CommandThread::disposeObject( const PtrPObject& object )
 {
     qint64 id = object->objectID();
 
-    m_impl->objectsMap[ id ]->dConnect( PtrPObject() );
+    boost::shared_ptr< SimpleObjectOutputDriver > outDriver = m_impl->objectsMap[ id ];
+
+    if( outDriver.get() )
+        outDriver->dConnect( PtrPObject() );
 
     m_impl->objectsMap.remove( id );
 }
 
 //-------------------------------------------------------
+/*
+void CommandThread::getNewObject( const int side, const int rtti )
+{
+    pApp.getNetObject
+}
+*/
+//-------------------------------------------------------
 
+//-------------------------------------------------------
+
+void CommandThread::makeRocket( const PtrPObject& who )
+{
+    return pApp.makeRocket( who );
+}
+
+//-------------------------------------------------------

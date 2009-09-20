@@ -68,6 +68,7 @@ bool HumanObjectController::init( IObjectInputDriver* inDriver , IObjectOutputDr
     inDriver->registerKey( Qt::Key_Right );
     inDriver->registerKey( Qt::Key_Up );
     inDriver->registerKey( Qt::Key_Down );
+    inDriver->registerKey( Qt::Key_Space );
 
     return true; 
 };
@@ -113,6 +114,12 @@ void HumanObjectController::keyPressed( const Qt::Key key )
             m_impl->outDriver->setSpeed( 100 );
 
             break;
+        }
+    case Qt::Key_Space :
+        {
+            qDebug("Atack!");
+
+            m_impl->outDriver->makeAttack();
         }
     }
 }

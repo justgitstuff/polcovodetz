@@ -25,11 +25,12 @@ static const int SQUARE_SIZE = 32;
     GUIControler();
 
     virtual bool addObject( const PtrPObject& ); 
-    virtual bool deleteObject( const qint64 id );
 
     virtual void updateMap();
 
+public slots:
     virtual void updateObjects();
+    virtual void deleteObject( const qint64 id );
 
 private:
     boost::shared_ptr< GUIControlerImpl > m_impl;

@@ -63,17 +63,22 @@ bool GUIControler::addObject( const PtrPObject& obj )
 
 //--------------------------------------------------------------------------
 
-bool GUIControler::deleteObject( const qint64 id )
+void GUIControler::deleteObject( const qint64 id )
 {
     QMutexLocker( &m_impl->objectsMutex );
 
     if( !m_impl->objects.contains( id ) )
-        return false;
+        return;
 
     m_impl->objects.remove( id );
+
+    QGraphicsPixmapItem* item = m_impl->drawingItems[ id ];
+
+    QGraphicsScene::removeItem( item );
+
     m_impl->drawingItems.remove( id );
 
-    return true;
+    delete item;
 }
 
 //--------------------------------------------------------------------------

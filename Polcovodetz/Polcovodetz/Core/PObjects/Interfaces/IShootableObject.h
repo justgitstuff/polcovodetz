@@ -6,20 +6,23 @@
 
 //-------------------------------------------------------
 
-//#include <boost/shared_ptr.hpp>
-
-//-------------------------------------------------------
-
-class AbstractRocket;
-
-//-------------------------------------------------------
-
 class IShootableObject
 {
 public:
-    virtual AbstractRocket* atackObject()const    = 0;
-    virtual int             shootCount()const     = 0;
-    virtual int             maxShootOnPane()const = 0;
+    /**
+        Выдает RTTI объекта, которм атакует.
+    */
+    virtual int  atackObject()const    = 0;
+
+    /**
+        Общее количество возможных выстрелов
+    */
+    virtual int  shootCount()const     = 0;
+
+    /**
+        Максимальное количество ракет на поле
+    */
+    virtual int  maxShootOnPane()const = 0;
 };
 
 //-------------------------------------------------------

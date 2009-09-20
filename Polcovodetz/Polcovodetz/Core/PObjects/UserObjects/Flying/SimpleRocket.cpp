@@ -1,7 +1,7 @@
 
 //-------------------------------------------------------
 
-#include <Core/PObjects/Flying/SimpleRocket.h>
+#include <Core/PObjects/UserObjects/Flying/SimpleRocket.h>
 
 #include <Core/PolkApp.h>
 
@@ -14,8 +14,8 @@
 
 //-------------------------------------------------------
 
-SimpleRocket::SimpleRocket( const int side )
-:AbstractRocket( side )
+SimpleRocket::SimpleRocket( const int side, const int base )
+:AbstractRocket( side, base )
 {
     
 }
@@ -50,7 +50,7 @@ PObjectInfo SimpleRocket::info()
 
 QPoint SimpleRocket::maxSpeed()const
 {     
-    return QPoint( 1024, 1024 );
+    return QPoint( 2048, 2048 );
 }
 
 //-------------------------------------------------------

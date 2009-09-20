@@ -50,8 +50,6 @@ public:
 
     PObject( const int side );
 
-    bool init( const QSize& );
-
     virtual ~PObject();
 
     virtual int            rtti()const = 0;
@@ -81,8 +79,6 @@ public:
     PObjectSharedImpl*     sImpl()const{ return s_impl.get(); }
 
 private:
-    QSize*       m_boundingSize;
-
     const qint64 m_objectID;
     const int    m_side;
 
