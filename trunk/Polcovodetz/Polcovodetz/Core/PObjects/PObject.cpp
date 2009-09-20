@@ -29,18 +29,8 @@ PObject::PObject( const int side )
 
 //-------------------------------------------------------
 
-bool PObject::init( const QSize& boundingSize )
-{
-    m_boundingSize = new QSize( boundingSize );
-
-    return true;
-}
-
-//-------------------------------------------------------
-
 PObject::~PObject()
 {
-    delete m_boundingSize;
 }
 
 //-------------------------------------------------------

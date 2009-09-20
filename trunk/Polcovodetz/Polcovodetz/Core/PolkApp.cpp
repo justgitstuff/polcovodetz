@@ -9,6 +9,7 @@
 #include <Core/LibraryLoader.h>
 #include <Core/MultiThreading/CalcThread.h>
 #include <Core/MultiThreading/CommandThread.h>
+#include <Core/PObjects/Interfaces/IShootableObject.h>
 #include <Core/PObjects/PObject.h>
 #include <Core/PObjects/PObjectSharedImpl.h>
 
@@ -26,6 +27,8 @@
 
 //-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!
 
+#include <Core/PObjects/UserObjects/Flying/AbstractRocket.h>
+#include <Core/PObjects/UserObjects/Flying/SimpleRocket.h>
 #include <Core/PObjects/UserObjects/Moving/AbstractMoveObject.h>
 #include <Core/PObjects/UserObjects/Moving/SimpleTank.h>
 
@@ -67,6 +70,7 @@ struct PolkAppImpl
     CommandThread         command2;
 
     PObjectMap            removedObjects;
+    QVector< PtrPObject > objectsToDelete;
 
 };
 
@@ -116,16 +120,15 @@ PolkApp::~PolkApp()
 
 //-------------------------------------------------------
 
-bool PolkApp::addObjectOnScene( const int side, const PtrPObject& obj )
+bool PolkApp::addObjectOnScene( const PtrPObject& obj )
 {
+    int side = obj->side();
     qint64 id = obj->objectID();
 
     m_impl->objectSides.insert( id, side );
     m_impl->objectIDs.insert( id, obj );
 
     m_impl->currentView->addObject( obj );
-
- //   obj->sImpl()->coordinate = QPoint( 0, 0 );
 
     refreshCoordinate( obj );
 
@@ -144,7 +147,12 @@ const Map& PolkApp::map()const
 QWidget* PolkApp::currentView()const
 {
     if( m_impl->currentView == 0 )
+    {
         m_impl->currentView = new GUIControler();
+
+        connect( this, SIGNAL( updateVisualState() ),           m_impl->currentView, SLOT( updateObjects() ),              Qt::BlockingQueuedConnection );
+        connect( this, SIGNAL( objectDeleted( const qint64 ) ), m_impl->currentView, SLOT( deleteObject( const qint64 ) ), Qt::BlockingQueuedConnection );
+    }
 
     return new PaintArea2D( m_impl->currentView, NULL );
 }
@@ -642,11 +650,13 @@ bool PolkApp::refreshState()
 
         info->coordinate.setX( x1 );
         info->coordinate.setY( y1 );
-   }
+    }
 
-   m_impl->currentView->updateObjects();
+    deleteDisposedObjects();
 
-   return true;
+    emit updateVisualState();
+
+    return true;
 }
 
 //-------------------------------------------------------
@@ -704,6 +714,9 @@ bool PolkApp::setSpeed( const PtrPObject& object, const QPoint& persent )
 
 bool PolkApp::setRotation( const PtrPObject& object, int angle )
 {
+    if( object.get() == 0 )
+        return false;
+
     object->sImpl()->rotation = angle;
     return true;
 }
@@ -729,7 +742,7 @@ PtrPObject PolkApp::getNewObject( const int side, const int rtti )
     }
 
     if( result.get() )
-        addObjectOnScene( side, result );
+        addObjectOnScene( result );
 
     return result;
 }
@@ -746,14 +759,72 @@ void PolkApp::disposeObject( const PtrPObject& object )
 
     qint64 id = object->objectID();
 
-    m_impl->objectIDs.remove( id );
-
-    m_impl->removedObjects[ id ] = object;
-
-    m_impl->currentView->deleteObject( id );
+    //m_impl->objectIDs.remove( id );
+    m_impl->objectsToDelete.append( object );
 
     return;
 }
 
+//-------------------------------------------------------
+
+void PolkApp::makeRocket( const PtrPObject& who )
+{
+    PObject* obj = who.get();
+
+    IShootableObject* object = dynamic_cast< IShootableObject* >( obj );
+
+    if( object == 0 )
+        return;
+
+    int rocketRTTI = object->atackObject();
+
+    AbstractRocket* rocket = 0;
+
+    switch( rocketRTTI )
+    {
+    case SimpleRocket::RTTI :
+        {
+            rocket = new SimpleRocket( who->side(), obj->objectID() );
+            break;
+        }
+    default:
+        return;
+    }
+
+    if( rocket == 0 )
+        return;
+
+    PObjectSharedImpl* pImpl = rocket->sImpl();
+
+    pImpl->rotation = who->rotation();
+    pImpl->speed = QPoint( rocket->maxSpeed().x(), 0 );
+
+    PtrPObject rocketObject( rocket );
+
+    addObjectOnScene( rocketObject );
+}
+
+//-------------------------------------------------------
+
+void PolkApp::deleteDisposedObjects()
+{
+    QVector< PtrPObject > objects = m_impl->objectsToDelete;
+
+    GUIControler* controller = m_impl->currentView;
+
+    for( int i = 0; i < objects.size(); i++ )
+    {
+        PtrPObject obj = objects[ i ];
+
+        qint64 id = obj->objectID();
+
+        m_impl->objectIDs.remove( id );
+    
+        m_impl->removedObjects[ id ] = obj;
+
+        emit objectDeleted( id );
+    }
+}
+ 
 //-------------------------------------------------------
 

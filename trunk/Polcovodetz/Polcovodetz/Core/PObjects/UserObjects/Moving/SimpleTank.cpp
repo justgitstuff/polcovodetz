@@ -4,6 +4,7 @@
 #include <Core/PObjects/UserObjects/Moving/SimpleTank.h>
 
 #include <Core/PolkApp.h>
+#include <Core/PObjects/UserObjects/Flying/SimpleRocket.h>
 
 #include <Core/PObjects/Resources/BlueSimpleTank.xpm>
 #include <Core/PObjects/Resources/RedSimpleTank.xpm>
@@ -64,6 +65,27 @@ QSize SimpleTank::boundSize()const
         return QSize( height, width );
 
     return QSize( width, height );
+}
+
+//-------------------------------------------------------
+
+int SimpleTank::atackObject()const
+{
+    return SimpleRocket::RTTI;
+}
+
+//-------------------------------------------------------
+
+int SimpleTank::shootCount()const
+{
+    return 1000000;
+}
+
+//-------------------------------------------------------
+
+int SimpleTank::maxShootOnPane()const
+{
+    return 2;
 }
 
 //-------------------------------------------------------

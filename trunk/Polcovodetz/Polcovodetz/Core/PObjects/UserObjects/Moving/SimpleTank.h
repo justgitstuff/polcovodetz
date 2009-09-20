@@ -7,6 +7,7 @@
 //-------------------------------------------------------
 
 #include <Core/PObjects/UserObjects/Moving/AbstractMoveObject.h>
+#include <Core/PObjects/Interfaces/IShootableObject.h>
 
 //-------------------------------------------------------
 
@@ -14,7 +15,7 @@ class QPixmap;
 
 //-------------------------------------------------------
 
-class SimpleTank : public AbstractMoveObject
+class SimpleTank : public AbstractMoveObject, public IShootableObject
 {
     Q_OBJECT;
 
@@ -30,6 +31,20 @@ public:
     virtual OnCollision    onCollision()const{ return Revert; }
     virtual OnCollision    onStop()const{ return Revert; }
 
+    /**
+        Выдает RTTI объекта, которм атакует.
+    */
+    virtual int  atackObject()const;
+
+    /**
+        Общее количество возможных выстрелов
+    */
+    virtual int  shootCount()const;
+
+    /**
+        Максимальное количество ракет на поле
+    */
+    virtual int  maxShootOnPane()const;
 
 
     static PObjectInfo info();

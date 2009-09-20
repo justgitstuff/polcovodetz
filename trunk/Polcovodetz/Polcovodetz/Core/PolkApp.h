@@ -45,7 +45,7 @@ static const int               SQUARE_SIZE = 2 << 14;
 
            const Map&          map()const;
             
-           bool                addObjectOnScene( const int side, const PtrPObject& );
+           bool                addObjectOnScene( const PtrPObject& );
 
             //bool          addObject();
 
@@ -72,14 +72,19 @@ static const int               SQUARE_SIZE = 2 << 14;
            bool                setRotation( const PtrPObject&, int angle );
 
            /**
+            Выдает новый объект на карте с заданным rtti 
+           */
+           PtrPObject          getNewObject( const int side, const int rtti );
+           void                makeRocket( const PtrPObject& who );
+
+           /**
             Выводит объект из системы.
            */
            void                disposeObject( const PtrPObject& object );
 
-           /**
-            Выдает новый объект на карте с заданным rtti 
-           */
-           PtrPObject          getNewObject( const int side, const int rtti );           
+signals:
+           void                updateVisualState();
+           void                objectDeleted( const qint64 id );
 
 public slots:
            bool          startGame();
@@ -96,7 +101,9 @@ private:
            void          refreshCoordinate( const PtrPObject& obj, const QPoint& old ); 
            void          refreshCoordinate( const PtrPObject& obj );
 
+
 inline     bool          canComeIn( const PtrPObject& who, const MapObject where );
+inline     void          deleteDisposedObjects();
 
 };
 

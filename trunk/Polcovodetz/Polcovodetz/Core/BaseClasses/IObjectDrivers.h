@@ -67,6 +67,11 @@ public:
         Устанавливает текущий поворот объекта
     */
     virtual void setRotation( const ObjectRotation& rotation ) = 0;
+   
+    /**
+        Выпускает снаряд
+    */
+    virtual void makeAttack() = 0;
 };
 
 //-------------------------------------------------------

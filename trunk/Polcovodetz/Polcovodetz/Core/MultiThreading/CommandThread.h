@@ -46,6 +46,9 @@ public:
     bool                setRotation( const PtrPObject&, int angle );
 
     void                disposeObject( const PtrPObject& );
+ 
+    void                getNewObject( const int side, const int rtti );
+    void                makeRocket( const PtrPObject& who );
 
 
     bool start(); //asynchronus

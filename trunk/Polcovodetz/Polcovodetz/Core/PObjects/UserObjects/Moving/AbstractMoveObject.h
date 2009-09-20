@@ -16,12 +16,10 @@ class AbstractMoveObject : public PObject
 
 public:
     AbstractMoveObject( const int side )
-        :PObject( side )
-    {};
+        :PObject( side ) {};
 
     bool canFly()const{ return false; }
 
-private:
 };
 
 //-------------------------------------------------------

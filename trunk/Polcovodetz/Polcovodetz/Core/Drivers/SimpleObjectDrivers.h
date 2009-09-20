@@ -73,6 +73,11 @@ public:
         Устанавливает текущий поворот объекта
     */
     virtual void setRotation( const ObjectRotation& rotation );    
+   
+    /**
+        Выпускает снаряд
+    */
+    virtual void makeAttack();
 
 private:
     boost::shared_ptr< SimpleObjectOutputDriverImpl > m_impl;

@@ -12,7 +12,6 @@
 
 struct SimpleObjectInputDriverImpl
 {
-
     boost::shared_ptr< IObjectController > controller;
 };
 
@@ -130,6 +129,15 @@ void SimpleObjectOutputDriver::setRotation( const ObjectRotation& rotation )
         m_impl->thread->setRotation( pObject(), 270 );
         break;
     }
+}
+
+//-------------------------------------------------------
+
+void SimpleObjectOutputDriver::makeAttack()
+{
+    PtrPObject who = m_impl->connectedObject;
+
+    m_impl->thread->makeRocket( who );
 }
 
 //-------------------------------------------------------
