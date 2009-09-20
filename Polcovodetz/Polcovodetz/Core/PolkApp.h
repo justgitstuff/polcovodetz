@@ -47,8 +47,6 @@ static const int               SQUARE_SIZE = 2 << 14;
             
            bool                addObjectOnScene( const PtrPObject& );
 
-            //bool          addObject();
-
            bool                reloadMap( const QString& fileName );
 
            bool                invokeScript( const QString& fileName );
@@ -85,6 +83,7 @@ static const int               SQUARE_SIZE = 2 << 14;
 signals:
            void                updateVisualState();
            void                objectDeleted( const qint64 id );
+           void                objectAdded( const PtrPObject& );
 
 public slots:
            bool          startGame();

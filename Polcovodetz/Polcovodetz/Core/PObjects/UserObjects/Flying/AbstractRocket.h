@@ -19,13 +19,13 @@ class AbstractRocket : public PObject
     Q_OBJECT;
 
 public:
-    AbstractRocket( const int side, const int base )
+    AbstractRocket( const int side, const qint64 parentID )
         :PObject( side )
     {
-        m_baseObjectID = base;
+        m_parentID = parentID;
     };
 
-    int baseObjectID()const{ return m_baseObjectID; }
+    int parentID()const{ return m_parentID; }
 
     virtual       bool     canFly()const{ return true; }
 
@@ -33,7 +33,9 @@ public:
     virtual       int      powerfulness()const = 0;
 
 private:
-    int m_baseObjectID;
+    int m_parentID;
+
+
 };
 
 //-------------------------------------------------------

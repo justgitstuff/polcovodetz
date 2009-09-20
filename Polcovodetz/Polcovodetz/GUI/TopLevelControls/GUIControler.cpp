@@ -42,10 +42,8 @@ GUIControler::GUIControler()
 
 //--------------------------------------------------------------------------
 
-bool GUIControler::addObject( const PtrPObject& obj )
+void GUIControler::addPObject( const PtrPObject& obj )
 {
-    QMutexLocker( &m_impl->objectsMutex );
-
     const qint64 id = obj->objectID();
 
     m_impl->objects.insert( id, obj );
@@ -57,16 +55,12 @@ bool GUIControler::addObject( const PtrPObject& obj )
     m_impl->drawingItems.insert( id, item );
 
     m_impl->rotationMap[ id ] = 0;
-
-    return true;
 }
 
 //--------------------------------------------------------------------------
 
 void GUIControler::deleteObject( const qint64 id )
 {
-    QMutexLocker( &m_impl->objectsMutex );
-
     if( !m_impl->objects.contains( id ) )
         return;
 
