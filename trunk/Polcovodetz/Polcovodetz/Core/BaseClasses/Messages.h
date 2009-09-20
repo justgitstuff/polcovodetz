@@ -16,7 +16,8 @@ class CoreCommandMessage : public AbstractMessage
 public:
     enum Type 
     {
-        GameStarted
+        GameStarted,
+        ObjectCrached
     };
 
     CoreCommandMessage( Type type )        
@@ -24,7 +25,8 @@ public:
         this->type = type;
     }
 
-    Type type;
+    Type     type;
+    QVariant info;
 };
 //-------------------------------------------------------
 /**

@@ -20,6 +20,7 @@
 #include <QFile>
 #include <QMap>
 #include <QMultiMap>
+#include <QMutex>
 #include <QPluginLoader>
 #include <QPoint>
 #include <QSize>
@@ -44,11 +45,11 @@ PolkApp pApp;
 
 struct PolkAppImpl
 {    
-    PolkAppImpl():command1( 1 ), command2( 2 ), calcThread(){};
+    PolkAppImpl():command1( 1 ), command2( 2 ), calcThread(), coreMutex(){};
     typedef QMap< long, PtrPObject >           PObjectMap;
     typedef QMap< long, int >                  PObjectSideMap;
 
-    typedef QVector< QPair< Qt::Key, IAbstractInputDriver* > > KeyMap;
+    typedef QMap< Qt::Key, IAbstractInputDriver* > KeyMap;
  
     typedef QMultiMap< int, long >             PObjectCoordinateMap;//coordinate to list of ids
 
@@ -72,6 +73,7 @@ struct PolkAppImpl
     PObjectMap            removedObjects;
     QVector< PtrPObject > objectsToDelete;
 
+    QMutex                coreMutex;
 };
 
 //-------------------------------------------------------
@@ -128,9 +130,7 @@ bool PolkApp::addObjectOnScene( const PtrPObject& obj )
     m_impl->objectSides.insert( id, side );
     m_impl->objectIDs.insert( id, obj );
 
-    m_impl->currentView->addObject( obj );
-
-    refreshCoordinate( obj );
+    emit objectAdded( obj );
 
     return true; 
 }
@@ -150,8 +150,11 @@ QWidget* PolkApp::currentView()const
     {
         m_impl->currentView = new GUIControler();
 
-        connect( this, SIGNAL( updateVisualState() ),           m_impl->currentView, SLOT( updateObjects() ),              Qt::BlockingQueuedConnection );
-        connect( this, SIGNAL( objectDeleted( const qint64 ) ), m_impl->currentView, SLOT( deleteObject( const qint64 ) ), Qt::BlockingQueuedConnection );
+        qRegisterMetaType<PtrPObject>( "PtrPObject" );
+
+        connect( this, SIGNAL( updateVisualState() ),              m_impl->currentView, SLOT( updateObjects() ) );
+        connect( this, SIGNAL( objectAdded( const PtrPObject& ) ), m_impl->currentView, SLOT( addPObject( const PtrPObject& ) ) );
+        connect( this, SIGNAL( objectDeleted( const qint64 ) ),    m_impl->currentView, SLOT( deleteObject( const qint64 ) ) );
     }
 
     return new PaintArea2D( m_impl->currentView, NULL );
@@ -184,12 +187,6 @@ bool PolkApp::startGame()
 
     if( !isOk )
         return false;
-
-    //QObject::thread()->
-
-    /* подкрепление ВСЕХ драйверов КРОМЕ драйвера от объекта к PObject`у*/
-    /* посылка сообщений о пустых местах к СС */
-    //addObjectOnScene( 1, PtrPObject( new SimpleTank( 1 ) ) );
     
     m_impl->command1.sendCoreCommandMessage( new CoreCommandMessage( CoreCommandMessage::GameStarted ) );
     m_impl->command2.sendCoreCommandMessage( new CoreCommandMessage( CoreCommandMessage::GameStarted ) );
@@ -662,7 +659,7 @@ bool PolkApp::refreshState()
 //-------------------------------------------------------
 
 bool PolkApp::userPressKey( Qt::Key key )
-{
+{/*
     for( int i = 0; i < m_impl->keyMap.size(); i++ )
     {
         if( m_impl->keyMap[ i ].first == key )
@@ -671,27 +668,27 @@ bool PolkApp::userPressKey( Qt::Key key )
 
             return true;
         }
-    }
-    /*if( !m_impl->keyMap.contains( key ) )
-        return;
+    }*/
+    if( !m_impl->keyMap.contains( key ) )
+        return false;
 
     IAbstractInputDriver* iDriver = m_impl->keyMap[ key ];
 
-    iDriver->processKey( key );*/
-    return false;
+    iDriver->processKey( key );
+    return true;
 }
 
 
 //-------------------------------------------------------
 
 bool PolkApp::registerKey( Qt::Key key, IAbstractInputDriver* driver )
-{
-   /* if( m_impl->keyMap.contains( key ) )
+{   
+    if( m_impl->keyMap.contains( key ) )
         return false;
 
-    m_impl->keyMap.insert( key, driver );*/
+    m_impl->keyMap.insert( key, driver );
 
-    m_impl->keyMap.append( QPair< Qt::Key, IAbstractInputDriver* >( key, driver ) );
+   // m_impl->keyMap.append( QPair< Qt::Key, IAbstractInputDriver* >( key, driver ) );
 
     return true;
 }
@@ -757,9 +754,6 @@ void PolkApp::disposeObject( const PtrPObject& object )
 
     ct.disposeObject( object );
 
-    qint64 id = object->objectID();
-
-    //m_impl->objectIDs.remove( id );
     m_impl->objectsToDelete.append( object );
 
     return;
@@ -809,8 +803,6 @@ void PolkApp::makeRocket( const PtrPObject& who )
 void PolkApp::deleteDisposedObjects()
 {
     QVector< PtrPObject > objects = m_impl->objectsToDelete;
-
-    GUIControler* controller = m_impl->currentView;
 
     for( int i = 0; i < objects.size(); i++ )
     {
