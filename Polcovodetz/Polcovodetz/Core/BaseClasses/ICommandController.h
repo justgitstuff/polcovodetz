@@ -36,15 +36,16 @@ public:
 
     virtual ~ICommandController(){};
 
-    /**Инициализация. Запускается ядром ДО начала игры.
+    /**
+       Инициализация. Запускается ядром ДО начала игры.
        Из-за асинхронности класс может опаздать к началу игры, т. к. 
        долго конфигурировался.
     */
     virtual bool init( ICommandInputDriver*, ICommandOutputDriver* ) = 0;
 
-signals:
-    void sendTopMessage( CommandCoreMessage* );
-    void sendDownMessage( CommandGroupMessage* );
+public slots:
+    virtual void message( CoreCommandMessage* ) = 0;
+    virtual void message( GroupCommandMessage* ) = 0;
 };
 
 //-------------------------------------------------------

@@ -35,17 +35,14 @@ public:
 
     virtual bool    init( IObjectInputDriver*, IObjectOutputDriver* );
 
-signals:
-    void outputMessage( ObjectOutputMessage* mesage );
+public slots:
+    virtual void message( GroupObjectMessage* ){};
 
 private:    
     /**
     Прячем часть полей внутрь cpp-шника.
     */
     boost::shared_ptr< SimpleObjectControllerImpl > m_impl;
-
-private slots:
-    void inputMessage( ObjectInputMessage* mesage );
 
 };
 

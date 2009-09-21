@@ -129,6 +129,7 @@ QFrame* MainForm::getRunTimeOptionFrame( QWidget* parent )
                  m_impl->pauseButton  = new QPushButton( tr( "PauseGame" ), stateBox );
 
     connect( m_impl->startButton, SIGNAL( clicked() ), &pApp, SLOT( startGame() ) );
+    connect( m_impl->pauseButton, SIGNAL( clicked() ), &pApp, SLOT( pauseGame() ) );
 
     stateBoxLayout->addWidget( m_impl->startButton );
     stateBoxLayout->addWidget( m_impl->pauseButton );

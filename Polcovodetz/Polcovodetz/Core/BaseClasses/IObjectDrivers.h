@@ -6,7 +6,6 @@
 //-------------------------------------------------------
 
 #include <IAbstractDrivers.h>
-#include <IAbstractDrivers.h>
 #include <PObject.h>
 
 //-------------------------------------------------------

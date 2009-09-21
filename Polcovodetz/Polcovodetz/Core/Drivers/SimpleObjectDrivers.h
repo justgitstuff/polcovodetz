@@ -16,7 +16,7 @@ struct SimpleObjectOutputDriverImpl;
 
 class IGroupOutputDriver;
 
-class CommandThread;
+class CommandState;
 
 //-------------------------------------------------------
 
@@ -55,7 +55,7 @@ class SimpleObjectOutputDriver : public IObjectOutputDriver
     Q_OBJECT;
 
 public:
-    SimpleObjectOutputDriver( CommandThread* thread );
+    SimpleObjectOutputDriver( CommandState* state );
 
     bool init( const boost::shared_ptr< IObjectController >& );
 

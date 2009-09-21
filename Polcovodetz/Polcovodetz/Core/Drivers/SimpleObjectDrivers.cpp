@@ -5,7 +5,7 @@
 
 #include <Core/BaseClasses/IObjectController.h>
 
-#include <Core/MultiThreading/CommandThread.h>
+#include <Core/MultiThreading/CommandState.h>
 #include <Core/PolkApp.h>
 
 //-------------------------------------------------------
@@ -23,7 +23,7 @@ struct SimpleObjectOutputDriverImpl
 
     PtrPObject                             connectedObject;
 
-    CommandThread*                         thread;
+    CommandState*                         state;
 };
 
 //-------------------------------------------------------
@@ -78,10 +78,10 @@ void SimpleObjectInputDriver::processKey( Qt::Key key )
 
 //-------------------------------------------------------
 
-SimpleObjectOutputDriver::SimpleObjectOutputDriver( CommandThread* thread )
+SimpleObjectOutputDriver::SimpleObjectOutputDriver( CommandState* state )
 :m_impl( new SimpleObjectOutputDriverImpl() )
 {
-    m_impl->thread = thread;
+    m_impl->state = state;
 }
 
 //-------------------------------------------------------
@@ -104,7 +104,7 @@ PtrPObject& SimpleObjectOutputDriver::pObject()
 
 void SimpleObjectOutputDriver::setSpeed( const int persent )
 {
-    m_impl->thread->setSpeed( pObject(), QPoint( persent, 0 ) );
+    m_impl->state->setSpeed( pObject(), QPoint( persent, 0 ) );
 }
 
 //-------------------------------------------------------
@@ -114,19 +114,19 @@ void SimpleObjectOutputDriver::setRotation( const ObjectRotation& rotation )
     switch( rotation )
     {
     case ToTop :
-        m_impl->thread->setRotation( pObject(), 0 );
+        m_impl->state->setRotation( pObject(), 0 );
         break;
 
     case ToRight :
-        m_impl->thread->setRotation( pObject(), 90 );
+        m_impl->state->setRotation( pObject(), 90 );
         break;
 
     case ToBottom:
-        m_impl->thread->setRotation( pObject(), 180 );
+        m_impl->state->setRotation( pObject(), 180 );
         break;
 
     case ToLeft :
-        m_impl->thread->setRotation( pObject(), 270 );
+        m_impl->state->setRotation( pObject(), 270 );
         break;
     }
 }
@@ -137,7 +137,7 @@ void SimpleObjectOutputDriver::makeAttack()
 {
     PtrPObject who = m_impl->connectedObject;
 
-    m_impl->thread->makeRocket( who );
+    m_impl->state->makeRocket( who );
 }
 
 //-------------------------------------------------------

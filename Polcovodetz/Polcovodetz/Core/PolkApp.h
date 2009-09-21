@@ -85,6 +85,8 @@ signals:
            void                objectDeleted( const qint64 id );
            void                objectAdded( const PtrPObject& );
 
+           void                objectDisposed( const qint64 );
+
 public slots:
            bool          startGame();
            bool          pauseGame();

@@ -32,7 +32,7 @@ public:
 
 private:
     QVector< T > values;
-    QMutex       mutex;
+    mutable QMutex       mutex;
     int head;
     int count;
 };

@@ -35,17 +35,15 @@ public:
 
     virtual bool    init( IGroupInputDriver*, IGroupOutputDriver* );
 
-signals:
-    void outputMessage( GroupOutputMessage* mesage );
-
 private:    
     /**
     Прячем часть полей внутрь cpp-шника.
     */
     boost::shared_ptr< SimpleGroupControllerImpl > m_impl;
 
-private slots:
-    void inputMessage( GroupInputMessage* mesage );
+public slots:
+    virtual void message( ObjectGroupMessage* ){};
+    virtual void message( CommandGroupMessage* ){};
 
 };
 

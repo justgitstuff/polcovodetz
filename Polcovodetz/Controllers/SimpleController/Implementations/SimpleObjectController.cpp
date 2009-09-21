@@ -67,10 +67,10 @@ bool SimpleObjectController::init( IObjectInputDriver* inDriver , IObjectOutputD
 /**
     В сущности, все действия должны приниматься здесь.
 */
-void SimpleObjectController::inputMessage( ObjectInputMessage* /*mesage*/ )
-{
-    return;
-}
+//void SimpleObjectController::inputMessage( ObjectInputMessage* /*mesage*/ )
+//{
+//    return;
+//}
 
 //-------------------------------------------------------
 

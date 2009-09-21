@@ -40,8 +40,8 @@ public:
     */
     virtual bool    init( IObjectInputDriver*, IObjectOutputDriver* ) = 0;
 
-signals:
-    void sendTopMessage( ObjectGroupMessage* );
+public slots:
+    virtual void message( GroupObjectMessage* ) = 0;
     //void sendDownMessage( GroupObjectMessage* );
 };
 

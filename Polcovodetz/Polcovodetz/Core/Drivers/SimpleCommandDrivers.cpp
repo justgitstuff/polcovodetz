@@ -3,14 +3,23 @@
 
 #include <Core/Drivers/SimpleCommandDrivers.h>
 
-#include <Core/MultiThreading/CommandThread.h>
+#include <Core/BaseClasses/ICommandController.h>
+
+#include <Core/MultiThreading/CommandState.h>
 
 //-------------------------------------------------------
 
 struct SimpleCommandInputDriverImpl
 {   
     boost::shared_ptr< ICommandController > cc;
-    CommandThread* cThread;
+    CommandState* cState;
+};
+
+//-------------------------------------------------------
+
+struct SimpleCommandOutputDriverImpl
+{   
+    CommandState* cState;
 };
 
 //-------------------------------------------------------
@@ -22,12 +31,11 @@ SimpleCommandInputDriver::SimpleCommandInputDriver()
 
 //-------------------------------------------------------
 
-bool SimpleCommandInputDriver::init( const boost::shared_ptr< ICommandController >& cc, CommandThread& cThread )
+bool SimpleCommandInputDriver::init( const boost::shared_ptr< ICommandController >& cc, CommandState& cState )
 {
     m_impl->cc = cc;
-    m_impl->cThread = &cThread;
+    m_impl->cState = &cState;
 
-//    connect( this, SIGNAL( message( CommandInputMessage* ) ), cc.get(), SLOT( 
     return true;
 }
 
@@ -35,7 +43,7 @@ bool SimpleCommandInputDriver::init( const boost::shared_ptr< ICommandController
 
 void SimpleCommandInputDriver::sendMessage( CoreCommandMessage* msg )
 {
-    emit message( msg );
+    m_impl->cc->message( msg );
 
     return;
 }
@@ -49,7 +57,15 @@ void SimpleCommandInputDriver::sendMessage( GroupCommandMessage* )
 
 //-------------------------------------------------------
 
-bool SimpleCommandOutputDriver::init( const boost::shared_ptr< ICommandController >&/* cc */)
+SimpleCommandOutputDriver::SimpleCommandOutputDriver( CommandState* cState )
+:m_impl( new SimpleCommandOutputDriverImpl() )
+{
+    m_impl->cState = cState;
+}
+
+//-------------------------------------------------------
+
+bool SimpleCommandOutputDriver::init()
 {
     return true;
 }
@@ -59,6 +75,14 @@ bool SimpleCommandOutputDriver::init( const boost::shared_ptr< ICommandControlle
 bool SimpleCommandOutputDriver::dConnect( const boost::shared_ptr< IGroupInputDriver >& )
 {
     return true;
+}
+
+//-------------------------------------------------------
+
+void SimpleCommandOutputDriver::createObjectForDriver( const qint64 driverID, const int objectRTTI )
+{
+    m_impl->cState->createConnectedObject( objectRTTI, driverID );
+    //m_impl->cState
 }
 
 //-------------------------------------------------------

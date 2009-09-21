@@ -48,6 +48,9 @@ signals:
 class ICommandOutputDriver : public IAbstractOutputDriver
 {
     Q_OBJECT;
+
+public:
+    virtual void createObjectForDriver( const qint64 driverID, const int objectRTTI ) = 0;
 };
 
 //-------------------------------------------------------

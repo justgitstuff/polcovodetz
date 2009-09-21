@@ -56,13 +56,13 @@ bool SimpleCommandController::init( ICommandInputDriver* inDriver , ICommandOutp
 {
     m_impl->inDriver  = inDriver;
     m_impl->outDriver = outDriver;
-
+/*
     connect( inDriver,  SIGNAL( message( CoreCommandMessage* ) ), 
              this,      SLOT( message( CoreCommandMessage* ) ) );
 
     connect( inDriver,  SIGNAL( message( GroupCommandMessage* ) ), 
              this,      SLOT( message( GroupCommandMessage* ) ) );
-
+*/
     return true; 
 };
 
@@ -70,9 +70,28 @@ bool SimpleCommandController::init( ICommandInputDriver* inDriver , ICommandOutp
 /**
     В сущности, все действия должны приниматься здесь.
 */
-void SimpleCommandController::message( CoreCommandMessage* )
+void SimpleCommandController::message( CoreCommandMessage* message )
 {
-    //qDebug() << "Started!";
+    switch( message->type )
+    {
+    case CoreCommandMessage::GameStarted :
+        qDebug( "Game started" );
+
+        break;
+    case CoreCommandMessage::ObjectCrached :
+        {
+            m_impl->outDriver->createObjectForDriver( message->who, message->objectRTTI );
+
+            qDebug( "new object created" );
+
+            break;
+        }
+    default:
+        qDebug( "unknown message" );
+
+        break;
+    }
+
     return;
 }
 
