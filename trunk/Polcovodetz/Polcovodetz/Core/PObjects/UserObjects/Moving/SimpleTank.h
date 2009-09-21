@@ -46,6 +46,11 @@ public:
     */
     virtual int  maxShootOnPane()const;
 
+    /**
+        Точка для старта ракеты
+    */
+    virtual QPoint startPoint()const;
+
 
     static PObjectInfo info();
 

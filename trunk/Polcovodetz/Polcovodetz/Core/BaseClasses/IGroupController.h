@@ -39,9 +39,9 @@ public:
     */
     virtual bool    init( IGroupInputDriver*, IGroupOutputDriver* ) = 0;
 
-signals:
-    void sendTopMessage( GroupCommandMessage* );
-    void sendDownMessage( GroupObjectMessage* );
+public slots:
+    virtual void message( ObjectGroupMessage* ) = 0;
+    virtual void message( CommandGroupMessage* )= 0;
 };
 
 //-------------------------------------------------------

@@ -6,8 +6,10 @@
 #include <Core/BaseClasses/IAbstractDrivers.h>
 #include <Core/BaseClasses/Messages.h>
 #include <Core/Common/Map.h>
+#include <Core/Common/MathUtils.h>
 #include <Core/LibraryLoader.h>
 #include <Core/MultiThreading/CalcThread.h>
+#include <Core/MultiThreading/CommandState.h>
 #include <Core/MultiThreading/CommandThread.h>
 #include <Core/PObjects/Interfaces/IShootableObject.h>
 #include <Core/PObjects/PObject.h>
@@ -35,7 +37,11 @@
 
 //-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!
 
-#define GET_THREAD(side) CommandThread& ct = side == 1 ? m_impl->command1 : m_impl->command2;
+#define GET_STATE( side ) CommandState* st = ( side == 1 ? m_impl->thread1 : m_impl->thread2 ).commandState();
+
+#define GET_THREAD(side) CommandThread& ct = side == 1 ? m_impl->thread1 : m_impl->thread2;
+
+#define GET_LOADED_STATE(side) CommandState* st = side == 1 ? m_impl->command1 : m_impl->command2;
 
 //-------------------------------------------------------
 
@@ -43,9 +49,18 @@ PolkApp pApp;
 
 //-------------------------------------------------------
 
+enum GameState
+{
+    Stopped,
+    Running,
+    Paused
+};
+
+//-------------------------------------------------------
+
 struct PolkAppImpl
 {    
-    PolkAppImpl():command1( 1 ), command2( 2 ), calcThread(), coreMutex(){};
+    PolkAppImpl():thread1( 1 ), thread2( 2 ), calcThread(), coreMutex(), state( ::Stopped ) {};
     typedef QMap< long, PtrPObject >           PObjectMap;
     typedef QMap< long, int >                  PObjectSideMap;
 
@@ -67,13 +82,18 @@ struct PolkAppImpl
 
     CalcThread            calcThread;
 
-    CommandThread         command1;
-    CommandThread         command2;
+    CommandThread         thread1;
+    CommandThread         thread2;
+
+    CommandState*         command1;
+    CommandState*         command2;
 
     PObjectMap            removedObjects;
     QVector< PtrPObject > objectsToDelete;
 
     QMutex                coreMutex;
+
+    GameState             state;
 };
 
 //-------------------------------------------------------
@@ -118,7 +138,8 @@ PolkApp::PolkApp()
 //-------------------------------------------------------
 
 PolkApp::~PolkApp()
-{}
+{
+}
 
 //-------------------------------------------------------
 
@@ -181,15 +202,30 @@ bool PolkApp::reloadMap( const QString& fileName )
 
 bool PolkApp::startGame()
 {
-    bool isOk = m_impl->calcThread.start() 
-        && m_impl->command1.start() 
-        && m_impl->command2.start();
+    if( m_impl->state == ::Running )
+        return false;
+
+    m_impl->state = ::Running;
+
+    if( m_impl->state == ::Paused )
+        return m_impl->thread1.start() && m_impl->thread2.start() && m_impl->calcThread.start();
+
+    bool isOk = 
+           m_impl->thread1.start() 
+        && m_impl->thread2.start() 
+        && m_impl->calcThread.start();
 
     if( !isOk )
         return false;
+
+    m_impl->command1 = m_impl->thread1.commandState();
+    m_impl->command2 = m_impl->thread2.commandState();
     
-    m_impl->command1.sendCoreCommandMessage( new CoreCommandMessage( CoreCommandMessage::GameStarted ) );
-    m_impl->command2.sendCoreCommandMessage( new CoreCommandMessage( CoreCommandMessage::GameStarted ) );
+    connect( this, SIGNAL( objectDisposed( const qint64 ) ), m_impl->command1, SLOT( disposeObject( const qint64 ) ) );
+    connect( this, SIGNAL( objectDisposed( const qint64 ) ), m_impl->command2, SLOT( disposeObject( const qint64 ) ) );
+
+    m_impl->command1->sendCoreCommandMessage( new CoreCommandMessage( CoreCommandMessage::GameStarted ) );
+    m_impl->command2->sendCoreCommandMessage( new CoreCommandMessage( CoreCommandMessage::GameStarted ) );
 
     m_impl->currentView->update();
 
@@ -200,13 +236,28 @@ bool PolkApp::startGame()
 
 bool PolkApp::pauseGame()
 {
-    return false;
+    if( m_impl->state != ::Running )
+        return false;
+
+    m_impl->state = ::Paused;
+
+    m_impl->thread1.pause();
+    m_impl->thread2.pause();
+
+    m_impl->calcThread.pause();
+
+    return true;
 }
 
 //-------------------------------------------------------
 
 bool PolkApp::stopGame()
 {
+    /*if( m_impl->State != GameState::Running && m_impl->State != GameState::Paused )
+        return false;
+
+    m_impl->State = GameState::Stopped;*/
+
     return false;
 }
 
@@ -249,9 +300,9 @@ void PolkApp::refreshCoordinate( const PtrPObject& obj, const QPoint& old )
 */
 bool PolkApp::registerCommandController( const int libraryID, const int side )
 {
-    GET_THREAD( side );
+    GET_STATE( side );
 
-    return ct.registerCommandController( libraryID );
+    return st->registerCommandController( libraryID );
 }
 
 //-------------------------------------------------------
@@ -264,9 +315,9 @@ bool PolkApp::registerCommandController( const int libraryID, const int side )
 */
 int PolkApp::registerGroupController( const int libraryID, const int side )
 {
-    GET_THREAD( side );
+    GET_STATE( side );
 
-    return ct.registerGroupController( libraryID );
+    return st->registerGroupController( libraryID );
 }
 
 //-------------------------------------------------------
@@ -280,9 +331,9 @@ int PolkApp::registerGroupController( const int libraryID, const int side )
 */
 int PolkApp::registerObjectController( const int libraryID, const int side, const int gID, const int pObject )
 {
-    GET_THREAD( side );
+    GET_STATE( side );
 
-    return ct.registerObjectController( libraryID, gID, pObject );
+    return st->registerObjectController( libraryID, gID, pObject );
 }
 
 //-------------------------------------------------------
@@ -405,18 +456,18 @@ bool PolkApp::invokeScript( const QString& fileName )
 
 int PolkApp::commandController( const int side )
 {
-    GET_THREAD( side );
+    GET_STATE( side );
 
-    return ct.commandController();
+    return st->commandController();
 }
 
 //-------------------------------------------------------
 
 IDEnumeration PolkApp::groupControllers( const int side )
 {
-    GET_THREAD( side );
+    GET_STATE( side );
 
-    return ct.groupControllers();
+    return st->groupControllers();
 }
 //-------------------------------------------------------
 /**
@@ -426,45 +477,45 @@ IDEnumeration PolkApp::groupControllers( const int side )
 */
 IDEnumeration PolkApp::objectControllers( const int side, const int groupID )
 {
-    GET_THREAD( side );
+    GET_STATE( side );
 
-    return ct.objectControllers( groupID );
+    return st->objectControllers( groupID );
 }
 
 //-------------------------------------------------------
 
 int PolkApp::commandControllerLibId( const int side )
 {
-    GET_THREAD( side );
+    GET_STATE( side );
 
-    return ct.commandControllerLibId();
+    return st->commandControllerLibId();
 }
 
 //-------------------------------------------------------
 
 int PolkApp::groupControllerLibId( const int side, const int groupID )
 {
-    GET_THREAD( side );
+    GET_STATE( side );
 
-    return ct.groupControllerLibId( groupID );
+    return st->groupControllerLibId( groupID );
 }
 
 //-------------------------------------------------------
 
 int PolkApp::objectControllerLibId( const int side, const int objectID )
 {
-    GET_THREAD( side );
+    GET_STATE( side );
 
-    return ct.objectControllerLibId( objectID );
+    return st->objectControllerLibId( objectID );
 }
 
 //-------------------------------------------------------
 
 int PolkApp::objectControllerPObject( const int side, const int objectID )
 {
-    GET_THREAD( side );
+    GET_STATE( side );
 
-    return ct.objectControllerPObject( objectID );
+    return st->objectControllerPObject( objectID );
 }
 
 //-------------------------------------------------------
@@ -500,41 +551,13 @@ bool PolkApp::refreshState()
         int x0 = point.x();
         int y0 = point.y();
 
-        int dx0 = speed.x();
-        int dy0 = speed.y();
-
-        switch( info->rotation )
-        {
-        case 0:
-            {
-                int tmp = dx0;
-                dx0 = +dy0;
-                dy0 = -tmp;
-                break;
-            }
-
-        case 90:
-            break;
-
-        case 180:
-            {
-                int tmp = dx0;
-                dx0 = -dy0;
-                dy0 = +tmp;
-                break;
-            }
-
-        case 270:
-            dx0 = -dx0;
-            dy0 = -dy0;
-            break;
-
-        default:
-            dx0 = dy0 = 0;
-        }
-
-        if( dx0 == 0 && dy0 == 0 )
+        if( speed.x() == 0 && speed.y() == 0 )
             continue;
+
+        QPoint rotatedSpeed = rotatePoint( speed, info->rotation );
+
+        int dx0 = rotatedSpeed.x();
+        int dy0 = rotatedSpeed.y();
 
         QSize size = objectVal->boundSize();
 
@@ -589,13 +612,17 @@ bool PolkApp::refreshState()
 
         const QRect mySelf( point, size );
 
+        int parentID = objectVal->parentID();
+
         for( PolkAppImpl::PObjectMap::ConstIterator iter = m_impl->objectIDs.constBegin();
             iter != m_impl->objectIDs.constEnd();
             iter++ )
         {
             PtrPObject anotherObj = iter.value();
 
-            if( anotherObj->objectID() == id )
+            int anotherId = anotherObj->objectID();
+
+            if( anotherId == id || parentID == anotherId )
                 continue;
 
             QPoint p = anotherObj->position();
@@ -659,16 +686,7 @@ bool PolkApp::refreshState()
 //-------------------------------------------------------
 
 bool PolkApp::userPressKey( Qt::Key key )
-{/*
-    for( int i = 0; i < m_impl->keyMap.size(); i++ )
-    {
-        if( m_impl->keyMap[ i ].first == key )
-        {
-            m_impl->keyMap[ i ].second->processKey( key );
-
-            return true;
-        }
-    }*/
+{
     if( !m_impl->keyMap.contains( key ) )
         return false;
 
@@ -687,8 +705,6 @@ bool PolkApp::registerKey( Qt::Key key, IAbstractInputDriver* driver )
         return false;
 
     m_impl->keyMap.insert( key, driver );
-
-   // m_impl->keyMap.append( QPair< Qt::Key, IAbstractInputDriver* >( key, driver ) );
 
     return true;
 }
@@ -750,9 +766,7 @@ void PolkApp::disposeObject( const PtrPObject& object )
 {
     int side = object->side();
 
-    GET_THREAD( side );
-
-    ct.disposeObject( object );
+    GET_LOADED_STATE( side );
 
     m_impl->objectsToDelete.append( object );
 
@@ -792,8 +806,9 @@ void PolkApp::makeRocket( const PtrPObject& who )
 
     pImpl->rotation = who->rotation();
     pImpl->speed = QPoint( rocket->maxSpeed().x(), 0 );
+    pImpl->coordinate = object->startPoint();
 
-    PtrPObject rocketObject( rocket );
+    PtrPObject rocketObject( rocket ); 
 
     addObjectOnScene( rocketObject );
 }
@@ -802,7 +817,7 @@ void PolkApp::makeRocket( const PtrPObject& who )
 
 void PolkApp::deleteDisposedObjects()
 {
-    QVector< PtrPObject > objects = m_impl->objectsToDelete;
+    QVector< PtrPObject >& objects = m_impl->objectsToDelete;
 
     for( int i = 0; i < objects.size(); i++ )
     {
@@ -815,7 +830,15 @@ void PolkApp::deleteDisposedObjects()
         m_impl->removedObjects[ id ] = obj;
 
         emit objectDeleted( id );
+
+        GET_STATE( obj->side() );
+
+        st->disposeObject( id );
+
+        emit objectDisposed( id );
     }
+
+    objects.clear();
 }
  
 //-------------------------------------------------------

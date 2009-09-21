@@ -13,8 +13,8 @@
 
 //-------------------------------------------------------
 
-SimpleRocket::SimpleRocket( const int side, const int base )
-:AbstractRocket( side, base )
+SimpleRocket::SimpleRocket( const int side, const int parentID )
+:AbstractRocket( side, parentID )
 {
     
 }

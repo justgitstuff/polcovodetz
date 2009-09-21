@@ -19,7 +19,7 @@ class SimpleRocket : public AbstractRocket
     Q_OBJECT;
 
 public:
-    SimpleRocket( const int side, const int base );
+    SimpleRocket( const int side, const int parentID );
 
     virtual const QPixmap& image()const;
     virtual       int      rtti()const{ return SimpleRocket::RTTI; }

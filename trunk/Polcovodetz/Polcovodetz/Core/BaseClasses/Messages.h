@@ -6,6 +6,8 @@
 //-------------------------------------------------------
 
 #include <AbstractMessage.h>
+#include <qglobal.h>
+#include <QPoint>
 
 //-------------------------------------------------------
 /**
@@ -20,13 +22,17 @@ public:
         ObjectCrached
     };
 
-    CoreCommandMessage( Type type )        
+    CoreCommandMessage( Type type )
+        : who( -1 ), point( -1, -1 ), objectRTTI( -1 )
     {
         this->type = type;
     }
 
     Type     type;
-    QVariant info;
+
+    int      objectRTTI;
+    qint64   who;
+    QPoint   point;
 };
 //-------------------------------------------------------
 /**

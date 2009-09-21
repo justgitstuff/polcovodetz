@@ -40,7 +40,7 @@ private:
     */
     boost::shared_ptr< SimpleCommandControllerImpl > m_impl;
 
-private slots:
+public slots:
     virtual void message( CoreCommandMessage* );
     virtual void message( GroupCommandMessage* );
 

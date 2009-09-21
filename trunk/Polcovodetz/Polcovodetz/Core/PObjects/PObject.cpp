@@ -16,9 +16,10 @@ static volatile qint64 g_uniqueID = 1;
 
 //-------------------------------------------------------
 
-PObject::PObject( const int side )
+PObject::PObject( const int side, const qint64 parentID )
         :m_objectID( g_uniqueID++ ),
-        m_side( side )
+        m_side( side ),
+        m_parentID( parentID )
 {
     s_impl.reset( new PObjectSharedImpl() );
 

@@ -67,10 +67,10 @@ bool SimpleGroupController::init( IGroupInputDriver* inDriver , IGroupOutputDriv
 /**
     В сущности, все действия должны приниматься здесь.
 */
-void SimpleGroupController::inputMessage( GroupInputMessage* /*mesage*/ )
-{
-    return;
-}
+//void SimpleGroupController::message( GroupObjectMessage* /*mesage*/ )
+//{
+//    return;
+//}
 
 //-------------------------------------------------------
 

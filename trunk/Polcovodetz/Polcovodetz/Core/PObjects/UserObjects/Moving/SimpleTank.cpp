@@ -90,3 +90,36 @@ int SimpleTank::maxShootOnPane()const
 
 //-------------------------------------------------------
 
+QPoint SimpleTank::startPoint()const
+{
+    QSize size = boundSize();
+
+    int x = position().x();
+    int y = position().y();
+
+    switch( rotation() )
+    {
+    case 0:
+        x += size.width() / 2;
+        break;
+
+    case 90:
+        x += size.width();
+        y += size.height() / 2;
+        break;
+
+    case 180:
+        x += size.width() / 2;
+        y += size.height();
+        break;
+
+    case 270:
+        y += size.height() / 2;
+        break;
+   }
+    
+    return QPoint( x, y );
+}
+
+//-------------------------------------------------------
+

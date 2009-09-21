@@ -48,7 +48,7 @@ public:
         DisposeTwice   = DisposeMyself | DisposeAnother
     };
 
-    PObject( const int side );
+    PObject( const int side, const qint64 parentID = -1 );
 
     virtual ~PObject();
 
@@ -56,6 +56,7 @@ public:
 
     virtual QSize          boundSize()const = 0;
             qint64         objectID()const{ return m_objectID; }
+            qint64         parentID()const{ return m_parentID; }
             int            side()const{ return m_side; }
 
     int                    rotation()const;
@@ -81,6 +82,7 @@ public:
 private:
     const qint64 m_objectID;
     const int    m_side;
+    const qint64 m_parentID;
 
     boost::shared_ptr< PObjectSharedImpl > s_impl;
 };

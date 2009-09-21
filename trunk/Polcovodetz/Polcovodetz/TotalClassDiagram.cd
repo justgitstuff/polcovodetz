@@ -1,0 +1,634 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GroupItem" Collapsed="true">
+    <Position X="21.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAACAAAAAAAgA=</HashCode>
+      <FileName>GUI\TopLevelControls\CommandTreeForm.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectItem" Collapsed="true">
+    <Position X="18.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAgA=</HashCode>
+      <FileName>GUI\TopLevelControls\CommandTreeForm.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommandTreeForm" Collapsed="true">
+    <Position X="25.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABEACAAMAAAgALGAAEAgKgCAQAADAAAAAgAAAAAQ=</HashCode>
+      <FileName>GUI\TopLevelControls\CommandTreeForm.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUIControler" Collapsed="true">
+    <Position X="23.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIABBICAAAAAAAAKAAAAAAAgAAQAQAAAAAAwAIAAAQ=</HashCode>
+      <FileName>GUI\TopLevelControls\GUIControler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainForm" Collapsed="true">
+    <Position X="20" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAKCIAACIAAAKCABIAAAgAERAAAAAAAAgAACAAU=</HashCode>
+      <FileName>GUI\TopLevelControls\MainForm.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapView" Collapsed="true">
+    <Position X="23.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAQAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GUI\SpecialControls\MapView.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PaintArea2D" Collapsed="true">
+    <Position X="20" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACABAACAAAAAAEAKAEAIAAAgAAQIAAAAAAAggAAACQ=</HashCode>
+      <FileName>GUI\SpecialControls\PaintArea2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommandControllerChooseForm" Collapsed="true">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABACCABAAAAAAKAAAAAAAgAAQAAAAAAAAgAAAAIQ=</HashCode>
+      <FileName>GUI\CommonControls\CommandControllerChooseForm.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroupControllerChooseForm" Collapsed="true">
+    <Position X="20" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABACCAAAAAAAAKAAAAAAQgAAQAAAAAAAAwAAAAAQ=</HashCode>
+      <FileName>GUI\CommonControls\GroupControllerChooseForm.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectControllerChooseForm" Collapsed="true">
+    <Position X="25.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABBACCAAEAAAAAKAAAAAAAgAAQAAAAAAAAgAAAAAQ=</HashCode>
+      <FileName>GUI\CommonControls\ObjectControllerChooseForm.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PObjectChooseBox" Collapsed="true">
+    <Position X="21.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACABAACAAAAAABAKAAAAAAAgAAQAAACAAAAgAAAAAQ=</HashCode>
+      <FileName>GUI\CommonControls\PObjectChooseBox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibraryLoader" Collapsed="true">
+    <Position X="18.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABABAACAAEIBAAAKCAAEAAAgAAQAAAAAAAAgACAEFQ=</HashCode>
+      <FileName>Core\LibraryLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PObjectFactory" Collapsed="true">
+    <Position X="23.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAACAAAAAAAEKAAAAAQAgAAQAAAAgAQAgAAABAQ=</HashCode>
+      <FileName>Core\PObjectFactory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PolkApp" Collapsed="true">
+    <Position X="18.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>WAAAFAACFAAADgAUKCAggAQkiBEQAMQAAQCg0AAkAAw=</HashCode>
+      <FileName>Core\PolkApp.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceManager" Collapsed="true">
+    <Position X="20" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEBAACAAAAAAAAKAAAEAAAkAAQAAAAAAAAgAAIAAQ=</HashCode>
+      <FileName>Core\ResourceManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractMessage" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAQQAAAAAAAAA=</HashCode>
+      <FileName>Core\BaseClasses\AbstractMessage.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ILoader" Collapsed="true">
+    <Position X="25.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAoAAABAAIAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\BaseClasses\ILoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreCommandMessage" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\BaseClasses\Messages.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommandCoreMessage" Collapsed="true">
+    <Position X="3.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\BaseClasses\Messages.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroupCommandMessage" Collapsed="true">
+    <Position X="6.25" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\BaseClasses\Messages.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommandGroupMessage" Collapsed="true">
+    <Position X="9" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\BaseClasses\Messages.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroupObjectMessage" Collapsed="true">
+    <Position X="11.75" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\BaseClasses\Messages.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectGroupMessage" Collapsed="true">
+    <Position X="14.25" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\BaseClasses\Messages.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IAbstractDriver" Collapsed="true">
+    <Position X="8.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAAAgAAQAAAAAAAAgAAAAAQ=</HashCode>
+      <FileName>Core\BaseClasses\IAbstractDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IAbstractInputDriver" Collapsed="true">
+    <Position X="4" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAAAgACQAAAAAAAAgAAEAAQ=</HashCode>
+      <FileName>Core\BaseClasses\IAbstractDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IAbstractOutputDriver" Collapsed="true">
+    <Position X="12.5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAAAgAAQAAAAAAAAgAAAAAQ=</HashCode>
+      <FileName>Core\BaseClasses\IAbstractDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ICommandInputDriver" Collapsed="true">
+    <Position X="1.25" Y="6.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAAggAAQAAAAAAAAgAAAACQ=</HashCode>
+      <FileName>Core\BaseClasses\ICommandDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ICommandOutputDriver" Collapsed="true">
+    <Position X="9.5" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAAAgAAQAAAAAAAAiAAAAAQ=</HashCode>
+      <FileName>Core\BaseClasses\ICommandDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IGroupInputDriver" Collapsed="true">
+    <Position X="4.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAAAgAAQAAAAAAAAgAAAACQ=</HashCode>
+      <FileName>Core\BaseClasses\IGroupDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IGroupOutputDriver" Collapsed="true">
+    <Position X="12.5" Y="6.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAAAgAAQAAAAAAAAgAAAAAQ=</HashCode>
+      <FileName>Core\BaseClasses\IGroupDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IObjectInputDriver" Collapsed="true">
+    <Position X="6.75" Y="6.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAAAgAAQAAAAAAAAgAAAACQ=</HashCode>
+      <FileName>Core\BaseClasses\IObjectDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IObjectOutputDriver" Collapsed="true">
+    <Position X="15.25" Y="6.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAAAiAAQAEAAAAAAgAAAAAQ=</HashCode>
+      <FileName>Core\BaseClasses\IObjectDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IAbstractController" Collapsed="true">
+    <Position X="3" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAQAAAKAAAAAAEgAAUAAAAAEAAgAAAAAQ=</HashCode>
+      <FileName>Core\BaseClasses\IAbstractController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ICommandController" Collapsed="true">
+    <Position X="0.5" Y="11" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AgAEBAAAgAAAAAAAKAAAAAAAgAAQAAIAAAAAgAAAAAQ=</HashCode>
+      <FileName>Core\BaseClasses\ICommandController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IGroupController" Collapsed="true">
+    <Position X="3" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAABAAAgAAAAAAAKAAAAAAAgAAQAAIAAAAAgAAAAAQ=</HashCode>
+      <FileName>Core\BaseClasses\IGroupController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IObjectController" Collapsed="true">
+    <Position X="5.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAABAAAAAAAAAAAKAAAAAAAgAAQAAIAAAAAgAAAAAQ=</HashCode>
+      <FileName>Core\BaseClasses\IObjectController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConcurrentQueue&lt;T&gt;" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAgAAAAAAABIAAAIAAAAAAACAQAAAIAAAAYAA=</HashCode>
+      <FileName>Core\Common\ConcurrentQueue.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DualArray&lt;T&gt;" Collapsed="true">
+    <Position X="1.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAQBQAAAACCAAAAAEAKAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Common\DualArray.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Map" Collapsed="true">
+    <Position X="21.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAACABAAAAQAQAAAAAgAAAAAAAAAAAAYAAAAQAA=</HashCode>
+      <FileName>Core\Common\Map.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PObject" Collapsed="true">
+    <Position X="9.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAABAAAAAAAAAQQKICAoAABkAAQYYAAAABIgGAAAAQ=</HashCode>
+      <FileName>Core\PObjects\PObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PObjectSharedImpl" Collapsed="true">
+    <Position X="25.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAASAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\PObjects\PObjectSharedImpl.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractMoveObject" Collapsed="true">
+    <Position X="8.25" Y="11" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAABgAAQAAAAAAAAgBAAAAQ=</HashCode>
+      <FileName>Core\PObjects\UserObjects\Moving\AbstractMoveObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleTank" Collapsed="true">
+    <Position X="8.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAADAAAAEAAICQQKAAAAAAAkAAQYAAEQAAAgCQAAAQ=</HashCode>
+      <FileName>Core\PObjects\UserObjects\Moving\SimpleTank.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractRocket" Collapsed="true">
+    <Position X="10.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAgBgAIQAAAAAAAAgCAAAAQ=</HashCode>
+      <FileName>Core\PObjects\UserObjects\Flying\AbstractRocket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleRocket" Collapsed="true">
+    <Position X="10.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAIAQQKAACAAgBkAAQYAAAQAAAgCAAAAQ=</HashCode>
+      <FileName>Core\PObjects\UserObjects\Flying\SimpleRocket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IShootableObject" Collapsed="true">
+    <Position X="13.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAEAAACAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Core\PObjects\Interfaces\IShootableObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CalcThread" Collapsed="true">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABgACAAAQAAAgKAAAAAAAgAAwAAIAAAAAgAAAIAQ=</HashCode>
+      <FileName>Core\MultiThreading\CalcThread.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommandThread" Collapsed="true">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABiACFAAAQAA0KAggAAAAiAAwIIQEAQCAgAAAIAw=</HashCode>
+      <FileName>Core\MultiThreading\CommandThread.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommandState" Collapsed="true">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAACFAAAQAAUKAwgAAAAiAAQIIQEAQCggAAAAAw=</HashCode>
+      <FileName>Core\MultiThreading\CommandState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleCommandInputDriver" Collapsed="true">
+    <Position X="1" Y="7.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABAACAAAAAAACKAAAAAAggAAQAAIAAAAAgAAEACQ=</HashCode>
+      <FileName>Core\Drivers\SimpleCommandDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleCommandOutputDriver" Collapsed="true">
+    <Position X="9.5" Y="7.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QAAABAACAAAAAAAAKAAAAAAAgAAQAAIAAAEAiEAAAAQ=</HashCode>
+      <FileName>Core\Drivers\SimpleCommandDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleGroupInputDriver" Collapsed="true">
+    <Position X="4" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAAAgAAQAAIAAAEAgAAMAAQ=</HashCode>
+      <FileName>Core\Drivers\SimpleGroupDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleGroupOutputDriver" Collapsed="true">
+    <Position X="12.5" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAKAAAAAAAgAAQAAIAAQEAgAAAAAQ=</HashCode>
+      <FileName>Core\Drivers\SimpleGroupDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleObjectInputDriver" Collapsed="true">
+    <Position X="6.75" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABAACAAAAAAAAKAAAAIAAgACQAAIAAAEEgAAEAAQ=</HashCode>
+      <FileName>Core\Drivers\SimpleObjectDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleObjectOutputDriver" Collapsed="true">
+    <Position X="15.25" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAABAACAAAAAAAAKAAAAAAAiAAQAEIAAAEAgAAAAAQ=</HashCode>
+      <FileName>Core\Drivers\SimpleObjectDrivers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HumanObjectController" Collapsed="true">
+    <Position X="5.25" Y="12.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAIAAAAAAEAAAEEAMAAEAAAAAAAAA=</HashCode>
+      <FileName>Core\HumanControllers\HumanObjectController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="CommandTreeFormImpl" Collapsed="true">
+    <Position X="18.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BEAAAAAAAAAAAABCQEAAEEAgACAACIDAAAAAAAAAAgA=</HashCode>
+      <FileName>GUI\TopLevelControls\CommandTreeForm.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GUIControlerImpl" Collapsed="true">
+    <Position X="23.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAQBAAAAAAAAAAAAAAAQAACAAAAAAAAAABAAA=</HashCode>
+      <FileName>GUI\TopLevelControls\GUIControler.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="MainFormImpl" Collapsed="true">
+    <Position X="21.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAKAJAAgAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GUI\TopLevelControls\MainForm.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PaintArea2DImpl" Collapsed="true">
+    <Position X="18.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQBAAAAAAAAAAABAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GUI\SpecialControls\PaintArea2D.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="CommandControllerChooseFormImpl" Collapsed="true">
+    <Position X="21.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAgA=</HashCode>
+      <FileName>GUI\CommonControls\CommandControllerChooseForm.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GroupControllerChooseFormImpl" Collapsed="true">
+    <Position X="20" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAgA=</HashCode>
+      <FileName>GUI\CommonControls\GroupControllerChooseForm.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ObjectControllerChooseFormImpl" Collapsed="true">
+    <Position X="25.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAgA=</HashCode>
+      <FileName>GUI\CommonControls\ObjectControllerChooseForm.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PObjectChooseBoxImpl" Collapsed="true">
+    <Position X="20" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>GUI\CommonControls\PObjectChooseBox.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="LibraryLoaderImpl" Collapsed="true">
+    <Position X="20" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAABAAAAAAIAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Core\LibraryLoader.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="LibDefinition" Collapsed="true">
+    <Position X="18.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABEBBAQAAAAAAAAAAAAAAAAAAEAEAAAAAAAAAAAAIgA=</HashCode>
+      <FileName>Core\LibraryLoader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PObjectFactoryImpl" Collapsed="true">
+    <Position X="21.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\PObjectFactory.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PolkAppImpl" Collapsed="true">
+    <Position X="25.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACUBCEAAACAgAAAAAAAAACEAAAAAABEAAAAAYACAA=</HashCode>
+      <FileName>Core\PolkApp.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ResourceManagerImpl" Collapsed="true">
+    <Position X="18.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\ResourceManager.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GroupOutputMessage" Collapsed="true">
+    <Position X="21.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Core\BaseClasses\IGroupDrivers.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="MapImpl" Collapsed="true">
+    <Position X="23.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Common\Map.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PObjectInfo" Collapsed="true">
+    <Position X="23.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Core\PObjects\PObject.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="CalcThreadImpl" Collapsed="true">
+    <Position X="20" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Core\MultiThreading\CalcThread.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="CommandThreadImpl" Collapsed="true">
+    <Position X="25.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAIBA=</HashCode>
+      <FileName>Core\MultiThreading\CommandThread.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="CommandStateImpl" Collapsed="true">
+    <Position X="23.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAYCBAEAAAAQAAACAIBAQAAAAAAAAgEAAAAAEAAAIAA=</HashCode>
+      <FileName>Core\MultiThreading\CommandState.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SimpleCommandInputDriverImpl" Collapsed="true">
+    <Position X="20" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Drivers\SimpleCommandDrivers.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SimpleCommandOutputDriverImpl" Collapsed="true">
+    <Position X="21.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Drivers\SimpleCommandDrivers.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SimpleObjectInputDriverImpl" Collapsed="true">
+    <Position X="23.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Drivers\SimpleObjectDrivers.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SimpleObjectOutputDriverImpl" Collapsed="true">
+    <Position X="25.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAgAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Drivers\SimpleObjectDrivers.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="HumanObjectControllerImpl" Collapsed="true">
+    <Position X="25.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Core\HumanControllers\HumanObjectController.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="`anonymous-namespace'::Action" Collapsed="true">
+    <Position X="18.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAgAAAAAAAAAACQ=</HashCode>
+      <FileName>Core\MultiThreading\CommandState.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="LoadFunction" Collapsed="true">
+    <Position X="21.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\LibraryLoader.cpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PObjectInfos" Collapsed="true">
+    <Position X="23.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\PObjectFactory.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="IDEnumeration" Collapsed="true">
+    <Position X="20" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\MultiThreading\CommandThread.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="MapArray" Collapsed="true">
+    <Position X="1.75" Y="15.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Common\Map.cpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PtrPObject" Collapsed="true">
+    <Position X="25.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\PObjects\PObject.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="`anonymous-namespace'::ActionPtr" Collapsed="true">
+    <Position X="18.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\MultiThreading\CommandState.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="ObjectRotation" Collapsed="true">
+    <Position X="21.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Core\BaseClasses\IObjectDrivers.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MapObject" Collapsed="true">
+    <Position X="18.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAABAABAAAIBAAQAAAAgAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Core\Common\Map.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="`anonymous-namespace'::MsgElement" Collapsed="true">
+    <Position X="20" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAACAAAAAgAAAAAAAAAAAAAAACAAEAAAA=</HashCode>
+      <FileName>Core\MultiThreading\CommandState.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

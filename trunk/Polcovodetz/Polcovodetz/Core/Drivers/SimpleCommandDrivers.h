@@ -10,7 +10,7 @@
 
 //-------------------------------------------------------
 
-class CommandThread;
+class CommandState;
 class IGroupInputDriver;
 
 struct SimpleCommandInputDriverImpl;
@@ -29,16 +29,12 @@ class SimpleCommandInputDriver : public ICommandInputDriver
 public:
     SimpleCommandInputDriver();
 
-    bool init( const boost::shared_ptr< ICommandController >&, CommandThread& );
+    bool init( const boost::shared_ptr< ICommandController >&, CommandState& );
 
     void sendMessage( CoreCommandMessage* );
     void sendMessage( GroupCommandMessage* );
 
     bool registerKey( Qt::Key key );
-
-signals:
-    void message( CoreCommandMessage* );
-    void message( GroupCommandMessage* );
 
 private:
     boost::shared_ptr< SimpleCommandInputDriverImpl > m_impl;
@@ -54,13 +50,19 @@ class SimpleCommandOutputDriver : public ICommandOutputDriver
     Q_OBJECT;
 
 public:
-    SimpleCommandOutputDriver(){};
+    SimpleCommandOutputDriver( CommandState* );
+    ~SimpleCommandOutputDriver(){};
 
-    bool init( const boost::shared_ptr< ICommandController >& );
+    bool init();
 
     bool dConnect( const boost::shared_ptr< IGroupInputDriver >& );
 
+    void createObjectForDriver( const qint64 driverID, const int objectRTTI );
+
 private slots:
+
+private:
+    boost::shared_ptr< SimpleCommandOutputDriverImpl > m_impl;
 
 };
 

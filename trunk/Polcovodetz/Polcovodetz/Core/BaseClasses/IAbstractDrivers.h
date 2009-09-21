@@ -10,8 +10,19 @@
 
 class IAbstractDriver : public QObject
 {
-public:
     Q_OBJECT;
+public:
+    IAbstractDriver()
+    {
+        static volatile qint64 id = 1;
+
+        m_id = id++;
+    }
+
+    qint64 driverID()const{ return m_id; }
+
+private:
+    qint64 m_id;
 };
 
 //-------------------------------------------------------
