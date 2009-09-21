@@ -227,99 +227,99 @@
         <translation type="obsolete">Load Command Controller</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="153"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="154"/>
         <source>LoadControlLibrary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="160"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="161"/>
         <source>LibraryName</source>
         <translation>Library name</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="161"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="162"/>
         <source>LibraryDescription</source>
         <translation>Library description</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="166"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="167"/>
         <source>ControllerType</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="167"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="168"/>
         <source>ControllerName</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="168"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="169"/>
         <source>ControllerDescription</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="217"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="225"/>
         <source>OpenMapFile</source>
         <translation>Open map file</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="219"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="227"/>
         <source>MapFiles *.pmap</source>
         <translation>Map files .map</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="226"/>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="245"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="234"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="253"/>
         <source>LoadingError</source>
         <translation>Loading error</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="226"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="234"/>
         <source>ErrorDuringLoadMapFile</source>
         <translation>There are unknown errors during load map file</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="236"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="244"/>
         <source>NativeControllerFile</source>
         <translation>File of Native controller library</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="238"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="246"/>
         <source>All files *.*</source>
         <translation>All files *.*</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="245"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="253"/>
         <source>ErrorDuringLoadNativeControllerFile</source>
         <translation>There are unknown errors during loading file with native controller</translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="270"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="278"/>
         <source>CommandController</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="280"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="288"/>
         <source>GroupController</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="290"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="298"/>
         <source>ObjectController</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="326"/>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="332"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="334"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="340"/>
         <source>ScriptInvoking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="326"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="334"/>
         <source>ScriptFiles | *.script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="332"/>
+        <location filename="../GUI/TopLevelControls/MainForm.cpp" line="340"/>
         <source>ThereAreErrorsDuringInvokingScript</source>
         <translation type="unfinished"></translation>
     </message>
@@ -384,10 +384,19 @@
     </message>
 </context>
 <context>
+    <name>SimpleRocket</name>
+    <message>
+        <location filename="../Core/PObjects/UserObjects/Flying/SimpleRocket.cpp" line="38"/>
+        <location filename="../Core/PObjects/UserObjects/Flying/SimpleRocket.cpp" line="39"/>
+        <source>SimpleRocket</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SimpleTank</name>
     <message>
-        <location filename="../Core/PObjects/UserObjects/Moving/SimpleTank.cpp" line="43"/>
         <location filename="../Core/PObjects/UserObjects/Moving/SimpleTank.cpp" line="44"/>
+        <location filename="../Core/PObjects/UserObjects/Moving/SimpleTank.cpp" line="45"/>
         <source>SimpleTank</source>
         <translation type="unfinished"></translation>
     </message>
