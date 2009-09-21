@@ -11,6 +11,8 @@
 #include <GUI/SpecialControls/Resources/Map/Water.xpm>
 #include <GUI/SpecialControls/Resources/Map/BlueStartPlace.xpm>
 #include <GUI/SpecialControls/Resources/Map/RedStartPlace.xpm>
+#include <GUI/SpecialControls/Resources/Map/BlueFlag.xpm>
+#include <GUI/SpecialControls/Resources/Map/RedFlag.xpm>
 
 #include <QPainter>
 
@@ -40,6 +42,9 @@ const QPixmap& createMapObject( const MapObject object )
     static const QPixmap blueStartPlace = mergePixmap( empty, QPixmap(  bluestartplace_xpm ) );
     static const QPixmap redStartPlace  = mergePixmap( empty, QPixmap( redstartplace_xpm ) );    
 
+    static const QPixmap blueFlag = mergePixmap( empty, QPixmap( blueflag_xpm ) );
+    static const QPixmap redFlag  = mergePixmap( empty, QPixmap( redflag_xpm ) );    
+
     switch( object )
     {
     case Brick :
@@ -54,6 +59,10 @@ const QPixmap& createMapObject( const MapObject object )
         return blueStartPlace;
     case SecondCommandBox :
         return redStartPlace;
+    case FirsrCommandFlag :
+        return blueFlag;
+    case SecondCommandFlag :
+        return redFlag;
     default:
         return empty;
     }
