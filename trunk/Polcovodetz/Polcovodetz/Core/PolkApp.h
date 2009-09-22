@@ -17,6 +17,7 @@ class  QPoint;
 class  QWidget;
 class  GUIControler;
 class  PrtPObject;
+class  WinState;
 
 enum   MapObject;
 
@@ -87,6 +88,8 @@ signals:
 
            void                objectDisposed( const qint64 );
 
+           void                gameOver( const WinState& );
+
 public slots:
            bool          startGame();
            bool          pauseGame();
@@ -101,7 +104,6 @@ private:
 
            void          refreshCoordinate( const PtrPObject& obj, const QPoint& old ); 
            void          refreshCoordinate( const PtrPObject& obj );
-
 
 inline     bool          canComeIn( const PtrPObject& who, const MapObject where );
 inline     void          deleteDisposedObjects();
