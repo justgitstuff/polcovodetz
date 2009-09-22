@@ -14,6 +14,7 @@
 #include <Core/PObjects/Interfaces/IShootableObject.h>
 #include <Core/PObjects/PObject.h>
 #include <Core/PObjects/PObjectSharedImpl.h>
+#include <Core/WinState.h>
 
 #include <GUI/SpecialControls/PaintArea2D.h>
 
@@ -94,6 +95,8 @@ struct PolkAppImpl
     QMutex                coreMutex;
 
     GameState             state;
+
+    WinState              winState;
 };
 
 //-------------------------------------------------------
@@ -522,6 +525,16 @@ int PolkApp::objectControllerPObject( const int side, const int objectID )
 
 bool PolkApp::canComeIn( const PtrPObject& who, const MapObject where )
 {
+    PObject* object = who.get();
+
+    AbstractRocket* rocket = dynamic_cast< AbstractRocket* >( object );
+
+    if( rocket != 0 )
+    {
+        if( where == FirsrCommandFlag )
+            ;
+    }
+
     if( where == Brick || where == Stone || where == Empty )
         return false;
 
@@ -764,10 +777,6 @@ PtrPObject PolkApp::getNewObject( const int side, const int rtti )
 
 void PolkApp::disposeObject( const PtrPObject& object )
 {
-    int side = object->side();
-
-    GET_LOADED_STATE( side );
-
     m_impl->objectsToDelete.append( object );
 
     return;
