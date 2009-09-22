@@ -17,7 +17,7 @@ class  QPoint;
 enum MapObject { Empty = 0, 
                  Grassland, Brick, Water, Stone, 
                  FirstCommandBox, SecondCommandBox, 
-                 FirsrCommandFlag, SecondCommandFlag,
+                 FirstCommandFlag, SecondCommandFlag,
                  Count };
     
 class Map

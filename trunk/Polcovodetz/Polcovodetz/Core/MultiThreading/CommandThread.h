@@ -29,7 +29,7 @@ public:
 
     bool start(); //asynchronus
     bool pause(); //asynchronus
-    bool stop();  //asynchronus
+    bool stop(){ return pause(); }  //asynchronus
 
 protected:
     void run();

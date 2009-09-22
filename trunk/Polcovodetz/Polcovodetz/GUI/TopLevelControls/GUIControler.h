@@ -34,7 +34,7 @@ public slots:
 private:
     boost::shared_ptr< GUIControlerImpl > m_impl;
 
-
+    void updatePosition( const PtrPObject&, QGraphicsPixmapItem* );
 };
 
 //-----------------------------------------------------------------

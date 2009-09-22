@@ -17,8 +17,8 @@ public:
     WinState();
     ~WinState();
 
-    int  winner()const;
-    void setWinner( int );
+    int  winnerSide()const;
+    void setWinnerSide( int );
 
 private:
     boost::shared_ptr< WinStateImpl > m_impl;   

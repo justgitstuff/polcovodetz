@@ -136,6 +136,11 @@ PolkApp::PolkApp()
     m_impl.reset( new PolkAppImpl() );
 
     m_impl->currentView  = 0;
+
+    qRegisterMetaType<PtrPObject>( "PtrPObject" );
+    qRegisterMetaType<WinState>( "WinState" );
+
+    connect( this, SIGNAL( gameOver( const WinState& ) ), SLOT( stopGame() ) );
 }
 
 //-------------------------------------------------------
@@ -173,8 +178,6 @@ QWidget* PolkApp::currentView()const
     if( m_impl->currentView == 0 )
     {
         m_impl->currentView = new GUIControler();
-
-        qRegisterMetaType<PtrPObject>( "PtrPObject" );
 
         connect( this, SIGNAL( updateVisualState() ),              m_impl->currentView, SLOT( updateObjects() ) );
         connect( this, SIGNAL( objectAdded( const PtrPObject& ) ), m_impl->currentView, SLOT( addPObject( const PtrPObject& ) ) );
@@ -256,10 +259,14 @@ bool PolkApp::pauseGame()
 
 bool PolkApp::stopGame()
 {
-    /*if( m_impl->State != GameState::Running && m_impl->State != GameState::Paused )
+    if( m_impl->state != GameState::Running && m_impl->state != GameState::Paused )
         return false;
 
-    m_impl->State = GameState::Stopped;*/
+    m_impl->state = ::Stopped;
+
+    m_impl->calcThread.stop();
+    m_impl->thread1.stop();
+    m_impl->thread2.stop();
 
     return false;
 }
@@ -531,8 +538,22 @@ bool PolkApp::canComeIn( const PtrPObject& who, const MapObject where )
 
     if( rocket != 0 )
     {
-        if( where == FirsrCommandFlag )
-            ;
+        if( where == FirstCommandFlag )
+        {
+            m_impl->winState.setWinnerSide( 1 );
+
+            emit gameOver( m_impl->winState );
+
+            return false;
+        }
+        if( where == SecondCommandFlag )
+        {
+            m_impl->winState.setWinnerSide( 2 );
+
+            emit gameOver( m_impl->winState );
+
+            return false;
+        }
     }
 
     if( where == Brick || where == Stone || where == Empty )
