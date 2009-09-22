@@ -25,14 +25,14 @@ WinState::~WinState()
 
 //-------------------------------------------------------
 
-int WinState::winner()const
+int WinState::winnerSide()const
 {
     return m_impl->side;
 }
 
 //-------------------------------------------------------
 
-void WinState::setWinner( int side )
+void WinState::setWinnerSide( int side )
 {
     m_impl->side = side;
 }

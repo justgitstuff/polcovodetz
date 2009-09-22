@@ -48,9 +48,9 @@ void GUIControler::addPObject( const PtrPObject& obj )
 
     m_impl->objects.insert( id, obj );
 
-    QGraphicsPixmapItem* item = new QGraphicsPixmapItem( 0, this );
+    QGraphicsPixmapItem* item = new QGraphicsPixmapItem( obj->image(), 0, this );
     item->setZValue( 1 );
-    item->setPixmap( obj->image() );
+    updatePosition( obj, item );
 
     m_impl->drawingItems.insert( id, item );
 
@@ -87,6 +87,36 @@ void GUIControler::updateMap()
 
 //--------------------------------------------------------------------------
 
+void GUIControler::updatePosition( const PtrPObject& object, QGraphicsPixmapItem* view )
+{
+    qint64 id = object->objectID();
+
+    int x = ( object->position().x() * SQUARE_SIZE ) / PolkApp::SQUARE_SIZE;
+    int y = ( object->position().y() * SQUARE_SIZE ) / PolkApp::SQUARE_SIZE;
+
+    view->setPos( x, y );
+    
+    int newRotation = object->rotation();
+
+    int oldRotation = m_impl->rotationMap[ id ];
+
+    if( oldRotation != newRotation )
+    {
+        const QPixmap& image = object->image();
+
+        int width  = image.width();
+        int height = image.height();
+
+        view->setPixmap( object->image( newRotation ) );
+
+        m_impl->rotationMap[ id ] = newRotation;  
+
+        //update( QRect( x - width / 2, y-height / 2, width * 2, height * 2 ) );
+    }
+}
+
+//--------------------------------------------------------------------------
+
 void GUIControler::updateObjects()
 {
     for( GUIControlerImpl::ObjectMap::ConstIterator iter = m_impl->objects.constBegin();
@@ -100,26 +130,7 @@ void GUIControler::updateObjects()
         if( view == 0 )
             continue;
 
-        int x = ( object->position().x() * SQUARE_SIZE ) / PolkApp::SQUARE_SIZE;
-        int y = ( object->position().y() * SQUARE_SIZE ) / PolkApp::SQUARE_SIZE;
-        
-        int newRotation = object->rotation();
-        const QPixmap& image = object->image();
-
-        int width  = image.width();
-        int height = image.height();
-
-        int oldRotation = m_impl->rotationMap[ id ];
-        if( oldRotation != newRotation )
-        {
-            view->setPixmap( object->image( newRotation ) );
-
-            m_impl->rotationMap[ id ] = newRotation;  
-
-            update( QRect( x - width/2, y-height/2, width*2, height*2 ) );
-        }
-
-        view->setPos( x, y );
+        updatePosition( object, view );
     }
 
     if( m_impl->index % 400 == 0 )

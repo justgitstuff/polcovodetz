@@ -59,7 +59,7 @@ const QPixmap& createMapObject( const MapObject object )
         return blueStartPlace;
     case SecondCommandBox :
         return redStartPlace;
-    case FirsrCommandFlag :
+    case FirstCommandFlag :
         return blueFlag;
     case SecondCommandFlag :
         return redFlag;
