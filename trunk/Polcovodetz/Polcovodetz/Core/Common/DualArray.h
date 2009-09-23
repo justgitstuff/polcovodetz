@@ -6,7 +6,8 @@
 
 //-------------------------------------------------------
 
-#include<QVector>
+#include <QPoint>
+#include <QVector>
 
 //-------------------------------------------------------
 
@@ -20,13 +21,19 @@ public:
     virtual ~DualArray(){}
 
     T     objectAt( const int x, const int y )const;
-    void  setObjectAt(  const int x, const int y, const T& value );
+    T     objectAt( const QPoint& p )const{ return objectAt( p.x(), p.y() ); }
+
+    void  setObjectAt( const int x, const int y, const T& value );
+    void  setObjectAt( const QPoint& p, const T& value ){ return setObjectAt( p.x(), p.y(), value ); }
 
     int   width()const{ return m_width; }
     int   height()const{ return m_height; }
 
+    bool  isInRange( int x, int y ){ return x >= 0 && y >= 0 && x < m_width && y < m_height; }
+    bool  isInRange( const QPoint& p ){ return isInRange( p.x(), p.y() ); }
+
 private:
-    void init(  const int width, const int height, const QVector< T >& values );
+    void init( const int width, const int height, const QVector< T >& values );
 
     QVector< T > m_values;
 
@@ -65,10 +72,12 @@ T DualArray< T >::objectAt( const int x, const int y )const
 //-------------------------------------------------------
 
 template< class T >
-void DualArray< T >::setObjectAt( const int width, const int height, const T& value )
+void DualArray< T >::setObjectAt( const int x, const int y, const T& value )
 {
-    if( width * height < m_values.count() )
-        m_values[ width + m_height * height ] = value;
+    if( !isInRange( x, y ) )
+        return;
+
+    m_values[ x + m_height * y ] = value;
 }
 
 //-------------------------------------------------------

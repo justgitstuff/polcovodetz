@@ -41,9 +41,16 @@ Map::~Map()
 
 //--------------------------------------------------------------------------
 
+MapObject Map::objectAt( const QPoint& where ) const 
+{
+    return objectAt( where.x(), where.y() );
+}
+
+//--------------------------------------------------------------------------
+
 MapObject Map::objectAt( const int x,  const int y ) const 
 {
-    if ( x < 0 || y < 0 || x >= m_impl->values.width() || y >= m_impl->values.height() )
+    if ( !m_impl->values.isInRange( x, y ) )
         return Empty;
 
     return m_impl->values.objectAt( x, y );
