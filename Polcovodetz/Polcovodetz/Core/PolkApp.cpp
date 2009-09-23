@@ -259,7 +259,7 @@ bool PolkApp::pauseGame()
 
 bool PolkApp::stopGame()
 {
-    if( m_impl->state != GameState::Running && m_impl->state != GameState::Paused )
+    if( m_impl->state != ::Running && m_impl->state != ::Paused )
         return false;
 
     m_impl->state = ::Stopped;
