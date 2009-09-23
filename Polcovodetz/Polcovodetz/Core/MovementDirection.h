@@ -9,6 +9,8 @@
 
 struct MovementDirectionImpl;
 
+class QPoint;
+
 //-------------------------------------------------------
 
 class MovementDirection
@@ -27,6 +29,8 @@ public:
     static const int Right = 90;
     static const int Down  = 180;
     static const int Left  = 270;
+
+    static MovementDirection createDirection( const QPoint& from, const QPoint& to );
 
 private:
     boost::shared_ptr< MovementDirectionImpl > m_impl;

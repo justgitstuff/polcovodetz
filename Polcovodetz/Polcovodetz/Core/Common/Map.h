@@ -28,6 +28,7 @@ public:
     ~Map();
 
     MapObject objectAt( const int x, const int y )const; //ассимптотика O(1)
+    MapObject objectAt( const QPoint& )const;            //ассимптотика O(1)
 
     void setObjectAt( const int x, const int y, const MapObject );
 

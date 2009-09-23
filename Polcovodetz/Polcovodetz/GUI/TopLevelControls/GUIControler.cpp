@@ -102,16 +102,9 @@ void GUIControler::updatePosition( const PtrPObject& object, QGraphicsPixmapItem
 
     if( oldRotation != newRotation )
     {
-        const QPixmap& image = object->image();
-
-        int width  = image.width();
-        int height = image.height();
-
         view->setPixmap( object->image( newRotation ) );
 
         m_impl->rotationMap[ id ] = newRotation;  
-
-        //update( QRect( x - width / 2, y-height / 2, width * 2, height * 2 ) );
     }
 }
 
@@ -133,9 +126,8 @@ void GUIControler::updateObjects()
         updatePosition( object, view );
     }
 
-    if( m_impl->index % 400 == 0 )
-        update();
-  //  update();
+   /* if( m_impl->index % 400 == 0 )
+        update();*/
 }
 
 //--------------------------------------------------------------------------

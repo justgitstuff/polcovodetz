@@ -4,6 +4,7 @@
 //-------------------------------------------------------
 
 #include <Core/PObjects/PObject.h>
+
 #include <boost/shared_ptr.hpp>
 
 #include <QVector>
@@ -81,6 +82,26 @@ static const int               SQUARE_SIZE = 2 << 14;
            */
            void                disposeObject( const PtrPObject& object );
 
+           /**
+            Может ли объект войти в клетку
+           */
+              bool             checkComeIn( const PtrPObject& who, const MapObject& where );
+
+           /**
+            Может ли объект войти в клетку
+           */
+       static bool             canComeIn( const PtrPObject& who, const MapObject& where );
+
+           /**
+            Может ли нелетающий объект войти в клетку
+           */
+       static bool             canComeIn( const MapObject& where );
+
+           /**
+            Может ли летающий объект войти в клетку
+           */
+       static bool             canFlyIn( const MapObject& where );
+
 signals:
            void                updateVisualState();
            void                objectDeleted( const qint64 id );
@@ -105,7 +126,6 @@ private:
            void          refreshCoordinate( const PtrPObject& obj, const QPoint& old ); 
            void          refreshCoordinate( const PtrPObject& obj );
 
-inline     bool          canComeIn( const PtrPObject& who, const MapObject where );
 inline     void          deleteDisposedObjects();
 
 };

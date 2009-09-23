@@ -530,11 +530,9 @@ int PolkApp::objectControllerPObject( const int side, const int objectID )
 
 //-------------------------------------------------------
 
-bool PolkApp::canComeIn( const PtrPObject& who, const MapObject where )
-{
-    PObject* object = who.get();
-
-    AbstractRocket* rocket = dynamic_cast< AbstractRocket* >( object );
+bool PolkApp::checkComeIn( const PtrPObject& who, const MapObject& where )
+{    
+    AbstractRocket* rocket = dynamic_cast< AbstractRocket* >( who.get() );
 
     if( rocket != 0 )
     {
@@ -543,26 +541,46 @@ bool PolkApp::canComeIn( const PtrPObject& who, const MapObject where )
             m_impl->winState.setWinnerSide( 1 );
 
             emit gameOver( m_impl->winState );
-
-            return false;
         }
         if( where == SecondCommandFlag )
         {
             m_impl->winState.setWinnerSide( 2 );
 
             emit gameOver( m_impl->winState );
-
-            return false;
         }
     }
+    return PolkApp::canComeIn( who, where );
+}
 
-    if( where == Brick || where == Stone || where == Empty )
-        return false;
+//-------------------------------------------------------
 
-    if( where == Water && !who->canFly() )
-        return false;
+bool PolkApp::canComeIn( const PtrPObject& who, const MapObject& where )
+{
+    if( where == Grassland || where == FirstCommandBox || where == FirstCommandBox )
+        return true;
+
+    if( ( where == Water ) && who->canFly() )
+        return true;
     
-    return true;
+    return false;
+}
+
+//-------------------------------------------------------
+
+bool PolkApp::canComeIn( const MapObject& where )
+{
+    static PtrPObject tank( new SimpleTank( 0 ) );
+
+    return canComeIn( tank, where );
+}
+
+//-------------------------------------------------------
+
+bool PolkApp::canFlyIn( const MapObject& where )
+{
+    static PtrPObject rocket( new SimpleRocket( 0, 0 ) );
+
+    return canComeIn( rocket, where );
 }
 
 //-------------------------------------------------------
@@ -628,7 +646,7 @@ bool PolkApp::refreshState()
             {
                 MapObject objTop = objectAt( x1 + width, y1 );
                 MapObject objBottom = objectAt( x1 + width, y1 + height );
-                if( !canComeIn( objectVal, objTop ) || !canComeIn( objectVal, objBottom ) )
+                if( !checkComeIn( objectVal, objTop ) || !checkComeIn( objectVal, objBottom ) )
                 {
                     calculateObject( objectVal, x0, y0, x1, y1 );//cX * SQUARE_SIZE + SQUARE_SIZE - width;
                 }
@@ -637,7 +655,7 @@ bool PolkApp::refreshState()
             {
                 MapObject objTop = objectAt( x1, y1 );
                 MapObject objBottom = objectAt( x1, y1 + height );
-                if( !canComeIn( objectVal, objTop ) || !canComeIn( objectVal, objBottom ) )
+                if( !checkComeIn( objectVal, objTop ) || !checkComeIn( objectVal, objBottom ) )
                 {
                     calculateObject( objectVal, x0, y0, x1, y1 );//cX * SQUARE_SIZE;
                 }
