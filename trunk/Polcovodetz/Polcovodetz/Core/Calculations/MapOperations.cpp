@@ -75,6 +75,8 @@ MapOperations::MapOperations( const Map& map )
 :m_impl( new MapOperationsImpl() )
 {
     m_impl->map = map;
+
+    m_impl->recalculatePaths();
 }
 
 //-------------------------------------------------------
@@ -87,24 +89,14 @@ MapOperations::~MapOperations()
 //-------------------------------------------------------
 
 void MapOperationsImpl::recalculatePaths()
-{/*
-    nearestPoint = DualArray< QPair< QPoint, QPoint > >( map.objectCount(), map.objectCount(),  
-
+{
     for( int x = 0; x < map.width(); x++ )
         for( int y = 0; y < map.height(); y++ )
         {
             QPoint begin( x, y );
-
-            DualArray< int > path = calculatePath( begin );
-
-             for( int x2 = 0; x2 < map.width(); x2++ )
-                for( int y2 = 0; y2 < map.height(); y2++ )
-                {
-                     QPoint end( x2, y2 );
-
-                     nearestPoint( QPair< QPoint, QPoint > ( begin, end ) ) = path.objectAt( x2, y2 );
-                }
-        }*/
+    
+            calculatePath( begin );
+        }
 }
 
 //-------------------------------------------------------
