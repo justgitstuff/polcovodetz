@@ -64,6 +64,13 @@ bool SimpleObjectController::init( IObjectInputDriver* inDriver , IObjectOutputD
 };
 
 //-------------------------------------------------------
+
+void SimpleObjectController::message( CoreObjectMessage* )
+{
+    return;
+}
+
+//-------------------------------------------------------
 /**
     В сущности, все действия должны приниматься здесь.
 */
