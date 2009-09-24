@@ -278,7 +278,7 @@ bool CommandState::connectDrivers()
         {
             boost::shared_ptr< IObjectController > oc( libLoader.loadObjectController( m_impl->ocLibs[ *iter ] ) );
 
-            boost::shared_ptr< SimpleObjectInputDriver >  oid ( new SimpleObjectInputDriver() );
+            boost::shared_ptr< SimpleObjectInputDriver >  oid ( new SimpleObjectInputDriver( this ) );
             boost::shared_ptr< SimpleObjectOutputDriver > ood ( new SimpleObjectOutputDriver( this ) );
 
             m_impl->driversMap.insert( oid->driverID(), oid );

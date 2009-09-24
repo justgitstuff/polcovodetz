@@ -28,12 +28,14 @@ class SimpleObjectInputDriver : public IObjectInputDriver
     Q_OBJECT;
 
 public:
-    SimpleObjectInputDriver();
+    SimpleObjectInputDriver( CommandState* state );
     ~SimpleObjectInputDriver();
 
     bool init( const boost::shared_ptr< IObjectController >& );
 
     bool dConnect( const boost::shared_ptr< IGroupOutputDriver >& );
+
+    virtual MovementDirection nearesPointToFlag()const;
     
     bool registerKey( Qt::Key key );
 

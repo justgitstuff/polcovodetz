@@ -4,14 +4,14 @@
 //-------------------------------------------------------
 
 #include <boost/shared_ptr.hpp>
-#include <Core/MovementDirection.h>
+#include <Core/Common/MovementDirection.h>
+
+#include <QPoint.h>
 
 //-------------------------------------------------------
 
 class Map;
 struct MapOperationsImpl;
-
-class QPoint;
 
 //-------------------------------------------------------
 
@@ -21,7 +21,9 @@ public:
     MapOperations( const Map& );
     ~MapOperations();
 
-    MovementDirection nearestPointFromPath( const QPoint& start, const QPoint& stop );
+    MovementDirection nearestPointFromPath( const QPoint& start, const QPoint& stop )const;
+
+    QPoint            flagPoint( int side )const;
 
 private:
     boost::shared_ptr< MapOperationsImpl > m_impl;
