@@ -13,6 +13,7 @@
 struct SimpleObjectInputDriverImpl
 {
     boost::shared_ptr< IObjectController > controller;
+    CommandState*                          state;
 };
 
 //-------------------------------------------------------
@@ -23,14 +24,15 @@ struct SimpleObjectOutputDriverImpl
 
     PtrPObject                             connectedObject;
 
-    CommandState*                         state;
+    CommandState*                          state;
 };
 
 //-------------------------------------------------------
 
-SimpleObjectInputDriver::SimpleObjectInputDriver()
+SimpleObjectInputDriver::SimpleObjectInputDriver( CommandState* state )
 :IObjectInputDriver(), m_impl( new SimpleObjectInputDriverImpl())
 {
+    m_impl->state = state;
 }
 
 //-------------------------------------------------------
@@ -138,6 +140,13 @@ void SimpleObjectOutputDriver::makeAttack()
     PtrPObject who = m_impl->connectedObject;
 
     m_impl->state->makeRocket( who );
+}
+
+//-------------------------------------------------------
+
+MovementDirection SimpleObjectInputDriver::nearesPointToFlag()const
+{
+    return MovementDirection();
 }
 
 //-------------------------------------------------------

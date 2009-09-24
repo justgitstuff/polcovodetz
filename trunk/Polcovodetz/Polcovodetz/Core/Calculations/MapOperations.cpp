@@ -8,7 +8,6 @@
 
 #include <QMap>
 #include <QPair>
-#include <QPoint>
 #include <QQueue>
 
 //-------------------------------------------------------
@@ -55,6 +54,16 @@ public:
 
 //-------------------------------------------------------
 
+struct CommandData
+{
+    CommandData():flag( -1, -1 ){}
+
+    QPoint flag;
+
+};
+
+//-------------------------------------------------------
+
 struct MapOperationsImpl
 {
     Map map;
@@ -62,7 +71,12 @@ struct MapOperationsImpl
     QMap< QPair< MyPoint, MyPoint >, QPoint > nearestPointMap;
     QMap< QPair< MyPoint, MyPoint >, int >    pathMap;
 
+    CommandData command1;
+    CommandData command2;
+
     void recalculatePaths();
+
+    inline CommandData& command( int side ){ return side == 1 ? command1 : command2; }
 
 private:    
     void inline calculatePath( const MyPoint& start );
@@ -147,7 +161,7 @@ void MapOperationsImpl::pushIfOk( const MyPoint& where, const int newValue, QQue
 
 //-------------------------------------------------------
 
-MovementDirection MapOperations::nearestPointFromPath( const QPoint& start, const QPoint& stop )
+MovementDirection MapOperations::nearestPointFromPath( const QPoint& start, const QPoint& stop )const
 {
     MapObject startObject = m_impl->map.objectAt( start );
     MapObject stopObject  = m_impl->map.objectAt( stop );
@@ -156,6 +170,27 @@ MovementDirection MapOperations::nearestPointFromPath( const QPoint& start, cons
         return MovementDirection();
 
     return MovementDirection::createDirection( start, m_impl->nearestPointMap[ QPair< MyPoint, MyPoint > ( start, stop ) ] );
+}
+
+//-------------------------------------------------------
+
+QPoint MapOperations::flagPoint( int side )const
+{    
+    MapObject flagObject = side == 1 ? FirstCommandFlag : SecondCommandFlag;
+
+    if( m_impl->command( side ).flag.x() == -1 || m_impl->command( side ).flag.y() == -1 )
+    {
+        for( int x = 0; x < m_impl->map.width(); x++ )
+            for( int y = 0; y < m_impl->map.height(); y++ )
+            {
+                if( m_impl->map.objectAt( x, y ) == flagObject )
+                {
+                    m_impl->command( side ).flag = QPoint( x, y );
+                }
+            }
+    }
+
+    return  m_impl->command( side ).flag;    
 }
 
 //-------------------------------------------------------

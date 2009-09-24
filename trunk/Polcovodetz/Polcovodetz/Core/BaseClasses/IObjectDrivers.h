@@ -7,6 +7,7 @@
 
 #include <IAbstractDrivers.h>
 #include <PObject.h>
+#include <MovementDirection.h>
 
 //-------------------------------------------------------
 
@@ -35,6 +36,8 @@ class IObjectInputDriver : public IAbstractInputDriver
 {
 public:
     Q_OBJECT;
+
+    virtual MovementDirection nearesPointToFlag()const = 0;
 
 signals:
     /**
