@@ -65,7 +65,6 @@ void CommandThread::run()
         QThread::sleep( 1 );
 
     m_impl->state->connectDrivers();
-    m_impl->state->initDrivers();
 
     while( 1 )
     {        
