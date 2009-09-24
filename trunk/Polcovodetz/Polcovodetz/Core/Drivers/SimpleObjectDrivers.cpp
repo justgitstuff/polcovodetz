@@ -4,7 +4,8 @@
 #include <Core/Drivers/SimpleObjectDrivers.h>
 
 #include <Core/BaseClasses/IObjectController.h>
-
+#include <Core/Calculations/DriverHelper.h>
+#include <Core/Calculations/MapOperations.h>
 #include <Core/MultiThreading/CommandState.h>
 #include <Core/PolkApp.h>
 
@@ -14,6 +15,9 @@ struct SimpleObjectInputDriverImpl
 {
     boost::shared_ptr< IObjectController > controller;
     CommandState*                          state;
+    MapOperations*                         mapOperations;
+
+    PtrPObject                             connectedObject;
 };
 
 //-------------------------------------------------------
@@ -33,6 +37,8 @@ SimpleObjectInputDriver::SimpleObjectInputDriver( CommandState* state )
 :IObjectInputDriver(), m_impl( new SimpleObjectInputDriverImpl())
 {
     m_impl->state = state;
+
+    m_impl->mapOperations = state->driverHelper()->mapOperations();
 }
 
 //-------------------------------------------------------
@@ -53,6 +59,15 @@ bool SimpleObjectInputDriver::init( const boost::shared_ptr< IObjectController >
 
 bool SimpleObjectOutputDriver::init( const boost::shared_ptr< IObjectController >& /*oc */)
 {
+    return true;
+}
+
+//-------------------------------------------------------
+
+bool SimpleObjectInputDriver::oConnect( const PtrPObject& object )
+{
+    m_impl->connectedObject = object;
+
     return true;
 }
 
@@ -146,7 +161,13 @@ void SimpleObjectOutputDriver::makeAttack()
 
 MovementDirection SimpleObjectInputDriver::nearesPointToFlag()const
 {
-    return MovementDirection();
+    QPoint flag = m_impl->mapOperations->flagPoint( m_impl->state->side() );
+
+    QPoint position = m_impl->connectedObject->position();
+
+    position /= PolkApp::SQUARE_SIZE;
+
+    return m_impl->mapOperations->nearestPointFromPath( position, flag );
 }
 
 //-------------------------------------------------------

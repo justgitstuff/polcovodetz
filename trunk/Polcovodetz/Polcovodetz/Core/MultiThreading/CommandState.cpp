@@ -70,6 +70,12 @@ CommandState::CommandState( const int side )
 
 //-------------------------------------------------------
 
+int CommandState::side()const
+{
+    return m_impl->side;
+}
+
+//-------------------------------------------------------
 void CommandState::sendInnerMessages( const int maxMessages )
 {
     for( int msgCount = 0; !m_impl->actionsQueue.isEmpty() && msgCount < maxMessages; msgCount++ )
@@ -411,6 +417,13 @@ void CommandState::createConnectedObject( const int rtti, const qint64 driverID 
 
         m_impl->objectsMap.insert( id, outDriver );
     }
+}
+
+//-------------------------------------------------------
+
+DriverHelper* CommandState::driverHelper()const
+{
+    return m_impl->driverHelper.get();
 }
 
 //-------------------------------------------------------

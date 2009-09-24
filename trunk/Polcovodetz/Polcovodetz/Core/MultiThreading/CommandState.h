@@ -15,6 +15,7 @@
 struct CommandStateImpl;
 class CoreCommandMessage;
 class AbstractMessage;
+class DriverHelper;
 
 //-------------------------------------------------------
 
@@ -51,6 +52,8 @@ public:
     
     CommandState( const int side );
 
+    int                 side()const;
+
     bool                registerCommandController( const int libraryID );
     int                 registerGroupController( const int libraryID );
     int                 registerObjectController( const int libraryID, const int gID, const int pObject );
@@ -75,6 +78,8 @@ public:
 
     bool                connectDrivers();
     void                sendInnerMessages( const int maxMessages = 100 );
+
+    DriverHelper*       driverHelper()const;
 
 public slots:
     void                disposeObject( const qint64 id );
