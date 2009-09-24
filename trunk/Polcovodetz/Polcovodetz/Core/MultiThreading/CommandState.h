@@ -74,7 +74,6 @@ public:
     void                makeRocket( const PtrPObject& who );
 
     bool                connectDrivers();
-    bool                initDrivers();
     void                sendInnerMessages( const int maxMessages = 100 );
 
 public slots:

@@ -5,6 +5,7 @@
 #include <Core/BaseClasses/IGroupController.h>
 #include <Core/BaseClasses/IObjectController.h>
 #include <Core/BaseClasses/Messages.h>
+#include <Core/Calculations/DriverHelper.h>
 #include <Core/Common/ConcurrentQueue.h>
 #include <Core/Drivers/SimpleCommandDrivers.h>
 #include <Core/Drivers/SimpleGroupDrivers.h>
@@ -55,6 +56,8 @@ struct CommandStateImpl
     QMutex mutex;
 
     int side;
+
+    boost::shared_ptr< DriverHelper > driverHelper;
 };
 
 //-------------------------------------------------------
@@ -220,6 +223,8 @@ int CommandState::objectControllerPObject( const int objectID )
 
 bool CommandState::connectDrivers()
 {
+    m_impl->driverHelper.reset( new DriverHelper( pApp.map() ) );
+
     m_impl->cController.reset( libLoader.loadCommandController( m_impl->ccID ) );
 
     SimpleCommandInputDriver*  cid = new SimpleCommandInputDriver();
@@ -300,15 +305,6 @@ bool CommandState::connectDrivers()
 
         m_impl->gControllers[ id ] = gc;        
     }
-
-    return true;
-}
-
-//-------------------------------------------------------
-
-bool CommandState::initDrivers()
-{
-    m_impl->cController->init( m_impl->ciDriver.get(), m_impl->coDriver.get() );
 
     return true;
 }
