@@ -34,8 +34,9 @@ public:
     bool init( const boost::shared_ptr< IObjectController >& );
 
     bool dConnect( const boost::shared_ptr< IGroupOutputDriver >& );
+    bool oConnect( const PtrPObject& object );
 
-    virtual MovementDirection nearesPointToFlag()const;
+    MovementDirection nearesPointToFlag()const;
     
     bool registerKey( Qt::Key key );
 
