@@ -37,6 +37,7 @@ public:
 
 public slots:
     virtual void message( GroupObjectMessage* ){};
+    virtual void message( CoreObjectMessage* );
 
 private:    
     /**

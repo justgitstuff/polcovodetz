@@ -6,7 +6,6 @@
 //-------------------------------------------------------
 
 #include <AbstractMessage.h>
-#include <qglobal.h>
 #include <QPoint>
 
 //-------------------------------------------------------
@@ -42,6 +41,23 @@ class CommandCoreMessage : public AbstractMessage
 {
     enum Type 
     { };
+};
+//-------------------------------------------------------
+/**
+    Класс - ядра к объекту
+*/
+class CoreObjectMessage : public AbstractMessage
+{
+    enum Type 
+    {
+        /**
+            Смена квадрата.
+            В поле point выставляется предыдущее значение.
+        */
+        SquareChanged
+    };
+
+    QPoint  point;
 };
 
 //-------------------------------------------------------

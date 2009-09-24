@@ -41,6 +41,7 @@ public:
     virtual bool    init( IObjectInputDriver*, IObjectOutputDriver* ) = 0;
 
 public slots:
+    virtual void message( CoreObjectMessage* ) = 0;
     virtual void message( GroupObjectMessage* ) = 0;
     //void sendDownMessage( GroupObjectMessage* );
 };

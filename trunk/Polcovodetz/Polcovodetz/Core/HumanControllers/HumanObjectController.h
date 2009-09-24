@@ -31,6 +31,7 @@ public:
 
 public slots:
     virtual void message( GroupObjectMessage* );
+    virtual void message( CoreObjectMessage* ){};
 
 public slots:
    virtual void keyPressed( const Qt::Key );
