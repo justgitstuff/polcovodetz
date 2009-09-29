@@ -30,8 +30,9 @@ public:
    virtual bool wantListenKeys()const{ return true; }
 
 public slots:
-    virtual void message( GroupObjectMessage* );
-    virtual void message( CoreObjectMessage* ){};
+    virtual void message( CoreObjectMessage* );
+    virtual void message( CommandObjectMessage* ){};
+    virtual void message( GroupObjectMessage* ){};
 
 public slots:
    virtual void keyPressed( const Qt::Key );

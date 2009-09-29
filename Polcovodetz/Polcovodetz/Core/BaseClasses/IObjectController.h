@@ -42,7 +42,7 @@ public:
 public slots:
     virtual void message( CoreObjectMessage* ) = 0;
     virtual void message( GroupObjectMessage* ) = 0;
-    //void sendDownMessage( GroupObjectMessage* );
+    virtual void message( CommandObjectMessage* ) = 0;
 };
 
 //-------------------------------------------------------

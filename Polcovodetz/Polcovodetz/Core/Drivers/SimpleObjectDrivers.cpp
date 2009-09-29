@@ -134,3 +134,24 @@ MovementDirection SimpleObjectDriver::nearesPointToFlag()const
 
 //-------------------------------------------------------
 
+void SimpleObjectDriver::message( CoreObjectMessage* msg )
+{
+    m_impl->controller->message( msg );
+}
+
+//-------------------------------------------------------
+
+void SimpleObjectDriver::message( GroupObjectMessage* msg )
+{
+    m_impl->controller->message( msg );
+}
+
+//-------------------------------------------------------
+
+void SimpleObjectDriver::message( CommandObjectMessage* msg )
+{
+    m_impl->controller->message( msg );
+}
+
+//-------------------------------------------------------
+
