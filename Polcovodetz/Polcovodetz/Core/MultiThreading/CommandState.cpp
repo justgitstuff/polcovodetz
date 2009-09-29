@@ -22,7 +22,7 @@
 
 struct CommandStateImpl
 {
-    typedef QMap< qint64, SimpleObjectOutputDriver* > ObjectOutDriversMap;
+    typedef QMap< qint64, SimpleObjectDriver* > ObjectOutDriversMap;
 
     typedef QMap< qint64, boost::shared_ptr< IAbstractDriver > > DriversMap;
 
@@ -45,6 +45,8 @@ struct CommandStateImpl
 
     QMap< int, boost::shared_ptr< IGroupController > >   gControllers;//map: group controller id to his controller
     QMap< int, QVector< boost::shared_ptr< IObjectController > > >  oControllers;//map: group controller id to his controller
+    
+    QMap< int, SimpleObjectDriver* >                oDrivers; //map: PtrPObject id to his driver
 
     ObjectOutDriversMap objectsMap;
     DriversMap driversMap;
@@ -98,6 +100,14 @@ void CommandState::sendInnerMessages( const int maxMessages )
                         CoreCommandMessage* msg = ( CoreCommandMessage* )action->message.get();
 
                         m_impl->ciDriver->sendMessage( msg );
+
+                        break;
+                    }
+                case ObjectController:
+                    {
+                        CoreObjectMessage* msg = ( CoreObjectMessage* )action->message.get();
+
+                        
 
                         break;
                     }
@@ -284,33 +294,34 @@ bool CommandState::connectDrivers()
         {
             boost::shared_ptr< IObjectController > oc( libLoader.loadObjectController( m_impl->ocLibs[ *iter ] ) );
 
-            boost::shared_ptr< SimpleObjectInputDriver >  oid ( new SimpleObjectInputDriver( this ) );
-            boost::shared_ptr< SimpleObjectOutputDriver > ood ( new SimpleObjectOutputDriver( this ) );
+            boost::shared_ptr< SimpleObjectDriver >  od ( new SimpleObjectDriver( this ) );
 
-            m_impl->driversMap.insert( oid->driverID(), oid );
-            m_impl->driversMap.insert( ood->driverID(), ood );
+            m_impl->driversMap.insert( od->driverID(), od );
             
-            oid->init( oc );
-            ood->init( oc );
+            od->init( oc );
 
-            god->dConnect( oid );
-            oid->dConnect( god );
-
-            oc->init( oid.get(), ood.get() );
+            oc->init( od.get() );
 
             PtrPObject newObj = pApp.getNewObject( m_impl->side, 1 );
-            ood->dConnect( newObj );
+            od->oConnect( newObj );
 
-            m_impl->objectsMap.insert( newObj->objectID(), ood.get() );
+            m_impl->objectsMap.insert( newObj->objectID(), od.get() );
 
             m_impl->oControllers[ id ].append( oc );
 
-            m_impl->driverStorage.append( oid );
-            m_impl->driverStorage.append( ood );
+            m_impl->driverStorage.append( od );
         }
 
         m_impl->gControllers[ id ] = gc;        
     }
+
+    /*
+    for( CommandStateImpl::DriversMap::ConstIterator iter = m_impl->driversMap.constBegin();
+         iter != m_impl->driversMap.constEnd();
+         iter++ )
+    {
+        CoreObjectMessage* msg = new CoreObjectMessage( iter.value()->
+    }*/
 
     return true;
 }
@@ -351,7 +362,7 @@ bool CommandState::setRotation( const PtrPObject& object, int angle )
 
 void CommandState::disposeObject( const qint64 id )
 {
-    SimpleObjectOutputDriver* outDriver = m_impl->objectsMap[ id ];
+    SimpleObjectDriver* outDriver = m_impl->objectsMap[ id ];
 
     if( outDriver != 0 )
     {
@@ -360,7 +371,7 @@ void CommandState::disposeObject( const qint64 id )
         if( object.get() == 0 )
             return;
 
-        outDriver->dConnect( PtrPObject() );
+        outDriver->oConnect( PtrPObject() );
 
         CoreCommandMessage* objectCrached = new CoreCommandMessage( CoreCommandMessage::ObjectCrached );
 
@@ -387,24 +398,17 @@ void CommandState::createConnectedObject( const int rtti, const qint64 driverID 
 {
     QMutexLocker( &m_impl->mutex );
 
-    for( CommandStateImpl::DriversMap::ConstIterator iter = m_impl->driversMap.constBegin();
-         iter != m_impl->driversMap.constEnd();
-         iter++ )
-    {
-        boost::shared_ptr< IAbstractDriver > driver = iter.value();
-    }
-
     if( !( m_impl->driversMap.contains( driverID ) ) )
         return;
 
-    IAbstractDriver* driver = m_impl->driversMap[ driverID ].get();
+    IAbstractDriver* aDriver  = m_impl->driversMap[ driverID ].get();
 
-    SimpleObjectOutputDriver* outDriver = dynamic_cast< SimpleObjectOutputDriver* >( driver );
+    SimpleObjectDriver* driver = dynamic_cast< SimpleObjectDriver* >( aDriver );
 
-    if( outDriver == 0 )
+    if( driver == 0 )
         return;
 
-    if( outDriver->pObject().get() != 0 )
+    if( driver->pObject().get() != 0 )
         return;
 
     PtrPObject object = pApp.getNewObject( m_impl->side, rtti );
@@ -413,9 +417,9 @@ void CommandState::createConnectedObject( const int rtti, const qint64 driverID 
     {
         qint64 id = object->objectID();
 
-        outDriver->dConnect( object );
+        driver->oConnect( object );
 
-        m_impl->objectsMap.insert( id, outDriver );
+        m_impl->oDrivers.insert( id, driver );
     }
 }
 

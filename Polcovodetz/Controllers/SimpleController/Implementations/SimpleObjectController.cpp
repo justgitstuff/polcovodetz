@@ -7,8 +7,7 @@
 
 struct SimpleObjectControllerImpl
 {
-    IObjectInputDriver*  inDriver;
-    IObjectOutputDriver* outDriver;
+    IObjectDriver*  driver;
 };
 
 //-------------------------------------------------------
@@ -42,19 +41,18 @@ QString SimpleObjectController::description()const
 
 //-------------------------------------------------------
 /**
-    Здесь будет полезнным сохранить указатели на классы IObjectInputDriver
-    и IObjectOutputDriver. 
+    Здесь будет полезнным сохранить указатели на классы IObjectDriver
+    и IObjectDriver. 
 
     Напомним, что ядро ( PolkApp ) гарантирует, что драйвера удаляются ПОСЛЕ
     каждого раунда игры, причем, необходимое условие: к драйверу не подсоединен
     ни один объект.
 */
-bool SimpleObjectController::init( IObjectInputDriver* inDriver , IObjectOutputDriver* outDriver )
+bool SimpleObjectController::init( IObjectDriver* driver )
 {
-    m_impl->inDriver  = inDriver;
-    m_impl->outDriver = outDriver;
+    m_impl->driver  = driver;
 
-    connect( inDriver, SIGNAL( message( ObjectInputMessage* ) ), 
+    connect( driver, SIGNAL( message( ObjectInputMessage* ) ), 
              this,     SLOT( inputMessage( ObjectInputMessage* ) ) );
 
     connect( this,    SIGNAL( outputMessage( ObjectOutputMessage* ) ), 

@@ -12,8 +12,7 @@
 
 struct HumanObjectControllerImpl
 {
-    IObjectInputDriver*  inDriver;
-    IObjectOutputDriver* outDriver;
+    IObjectDriver*  driver;
 };
 
 //-------------------------------------------------------
@@ -46,23 +45,22 @@ QString HumanObjectController::description()const
 
 //-------------------------------------------------------
 /**
-    Здесь будет полезнным сохранить указатели на классы IObjectInputDriver
-    и IObjectOutputDriver. 
+    Здесь будет полезнным сохранить указатели на классы IObjectDriver
+    и IObjectDriver. 
 
     Напомним, что ядро ( PolkApp ) гарантирует, что драйвера удаляются ПОСЛЕ
     каждого раунда игры, причем, необходимое условие: к драйверу не подсоединен
     ни один объект.
 */
-bool HumanObjectController::init( IObjectInputDriver* inDriver , IObjectOutputDriver* outDriver )
+bool HumanObjectController::init( IObjectDriver* driver )
 {
-    m_impl->inDriver  = inDriver;
-    m_impl->outDriver = outDriver;
+    m_impl->driver  = driver;
 
-    inDriver->registerKey( Qt::Key_Left );
-    inDriver->registerKey( Qt::Key_Right );
-    inDriver->registerKey( Qt::Key_Up );
-    inDriver->registerKey( Qt::Key_Down );
-    inDriver->registerKey( Qt::Key_Space );
+    driver->registerKey( Qt::Key_Left );
+    driver->registerKey( Qt::Key_Right );
+    driver->registerKey( Qt::Key_Up );
+    driver->registerKey( Qt::Key_Down );
+    driver->registerKey( Qt::Key_Space );
 
     return true; 
 };
@@ -75,35 +73,35 @@ void HumanObjectController::keyPressed( const Qt::Key key )
     {
     case Qt::Key_Left :
         {
-            m_impl->outDriver->setRotation( ToLeft );
-            m_impl->outDriver->setSpeed( 100 );
+            m_impl->driver->setRotation( ToLeft );
+            m_impl->driver->setSpeed( 100 );
 
             break;
         }
     case Qt::Key_Right :
         {
-            m_impl->outDriver->setRotation( ToRight );
-            m_impl->outDriver->setSpeed( 100 );
+            m_impl->driver->setRotation( ToRight );
+            m_impl->driver->setSpeed( 100 );
 
             break;
         }
     case Qt::Key_Up :
         {            
-            m_impl->outDriver->setRotation( ToTop );
-            m_impl->outDriver->setSpeed( 100 );
+            m_impl->driver->setRotation( ToTop );
+            m_impl->driver->setSpeed( 100 );
 
             break;
         }
     case Qt::Key_Down :
         {
-            m_impl->outDriver->setRotation( ToBottom );
-            m_impl->outDriver->setSpeed( 100 );
+            m_impl->driver->setRotation( ToBottom );
+            m_impl->driver->setSpeed( 100 );
 
             break;
         }
     case Qt::Key_Space :
         {
-            m_impl->outDriver->makeAttack();
+            m_impl->driver->makeAttack();
 
             break;
         }

@@ -11,8 +11,10 @@
 
 //-------------------------------------------------------
 
-struct SimpleObjectInputDriverImpl
+struct SimpleObjectDriverImpl
 {
+    SimpleObjectDriverImpl():connectedObject(){}
+
     boost::shared_ptr< IObjectController > controller;
     CommandState*                          state;
     MapOperations*                         mapOperations;
@@ -20,21 +22,11 @@ struct SimpleObjectInputDriverImpl
     PtrPObject                             connectedObject;
 };
 
-//-------------------------------------------------------
-
-struct SimpleObjectOutputDriverImpl
-{
-    SimpleObjectOutputDriverImpl():connectedObject(){}
-
-    PtrPObject                             connectedObject;
-
-    CommandState*                          state;
-};
 
 //-------------------------------------------------------
 
-SimpleObjectInputDriver::SimpleObjectInputDriver( CommandState* state )
-:IObjectInputDriver(), m_impl( new SimpleObjectInputDriverImpl())
+SimpleObjectDriver::SimpleObjectDriver( CommandState* state )
+:IObjectDriver(), m_impl( new SimpleObjectDriverImpl())
 {
     m_impl->state = state;
 
@@ -43,28 +35,22 @@ SimpleObjectInputDriver::SimpleObjectInputDriver( CommandState* state )
 
 //-------------------------------------------------------
 
-SimpleObjectInputDriver::~SimpleObjectInputDriver()
+SimpleObjectDriver::~SimpleObjectDriver()
 {
 }
 
 //-------------------------------------------------------
 
-bool SimpleObjectInputDriver::init( const boost::shared_ptr< IObjectController >& oc )
+bool SimpleObjectDriver::init( const boost::shared_ptr< IObjectController >& oc )
 {
     m_impl->controller = oc;
+
     return true;
 }
 
 //-------------------------------------------------------
 
-bool SimpleObjectOutputDriver::init( const boost::shared_ptr< IObjectController >& /*oc */)
-{
-    return true;
-}
-
-//-------------------------------------------------------
-
-bool SimpleObjectInputDriver::oConnect( const PtrPObject& object )
+bool SimpleObjectDriver::oConnect( const PtrPObject& object )
 {
     m_impl->connectedObject = object;
 
@@ -73,21 +59,14 @@ bool SimpleObjectInputDriver::oConnect( const PtrPObject& object )
 
 //-------------------------------------------------------
 
-bool SimpleObjectInputDriver::dConnect( const boost::shared_ptr< IGroupOutputDriver >& )
-{
-    return true;
-}
-
-//-------------------------------------------------------
-
-bool SimpleObjectInputDriver::registerKey( Qt::Key key )
+bool SimpleObjectDriver::registerKey( Qt::Key key )
 {
     return pApp.registerKey( key, this );
 }
 
 //-------------------------------------------------------
 
-void SimpleObjectInputDriver::processKey( Qt::Key key )
+void SimpleObjectDriver::processKey( Qt::Key key )
 {
     if( m_impl->controller->wantListenKeys() )
         m_impl->controller->keyPressed( key );
@@ -95,38 +74,21 @@ void SimpleObjectInputDriver::processKey( Qt::Key key )
 
 //-------------------------------------------------------
 
-SimpleObjectOutputDriver::SimpleObjectOutputDriver( CommandState* state )
-:m_impl( new SimpleObjectOutputDriverImpl() )
-{
-    m_impl->state = state;
-}
-
-//-------------------------------------------------------
-
-bool SimpleObjectOutputDriver::dConnect( const PtrPObject& object )
-{
-    m_impl->connectedObject = object;
-
-    return true;
-}
-
-//-------------------------------------------------------
-
-PtrPObject& SimpleObjectOutputDriver::pObject()
+PtrPObject& SimpleObjectDriver::pObject()
 {
     return m_impl->connectedObject;
 }
 
 //-------------------------------------------------------
 
-void SimpleObjectOutputDriver::setSpeed( const int persent )
+void SimpleObjectDriver::setSpeed( const int persent )
 {
     m_impl->state->setSpeed( pObject(), QPoint( persent, 0 ) );
 }
 
 //-------------------------------------------------------
 
-void SimpleObjectOutputDriver::setRotation( const ObjectRotation& rotation )
+void SimpleObjectDriver::setRotation( const ObjectRotation& rotation )
 {
     switch( rotation )
     {
@@ -150,7 +112,7 @@ void SimpleObjectOutputDriver::setRotation( const ObjectRotation& rotation )
 
 //-------------------------------------------------------
 
-void SimpleObjectOutputDriver::makeAttack()
+void SimpleObjectDriver::makeAttack()
 {
     PtrPObject who = m_impl->connectedObject;
 
@@ -159,7 +121,7 @@ void SimpleObjectOutputDriver::makeAttack()
 
 //-------------------------------------------------------
 
-MovementDirection SimpleObjectInputDriver::nearesPointToFlag()const
+MovementDirection SimpleObjectDriver::nearesPointToFlag()const
 {
     QPoint flag = m_impl->mapOperations->flagPoint( m_impl->state->side() );
 
