@@ -10,7 +10,6 @@
 
 //-------------------------------------------------------
 
-class IObjectInputDriver;
 class ICommandOutputDriver;
 
 //-------------------------------------------------------
@@ -46,8 +45,6 @@ public:
     SimpleGroupOutputDriver(){};
 
     bool init( const boost::shared_ptr< IGroupController >& );
-
-    bool dConnect( const boost::shared_ptr< IObjectInputDriver >& );
 };
 
 //-------------------------------------------------------

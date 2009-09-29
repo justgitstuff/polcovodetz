@@ -30,32 +30,14 @@ enum ObjectRotation
 
 //-------------------------------------------------------
 /**
-    Драйвер, отвечающий за взаимодействия с коммандиров группы
+    Драйвер
 */
-class IObjectInputDriver : public IAbstractInputDriver
+class IObjectDriver : public IAbstractInputDriver
 {
-public:
     Q_OBJECT;
 
+public:
     virtual MovementDirection nearesPointToFlag()const = 0;
-
-signals:
-    /**
-        Сигнал приема сообщений.
-    */
-    void message( GroupObjectMessage* mesage );
-};
-
-//-------------------------------------------------------
-/**
-    Драйвер, отвечающий за взаимодействие коммандира объекта с 
-    самим объектов, если он создан
-*/
-class IObjectOutputDriver : public IAbstractOutputDriver
-{
-    Q_OBJECT;
-
-public:
 
     virtual PtrPObject& pObject() = 0;
 
@@ -74,6 +56,12 @@ public:
         Выпускает снаряд
     */
     virtual void makeAttack() = 0;
+
+signals:
+    /**
+        Сигнал приема сообщений.
+    */
+    void message( GroupObjectMessage* mesage );
 };
 
 //-------------------------------------------------------

@@ -210,14 +210,14 @@
       <FileName>Core\BaseClasses\IGroupDrivers.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IObjectInputDriver" Collapsed="true">
+  <Class Name="IObjectDriver" Collapsed="true">
     <Position X="6.75" Y="6.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAAAAAKAAAAAAAgAAQAAAAAAAAgAAAACQ=</HashCode>
       <FileName>Core\BaseClasses\IObjectDrivers.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IObjectOutputDriver" Collapsed="true">
+  <Class Name="IObjectDriver" Collapsed="true">
     <Position X="15.25" Y="6.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAAAAAKAAAAAAAiAAQAEAAAAAAgAAAAAQ=</HashCode>
@@ -371,14 +371,14 @@
       <FileName>Core\Drivers\SimpleGroupDrivers.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SimpleObjectInputDriver" Collapsed="true">
+  <Class Name="SimpleObjectDriver" Collapsed="true">
     <Position X="6.75" Y="7.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAABAACAAAAAAAAKAAAAIAAgACQAAIAAAEEgAAEAAQ=</HashCode>
       <FileName>Core\Drivers\SimpleObjectDrivers.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SimpleObjectOutputDriver" Collapsed="true">
+  <Class Name="SimpleObjectDriver" Collapsed="true">
     <Position X="15.25" Y="7.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AIAABAACAAAAAAAAKAAAAAAAiAAQAEIAAAEAgAAAAAQ=</HashCode>
@@ -539,14 +539,14 @@
       <FileName>Core\Drivers\SimpleCommandDrivers.cpp</FileName>
     </TypeIdentifier>
   </Struct>
-  <Struct Name="SimpleObjectInputDriverImpl" Collapsed="true">
+  <Struct Name="SimpleObjectDriverImpl" Collapsed="true">
     <Position X="23.5" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Core\Drivers\SimpleObjectDrivers.cpp</FileName>
     </TypeIdentifier>
   </Struct>
-  <Struct Name="SimpleObjectOutputDriverImpl" Collapsed="true">
+  <Struct Name="SimpleObjectDriverImpl" Collapsed="true">
     <Position X="25.25" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAgAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>

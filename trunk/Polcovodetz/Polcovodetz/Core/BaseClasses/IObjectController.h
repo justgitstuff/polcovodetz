@@ -10,8 +10,7 @@
 
 //-------------------------------------------------------
 
-class IObjectInputDriver;
-class IObjectOutputDriver;
+class IObjectDriver;
 
 //-------------------------------------------------------
 /**
@@ -38,7 +37,7 @@ public:
        Из-за асинхронности класс может опаздать к началу игры, т. к. 
        долго конфигурировался.
     */
-    virtual bool    init( IObjectInputDriver*, IObjectOutputDriver* ) = 0;
+    virtual bool    init( IObjectDriver* ) = 0;
 
 public slots:
     virtual void message( CoreObjectMessage* ) = 0;

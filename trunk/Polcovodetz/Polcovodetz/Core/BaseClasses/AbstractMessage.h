@@ -18,10 +18,15 @@
 class AbstractMessage
 {
 public:
-    AbstractMessage(){};
+    AbstractMessage( int id = -1 ):m_id( id ){};
 
     void setInfo( const QVariant& );
     QVariant info()const;
+
+    int id()const;
+
+private:
+    int m_id;
 };
 
 //-------------------------------------------------------

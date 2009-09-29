@@ -24,7 +24,7 @@ public:
    virtual QString name()const;
    virtual QString description()const;
 
-   virtual bool    init( IObjectInputDriver*, IObjectOutputDriver* );
+   virtual bool    init( IObjectDriver* );
 
     /**True, если собираемся обрабатывать нажатия клавиш*/
    virtual bool wantListenKeys()const{ return true; }

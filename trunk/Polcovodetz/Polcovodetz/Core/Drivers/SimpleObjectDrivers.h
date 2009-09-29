@@ -11,8 +11,7 @@
 
 //-------------------------------------------------------
 
-struct SimpleObjectInputDriverImpl;
-struct SimpleObjectOutputDriverImpl;
+struct SimpleObjectDriverImpl;
 
 class IGroupOutputDriver;
 
@@ -23,17 +22,18 @@ class CommandState;
 /**
 
 */
-class SimpleObjectInputDriver : public IObjectInputDriver
+class SimpleObjectDriver : public IObjectDriver
 {
     Q_OBJECT;
 
 public:
-    SimpleObjectInputDriver( CommandState* state );
-    ~SimpleObjectInputDriver();
+    SimpleObjectDriver( CommandState* state );
+    ~SimpleObjectDriver();
 
     bool init( const boost::shared_ptr< IObjectController >& );
+   
+    virtual PtrPObject& pObject();
 
-    bool dConnect( const boost::shared_ptr< IGroupOutputDriver >& );
     bool oConnect( const PtrPObject& object );
 
     MovementDirection nearesPointToFlag()const;
@@ -44,27 +44,6 @@ public:
     Вызывается ядром для уведомления нажатия клавиши
     */
     virtual void processKey( Qt::Key key );
-
-private:
-    boost::shared_ptr< SimpleObjectInputDriverImpl > m_impl;
-};
-
-//-------------------------------------------------------
-/**
- 
-*/
-class SimpleObjectOutputDriver : public IObjectOutputDriver
-{
-    Q_OBJECT;
-
-public:
-    SimpleObjectOutputDriver( CommandState* state );
-
-    bool init( const boost::shared_ptr< IObjectController >& );
-
-    bool dConnect( const PtrPObject& );
-    
-    virtual PtrPObject& pObject();
 
     /**
         Устанавливает скорость как процент от максимальной.
@@ -83,7 +62,7 @@ public:
     virtual void makeAttack();
 
 private:
-    boost::shared_ptr< SimpleObjectOutputDriverImpl > m_impl;
+    boost::shared_ptr< SimpleObjectDriverImpl > m_impl;
 };
 
 //-------------------------------------------------------

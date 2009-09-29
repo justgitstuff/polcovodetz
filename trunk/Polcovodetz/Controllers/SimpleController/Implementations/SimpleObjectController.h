@@ -33,7 +33,7 @@ public:
     virtual QString name()const;
     virtual QString description()const;
 
-    virtual bool    init( IObjectInputDriver*, IObjectOutputDriver* );
+    virtual bool    init( IObjectDriver* );
 
 public slots:
     virtual void message( GroupObjectMessage* ){};

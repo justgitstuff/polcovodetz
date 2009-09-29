@@ -48,13 +48,21 @@ class CommandCoreMessage : public AbstractMessage
 */
 class CoreObjectMessage : public AbstractMessage
 {
+public:
+    CoreObjectMessage( int id ): AbstractMessage( id ){}
+
     enum Type 
     {
         /**
             Смена квадрата.
             В поле point выставляется предыдущее значение.
         */
-        SquareChanged
+        SquareChanged,
+
+        /**
+            При создании нового объекта.
+        */
+        Recreated
     };
 
     QPoint  point;
