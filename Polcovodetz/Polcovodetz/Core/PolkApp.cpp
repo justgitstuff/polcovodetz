@@ -230,8 +230,8 @@ bool PolkApp::startGame()
     connect( this, SIGNAL( objectDisposed( const qint64 ) ), m_impl->command1, SLOT( disposeObject( const qint64 ) ) );
     connect( this, SIGNAL( objectDisposed( const qint64 ) ), m_impl->command2, SLOT( disposeObject( const qint64 ) ) );
 
-    m_impl->command1->sendCoreCommandMessage( new CoreCommandMessage( CoreCommandMessage::GameStarted ) );
-    m_impl->command2->sendCoreCommandMessage( new CoreCommandMessage( CoreCommandMessage::GameStarted ) );
+    m_impl->command1->sendMessage( boost::shared_ptr< AbstractMessage >( new CoreCommandMessage( CoreCommandMessage::GameStarted ) ) );
+    m_impl->command2->sendMessage( boost::shared_ptr< AbstractMessage >( new CoreCommandMessage( CoreCommandMessage::GameStarted ) ) );
 
     m_impl->currentView->update();
 

@@ -32,16 +32,23 @@ public:
     int      objectRTTI;
     qint64   who;
     QPoint   point;
+
+    virtual int rtti()const{ return RTTI; }
+
+    static const int RTTI = 1;
 };
+
 //-------------------------------------------------------
-/**
-    Класс - сообщение от главного командира к ядру
-*/
-class CommandCoreMessage : public AbstractMessage
+
+class CoreGroupMessage : public AbstractMessage
 {
-    enum Type 
-    { };
+public:
+
+    virtual int rtti()const{ return RTTI; }
+
+    static const int RTTI = 2;
 };
+
 //-------------------------------------------------------
 /**
     Класс - ядра к объекту
@@ -66,7 +73,42 @@ public:
     };
 
     QPoint  point;
+
+    virtual int rtti()const{ return RTTI; }
+
+    static const int RTTI = 3;
 };
+
+//-------------------------------------------------------
+/**
+    Класс - сообщение от главного командира к коммандующего группой
+*/
+class CommandGroupMessage : public AbstractMessage
+{
+ public:
+   enum Type 
+    { };
+
+    virtual int rtti()const{ return RTTI; }
+
+    static const int RTTI = 4;
+};
+
+//-------------------------------------------------------
+/**
+    
+*/
+class CommandObjectMessage : public AbstractMessage
+{
+public:
+    enum Type 
+    { };
+
+    virtual int rtti()const{ return RTTI; }
+
+    static const int RTTI = 5;
+};
+
 
 //-------------------------------------------------------
 /**
@@ -74,20 +116,15 @@ public:
 */
 class GroupCommandMessage : public AbstractMessage
 {
+public:
     enum Type 
     {
         GameStarted
     };
 
-};
-//-------------------------------------------------------
-/**
-    Класс - сообщение от главного командира к коммандующего группой
-*/
-class CommandGroupMessage : public AbstractMessage
-{
-    enum Type 
-    { };
+    virtual int rtti()const{ return RTTI; }
+
+    static const int RTTI = 6;
 };
 
 //-------------------------------------------------------
@@ -96,20 +133,43 @@ class CommandGroupMessage : public AbstractMessage
 */
 class GroupObjectMessage : public AbstractMessage
 {
+public:
     enum Type 
     {
         GameStarted
     };
 
+    virtual int rtti()const{ return RTTI; }
+
+    static const int RTTI = 7;
 };
+
 //-------------------------------------------------------
 /**
     Класс - сообщение от командира объекта к командиру группы
 */
 class ObjectGroupMessage : public AbstractMessage
 {
+public:
     enum Type 
     { };
+
+    virtual int rtti()const{ return RTTI; }
+
+    static const int RTTI = 8;
+};
+
+//-------------------------------------------------------
+
+class ObjectCommandMessage : public AbstractMessage
+{
+public:
+    enum Type 
+    { };
+
+    virtual int rtti()const{ return RTTI; }
+
+    static const int RTTI = 9;
 };
 
 //-------------------------------------------------------

@@ -14,6 +14,7 @@
 
 struct CommandStateImpl;
 class CoreCommandMessage;
+class CoreObjectMessage;
 class AbstractMessage;
 class DriverHelper;
 
@@ -67,7 +68,7 @@ public:
     int                 objectControllerLibId( const int objectID );
     int                 objectControllerPObject( const int objectID );
 
-    int                 sendCoreCommandMessage( CoreCommandMessage* message );
+    int                 sendMessage( boost::shared_ptr< AbstractMessage > message );
 
     bool                setSpeed( const PtrPObject&, const QPoint& persent );
     bool                setRotation( const PtrPObject&, int angle );
