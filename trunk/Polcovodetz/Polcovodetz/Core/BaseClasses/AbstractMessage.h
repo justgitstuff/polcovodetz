@@ -25,6 +25,10 @@ public:
 
     int id()const;
 
+    virtual int rtti()const = 0;
+
+    static const int RTTI = 0;
+
 private:
     int m_id;
 };

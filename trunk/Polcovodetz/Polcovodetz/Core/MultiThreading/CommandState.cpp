@@ -46,7 +46,7 @@ struct CommandStateImpl
     QMap< int, boost::shared_ptr< IGroupController > >   gControllers;//map: group controller id to his controller
     QMap< int, QVector< boost::shared_ptr< IObjectController > > >  oControllers;//map: group controller id to his controller
     
-    QMap< int, SimpleObjectDriver* >                oDrivers; //map: PtrPObject id to his driver
+    QMap< int, SimpleObjectDriver* >                     oDrivers; //map: PtrPObject id to his driver
 
     ObjectOutDriversMap objectsMap;
     DriversMap driversMap;
@@ -89,6 +89,50 @@ void CommandState::sendInnerMessages( const int maxMessages )
             return;
         }
 
+        switch( action->message->rtti() )
+        {
+        case CoreCommandMessage::RTTI:
+            {
+                CoreCommandMessage* msg = ( CoreCommandMessage* )action->message.get();
+
+                m_impl->ciDriver->sendMessage( msg );
+
+                break;
+            }
+        case CoreGroupMessage::RTTI:
+            {
+                break;
+            }
+        case CoreObjectMessage::RTTI:
+            {
+                break;
+            }
+        case CommandGroupMessage::RTTI:
+            {
+                break;
+            }
+        case CommandObjectMessage::RTTI:
+            {
+                break;
+            }
+        case GroupCommandMessage::RTTI:
+            {
+                break;
+            }
+        case GroupObjectMessage::RTTI:
+            {
+                break;
+            }
+        case ObjectGroupMessage::RTTI:
+            {
+                break;
+            }
+        case ObjectCommandMessage::RTTI:
+            {
+                break;
+            }
+        }
+
         switch( action->who )
         {
         case Core:
@@ -100,14 +144,6 @@ void CommandState::sendInnerMessages( const int maxMessages )
                         CoreCommandMessage* msg = ( CoreCommandMessage* )action->message.get();
 
                         m_impl->ciDriver->sendMessage( msg );
-
-                        break;
-                    }
-                case ObjectController:
-                    {
-                        CoreObjectMessage* msg = ( CoreObjectMessage* )action->message.get();
-
-                        
 
                         break;
                     }
@@ -294,7 +330,7 @@ bool CommandState::connectDrivers()
         {
             boost::shared_ptr< IObjectController > oc( libLoader.loadObjectController( m_impl->ocLibs[ *iter ] ) );
 
-            boost::shared_ptr< SimpleObjectDriver >  od ( new SimpleObjectDriver( this ) );
+            boost::shared_ptr< SimpleObjectDriver > od ( new SimpleObjectDriver( this ) );
 
             m_impl->driversMap.insert( od->driverID(), od );
             
@@ -302,14 +338,11 @@ bool CommandState::connectDrivers()
 
             oc->init( od.get() );
 
-            PtrPObject newObj = pApp.getNewObject( m_impl->side, 1 );
-            od->oConnect( newObj );
-
-            m_impl->objectsMap.insert( newObj->objectID(), od.get() );
-
+            m_impl->driverStorage.append( od );
+    
             m_impl->oControllers[ id ].append( oc );
 
-            m_impl->driverStorage.append( od );
+            createConnectedObject( 1, od->driverID() );
         }
 
         m_impl->gControllers[ id ] = gc;        
@@ -327,21 +360,17 @@ bool CommandState::connectDrivers()
 }
 
 //-------------------------------------------------------
-/**
-    Посылает сообщение к главному коммандиру.
-    После обработки сообщение удалится само.
-*/
-int CommandState::sendCoreCommandMessage( CoreCommandMessage* message )
+
+int CommandState::sendMessage( boost::shared_ptr< AbstractMessage > message )
 {
     ActionPtr newAction( new Action() );
-    newAction->toWhom = CommandController;
-    newAction->who = Core;
-    newAction->message.reset( message );
-    
+
+    newAction->message = message;
+
     if( m_impl->actionsQueue.push( newAction ) )
         return 0;
 
-    return 1;
+    return 2;
 }
 
 //-------------------------------------------------------
@@ -362,24 +391,24 @@ bool CommandState::setRotation( const PtrPObject& object, int angle )
 
 void CommandState::disposeObject( const qint64 id )
 {
-    SimpleObjectDriver* outDriver = m_impl->objectsMap[ id ];
+    SimpleObjectDriver* driver = m_impl->objectsMap[ id ];
 
-    if( outDriver != 0 )
+    if( driver != 0 )
     {
-        PtrPObject object = outDriver->pObject();
+        PtrPObject object = driver->pObject();
         
         if( object.get() == 0 )
             return;
 
-        outDriver->oConnect( PtrPObject() );
+        driver->oConnect( PtrPObject() );
 
         CoreCommandMessage* objectCrached = new CoreCommandMessage( CoreCommandMessage::ObjectCrached );
 
         objectCrached->objectRTTI = object->rtti();
-        objectCrached->who = outDriver->driverID();
+        objectCrached->who = driver->driverID();
         objectCrached->point = object->position();
 
-        sendCoreCommandMessage( objectCrached );
+        sendMessage( boost::shared_ptr< AbstractMessage >( objectCrached ) );
     }
 
     m_impl->objectsMap.remove( id );
@@ -420,6 +449,8 @@ void CommandState::createConnectedObject( const int rtti, const qint64 driverID 
         driver->oConnect( object );
 
         m_impl->oDrivers.insert( id, driver );
+
+        m_impl->objectsMap.insert( object->objectID(), driver );
     }
 }
 
