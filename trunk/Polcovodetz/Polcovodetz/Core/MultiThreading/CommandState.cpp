@@ -26,6 +26,8 @@ struct CommandStateImpl
 
     typedef QMap< qint64, boost::shared_ptr< IAbstractDriver > > DriversMap;
 
+    typedef QMap< SimpleObjectDriver*, QPoint > PositionMap;
+
     CommandStateImpl():ccID( 0 ), driverStorage(){}
     //IDs
     int                          ccID; //command controller library id
@@ -47,6 +49,7 @@ struct CommandStateImpl
     QMap< int, QVector< boost::shared_ptr< IObjectController > > >  oControllers;//map: group controller id to his controller
     
     QMap< int, SimpleObjectDriver* >                     oDrivers; //map: PtrPObject id to his driver
+    PositionMap                                          positions;//map: connected objects to his positions
 
     ObjectOutDriversMap objectsMap;
     DriversMap driversMap;
@@ -61,6 +64,22 @@ struct CommandStateImpl
 
     boost::shared_ptr< DriverHelper > driverHelper;
 };
+
+//-------------------------------------------------------
+
+inline QPoint calculatePosition( SimpleObjectDriver* driver )
+{
+    if( driver->pObject().get() )
+    {
+        QPoint where = driver->pObject()->position();
+
+        where /= PolkApp::SQUARE_SIZE;
+
+        return where;
+    }
+
+    return QPoint( -1, -1 );
+}
 
 //-------------------------------------------------------
 
@@ -84,7 +103,7 @@ void CommandState::sendInnerMessages( const int maxMessages )
     {
         ActionPtr action = m_impl->actionsQueue.pop();
 
-        if( action.get() == 0 || ( action->toWhom == None && action->who == None ) )
+        if( action.get() == 0 )
         {
             return;
         }
@@ -105,6 +124,15 @@ void CommandState::sendInnerMessages( const int maxMessages )
             }
         case CoreObjectMessage::RTTI:
             {
+                CoreObjectMessage* msg = ( CoreObjectMessage* )action->message.get();
+
+                qint64 id = msg->id();
+
+                if( !m_impl->oDrivers.contains( id ) )
+                    continue;
+ 
+                m_impl->oDrivers[ id ]->message( msg );
+                
                 break;
             }
         case CommandGroupMessage::RTTI:
@@ -347,7 +375,6 @@ bool CommandState::connectDrivers()
 
         m_impl->gControllers[ id ] = gc;        
     }
-
     /*
     for( CommandStateImpl::DriversMap::ConstIterator iter = m_impl->driversMap.constBegin();
          iter != m_impl->driversMap.constEnd();
@@ -451,6 +478,8 @@ void CommandState::createConnectedObject( const int rtti, const qint64 driverID 
         m_impl->oDrivers.insert( id, driver );
 
         m_impl->objectsMap.insert( object->objectID(), driver );
+
+        m_impl->positions[ driver ] = calculatePosition( driver );
     }
 }
 
@@ -459,6 +488,32 @@ void CommandState::createConnectedObject( const int rtti, const qint64 driverID 
 DriverHelper* CommandState::driverHelper()const
 {
     return m_impl->driverHelper.get();
+}
+
+//-------------------------------------------------------
+
+void CommandState::updatePositions( bool sendSignals )
+{
+    for( CommandStateImpl::PositionMap::ConstIterator iter = m_impl->positions.constBegin();
+         iter != m_impl->positions.constEnd();
+         iter++ )
+    {
+        QPoint oldVal = iter.value();
+
+        QPoint newVal = calculatePosition( iter.key() );
+
+        m_impl->positions[ iter.key() ] = newVal;
+
+        if( sendSignals && oldVal != newVal )
+        {
+            CoreObjectMessage* msg = new CoreObjectMessage( iter.key()->pObject()->objectID() );
+
+            msg->type = CoreObjectMessage::SquareChanged;
+            msg->point = oldVal;
+
+            sendMessage( boost::shared_ptr< AbstractMessage >( msg ) );
+        }
+    }
 }
 
 //-------------------------------------------------------

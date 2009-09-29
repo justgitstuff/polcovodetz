@@ -4,6 +4,7 @@
 #include <Core/HumanControllers/HumanObjectController.h>
 
 #include <IObjectDrivers.h>
+#include <Messages.h>
 
 #include <QDebug>
 #include <QKeyEvent>
@@ -112,7 +113,7 @@ void HumanObjectController::keyPressed( const Qt::Key key )
 /**
     В сущности, все действия должны приниматься здесь.
 */
-void HumanObjectController::message( GroupObjectMessage* /*mesage*/ )
+void HumanObjectController::message( CoreObjectMessage* message )
 {
     return;
 }

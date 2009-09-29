@@ -14,6 +14,9 @@
 struct SimpleObjectDriverImpl;
 
 class IGroupOutputDriver;
+class CoreObjectMessage;
+class CommandObjectMessage;
+class GroupObjectMessage;
 
 class CommandState;
 
@@ -60,6 +63,11 @@ public:
         Выпускает снаряд
     */
     virtual void makeAttack();
+
+public slots:
+    void message( CoreObjectMessage* );
+    void message( GroupObjectMessage* );
+    void message( CommandObjectMessage* );
 
 private:
     boost::shared_ptr< SimpleObjectDriverImpl > m_impl;

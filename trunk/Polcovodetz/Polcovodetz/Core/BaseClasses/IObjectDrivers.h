@@ -56,12 +56,6 @@ public:
         Выпускает снаряд
     */
     virtual void makeAttack() = 0;
-
-signals:
-    /**
-        Сигнал приема сообщений.
-    */
-    void message( GroupObjectMessage* mesage );
 };
 
 //-------------------------------------------------------

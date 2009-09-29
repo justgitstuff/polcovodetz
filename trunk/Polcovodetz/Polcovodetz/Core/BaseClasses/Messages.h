@@ -56,7 +56,7 @@ public:
 class CoreObjectMessage : public AbstractMessage
 {
 public:
-    CoreObjectMessage( int id ): AbstractMessage( id ){}
+    CoreObjectMessage( qint64 id ): AbstractMessage( id ){}
 
     enum Type 
     {
@@ -73,6 +73,8 @@ public:
     };
 
     QPoint  point;
+
+    Type    type;
 
     virtual int rtti()const{ return RTTI; }
 

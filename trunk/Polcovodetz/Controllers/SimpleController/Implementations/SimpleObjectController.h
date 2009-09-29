@@ -36,8 +36,9 @@ public:
     virtual bool    init( IObjectDriver* );
 
 public slots:
-    virtual void message( GroupObjectMessage* ){};
     virtual void message( CoreObjectMessage* );
+    virtual void message( CommandObjectMessage* ){};
+    virtual void message( GroupObjectMessage* ){};
 
 private:    
     /**

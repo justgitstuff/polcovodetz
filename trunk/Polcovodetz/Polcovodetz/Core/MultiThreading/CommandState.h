@@ -83,7 +83,8 @@ public:
     DriverHelper*       driverHelper()const;
 
 public slots:
-    void                disposeObject( const qint64 id );
+    void                disposeObject( const qint64 id );    
+    void                updatePositions( bool sendSignals = true );
 
 private:
 

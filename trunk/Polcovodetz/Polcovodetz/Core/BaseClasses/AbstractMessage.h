@@ -18,19 +18,19 @@
 class AbstractMessage
 {
 public:
-    AbstractMessage( int id = -1 ):m_id( id ){};
+    AbstractMessage( qint64 id = -1 ):m_id( id ){};
 
     void setInfo( const QVariant& );
     QVariant info()const;
 
-    int id()const;
+    qint64 id()const{ return m_id; }
 
     virtual int rtti()const = 0;
 
     static const int RTTI = 0;
 
 private:
-    int m_id;
+    qint64 m_id;
 };
 
 //-------------------------------------------------------
