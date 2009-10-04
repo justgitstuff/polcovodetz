@@ -2,6 +2,10 @@
 #include <Implementations/SimpleObjectController.h>
 
 #include <IObjectDrivers.h>
+#include <Messages.h>
+#include <MovementDirection.h>
+
+#include <QDebug>
 
 //-------------------------------------------------------
 
@@ -52,20 +56,46 @@ bool SimpleObjectController::init( IObjectDriver* driver )
 {
     m_impl->driver  = driver;
 
-    connect( driver, SIGNAL( message( ObjectInputMessage* ) ), 
-             this,     SLOT( inputMessage( ObjectInputMessage* ) ) );
-
-    connect( this,    SIGNAL( outputMessage( ObjectOutputMessage* ) ), 
-             this,     SLOT( message( ObjectOutputMessage* ) ) );
-
     return true; 
 };
 
 //-------------------------------------------------------
 
-void SimpleObjectController::message( CoreObjectMessage* )
+void SimpleObjectController::message( CoreObjectMessage* message )
 {
-    return;
+    switch( message->type )
+    {
+    case CoreObjectMessage::Recreated :
+        {
+            m_impl->driver->setSpeed( 100 );
+
+            MovementDirection md = m_impl->driver->nearesPointToFlag();
+
+            m_impl->driver->setRotation( md );
+
+            break;
+        }
+    case CoreObjectMessage::SquareChanged :
+        {
+            MovementDirection md = m_impl->driver->nearesPointToFlag();
+
+            m_impl->driver->setRotation( md );
+
+            m_impl->driver->makeAttack();
+
+            break;
+        }
+    case CoreObjectMessage::Staying:
+        {
+            MovementDirection md = m_impl->driver->getRandomRotation();
+
+            m_impl->driver->setRotation( md );
+
+            m_impl->driver->makeAttack();
+
+            break;
+        }
+    }
 }
 
 //-------------------------------------------------------

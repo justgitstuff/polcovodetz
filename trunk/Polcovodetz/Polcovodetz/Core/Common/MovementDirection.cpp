@@ -22,12 +22,12 @@ MovementDirection::MovementDirection( int angle )
 }
 
 //-------------------------------------------------------
-
+/*
 MovementDirection::~MovementDirection()
 {
 
 }
-
+*/
 //-------------------------------------------------------
 
 bool MovementDirection::isNull()const
@@ -58,10 +58,10 @@ MovementDirection MovementDirection::createDirection( const QPoint& from, const 
     if( from.x() == to.x() )
     {
         if( from.y() > to.y() )
-            return MovementDirection( Down );
+            return MovementDirection( Top );
 
         if( from.y() < to.y() )
-            return MovementDirection( Top );
+            return MovementDirection( Down );
     }
     if( from.y() == to.y() )
     {

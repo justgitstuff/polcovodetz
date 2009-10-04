@@ -58,11 +58,14 @@ public:
         Устанавливает текущий поворот объекта
     */
     virtual void setRotation( const ObjectRotation& rotation );    
-   
+    virtual void setRotation( const MovementDirection& rotation );
+
     /**
         Выпускает снаряд
     */
     virtual void makeAttack();
+
+    virtual MovementDirection getRandomRotation()const;
 
 public slots:
     void message( CoreObjectMessage* );

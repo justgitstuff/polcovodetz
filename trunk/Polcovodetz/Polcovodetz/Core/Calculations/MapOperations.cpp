@@ -50,6 +50,11 @@ public:
 
         return !( *this > another );
     }
+
+    QPoint getPoint()const
+    {
+        return QPoint( x(), y() );
+    }
 };
 
 //-------------------------------------------------------
@@ -143,6 +148,9 @@ void MapOperationsImpl::calculatePath( const MyPoint& start )
 
 void MapOperationsImpl::pushIfOk( const MyPoint& where, const int newValue, QQueue< MyPoint >& queue, DualArray< int >& values, const MyPoint& start, const MyPoint& current )
 {
+    if( !PolkApp::canComeIn( map.objectAt( where ) ) )
+        return;
+
     if( !values.isInRange( where ) )
         return;
 
@@ -164,9 +172,8 @@ void MapOperationsImpl::pushIfOk( const MyPoint& where, const int newValue, QQue
 MovementDirection MapOperations::nearestPointFromPath( const QPoint& start, const QPoint& stop )const
 {
     MapObject startObject = m_impl->map.objectAt( start );
-    MapObject stopObject  = m_impl->map.objectAt( stop );
 
-    if( !PolkApp::canComeIn( startObject ) || !PolkApp::canComeIn( stopObject ) )
+    if( !PolkApp::canComeIn( startObject )/* || !PolkApp::canComeIn( stopObject ) */)
         return MovementDirection();
 
     return MovementDirection::createDirection( start, m_impl->nearestPointMap[ QPair< MyPoint, MyPoint > ( start, stop ) ] );
