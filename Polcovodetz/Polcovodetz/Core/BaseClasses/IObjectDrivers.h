@@ -13,11 +13,6 @@
 
 class IObjectController;
 
-class ObjectGroupMessage;
-class GroupObjectMessage;
-class ObjectCoreMessage;
-class CoreObjectMessage;
-
 //-------------------------------------------------------
 
 enum ObjectRotation
@@ -51,11 +46,15 @@ public:
         Устанавливает текущий поворот объекта
     */
     virtual void setRotation( const ObjectRotation& rotation ) = 0;
+    virtual void setRotation( const MovementDirection& rotation ) = 0;
    
     /**
         Выпускает снаряд
     */
     virtual void makeAttack() = 0;
+
+    virtual MovementDirection getRandomRotation()const = 0;
+
 };
 
 //-------------------------------------------------------

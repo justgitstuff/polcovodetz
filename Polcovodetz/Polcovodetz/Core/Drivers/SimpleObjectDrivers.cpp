@@ -112,6 +112,23 @@ void SimpleObjectDriver::setRotation( const ObjectRotation& rotation )
 
 //-------------------------------------------------------
 
+void SimpleObjectDriver::setRotation( const MovementDirection& rotation )
+{
+    switch( rotation.direction() )
+    {
+    case MovementDirection::Down :
+        return setRotation( ::ToBottom );
+    case MovementDirection::Top :
+        return setRotation( ::ToTop );
+    case MovementDirection::Left :
+        return setRotation( ::ToLeft );
+    case MovementDirection::Right :
+        return setRotation( ::ToRight );
+    }
+}
+
+//-------------------------------------------------------
+
 void SimpleObjectDriver::makeAttack()
 {
     PtrPObject who = m_impl->connectedObject;
@@ -123,7 +140,7 @@ void SimpleObjectDriver::makeAttack()
 
 MovementDirection SimpleObjectDriver::nearesPointToFlag()const
 {
-    QPoint flag = m_impl->mapOperations->flagPoint( m_impl->state->side() );
+    QPoint flag = m_impl->mapOperations->flagPoint( 3 - m_impl->state->side() );
 
     QPoint position = m_impl->connectedObject->position();
 
@@ -136,21 +153,36 @@ MovementDirection SimpleObjectDriver::nearesPointToFlag()const
 
 void SimpleObjectDriver::message( CoreObjectMessage* msg )
 {
-    m_impl->controller->message( msg );
+    if( m_impl->controller.get() != 0 )
+        m_impl->controller->message( msg );
 }
 
 //-------------------------------------------------------
 
 void SimpleObjectDriver::message( GroupObjectMessage* msg )
 {
-    m_impl->controller->message( msg );
+    if( m_impl->controller.get() != 0 )
+        m_impl->controller->message( msg );
 }
 
 //-------------------------------------------------------
 
 void SimpleObjectDriver::message( CommandObjectMessage* msg )
 {
-    m_impl->controller->message( msg );
+    if( m_impl->controller.get() != 0 )
+        m_impl->controller->message( msg );
+}
+
+//-------------------------------------------------------
+
+MovementDirection SimpleObjectDriver::getRandomRotation()const
+{
+    static int base = MovementDirection::Down;
+
+    base += 90;
+    base %= 360;
+
+    return MovementDirection( base );
 }
 
 //-------------------------------------------------------

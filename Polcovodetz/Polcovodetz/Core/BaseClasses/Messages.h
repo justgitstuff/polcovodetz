@@ -56,7 +56,7 @@ public:
 class CoreObjectMessage : public AbstractMessage
 {
 public:
-    CoreObjectMessage( qint64 id ): AbstractMessage( id ){}
+    CoreObjectMessage( qint64 driverID ): AbstractMessage( driverID ){}
 
     enum Type 
     {
@@ -69,7 +69,12 @@ public:
         /**
             При создании нового объекта.
         */
-        Recreated
+        Recreated,
+
+        /**
+            В случае, если объект довольно долго стоит а месте.
+        */
+        Staying
     };
 
     QPoint  point;

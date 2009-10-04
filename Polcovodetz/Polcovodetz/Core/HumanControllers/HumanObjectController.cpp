@@ -113,7 +113,7 @@ void HumanObjectController::keyPressed( const Qt::Key key )
 /**
     В сущности, все действия должны приниматься здесь.
 */
-void HumanObjectController::message( CoreObjectMessage* message )
+void HumanObjectController::message( CoreObjectMessage* /*message*/ )
 {
     return;
 }

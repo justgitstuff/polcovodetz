@@ -18,7 +18,7 @@ class MovementDirection
 public:
 
     MovementDirection( int angle = -1 );
-    ~MovementDirection();
+    ~MovementDirection(){};
 
     bool isNull()const;
 
@@ -31,7 +31,6 @@ public:
     static const int Left  = 270;
 
     static MovementDirection createDirection( const QPoint& from, const QPoint& to );
-
 private:
     boost::shared_ptr< MovementDirectionImpl > m_impl;
 };

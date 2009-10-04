@@ -16,17 +16,19 @@
 #include <QMap>
 #include <QMutex>
 #include <QMutexLocker>
+#include <QSize>
 #include <QVector>
 
 //-------------------------------------------------------
 
 struct CommandStateImpl
 {
-    typedef QMap< qint64, SimpleObjectDriver* > ObjectOutDriversMap;
+    typedef QMap< qint64, SimpleObjectDriver* > ObjectDriversMap;
 
     typedef QMap< qint64, boost::shared_ptr< IAbstractDriver > > DriversMap;
 
     typedef QMap< SimpleObjectDriver*, QPoint > PositionMap;
+    typedef QMap< SimpleObjectDriver*, int >    CountMap;
 
     CommandStateImpl():ccID( 0 ), driverStorage(){}
     //IDs
@@ -48,10 +50,11 @@ struct CommandStateImpl
     QMap< int, boost::shared_ptr< IGroupController > >   gControllers;//map: group controller id to his controller
     QMap< int, QVector< boost::shared_ptr< IObjectController > > >  oControllers;//map: group controller id to his controller
     
-    QMap< int, SimpleObjectDriver* >                     oDrivers; //map: PtrPObject id to his driver
+    ObjectDriversMap                                     oDrivers; //map: PtrPObject id to his driver
     PositionMap                                          positions;//map: connected objects to his positions
+    CountMap                                             positionCount;//map: connected objects to count of iterations, where he doesn`t change position
 
-    ObjectOutDriversMap objectsMap;
+    ObjectDriversMap objectsMap;
     DriversMap driversMap;
 
     ConcurrentQueue< ActionPtr >   actionsQueue;
@@ -71,7 +74,13 @@ inline QPoint calculatePosition( SimpleObjectDriver* driver )
 {
     if( driver->pObject().get() )
     {
-        QPoint where = driver->pObject()->position();
+        PtrPObject obj = driver->pObject();
+
+        QPoint where = obj->position();
+        QSize  size  = obj->boundSize();
+
+        where.setX( where.x() - size.width() );
+        where.setY( where.y() - size.height() );
 
         where /= PolkApp::SQUARE_SIZE;
 
@@ -429,6 +438,8 @@ void CommandState::disposeObject( const qint64 id )
 
         driver->oConnect( PtrPObject() );
 
+        m_impl->positions.remove( driver );
+
         CoreCommandMessage* objectCrached = new CoreCommandMessage( CoreCommandMessage::ObjectCrached );
 
         objectCrached->objectRTTI = object->rtti();
@@ -477,9 +488,16 @@ void CommandState::createConnectedObject( const int rtti, const qint64 driverID 
 
         m_impl->oDrivers.insert( id, driver );
 
-        m_impl->objectsMap.insert( object->objectID(), driver );
+        m_impl->objectsMap.insert( id, driver );
 
         m_impl->positions[ driver ] = calculatePosition( driver );
+
+        CoreObjectMessage* mes = new CoreObjectMessage( id );
+
+        mes->type = CoreObjectMessage::Recreated;
+        mes->point = object->position();
+
+        sendMessage( boost::shared_ptr< CoreObjectMessage >( mes ) );
     }
 }
 
@@ -494,19 +512,40 @@ DriverHelper* CommandState::driverHelper()const
 
 void CommandState::updatePositions( bool sendSignals )
 {
-    for( CommandStateImpl::PositionMap::ConstIterator iter = m_impl->positions.constBegin();
-         iter != m_impl->positions.constEnd();
+    CommandStateImpl::PositionMap& positions = m_impl->positions;
+    CommandStateImpl::CountMap& counts = m_impl->positionCount;
+
+    for( CommandStateImpl::PositionMap::ConstIterator iter = positions.constBegin();
+         iter != positions.constEnd();
          iter++ )
     {
         QPoint oldVal = iter.value();
 
         QPoint newVal = calculatePosition( iter.key() );
 
-        m_impl->positions[ iter.key() ] = newVal;
+        SimpleObjectDriver* driver = iter.key();
+
+        positions[ driver ] = newVal;
+
+        int count = counts[ driver ];
+
+        if( count > 33 )
+        {
+            count = 0;
+
+            CoreObjectMessage* msg = new CoreObjectMessage( driver->pObject()->objectID() );
+
+            msg->type = CoreObjectMessage::Staying;
+            msg->point = oldVal;
+
+            sendMessage( boost::shared_ptr< AbstractMessage >( msg ) );
+        }
+
+        counts[ driver ] = count + 1;
 
         if( sendSignals && oldVal != newVal )
         {
-            CoreObjectMessage* msg = new CoreObjectMessage( iter.key()->pObject()->objectID() );
+            CoreObjectMessage* msg = new CoreObjectMessage( driver->pObject()->objectID() );
 
             msg->type = CoreObjectMessage::SquareChanged;
             msg->point = oldVal;

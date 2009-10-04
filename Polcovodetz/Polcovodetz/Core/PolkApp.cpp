@@ -556,7 +556,7 @@ bool PolkApp::checkComeIn( const PtrPObject& who, const MapObject& where )
 
 bool PolkApp::canComeIn( const PtrPObject& who, const MapObject& where )
 {
-    if( where == Grassland || where == FirstCommandBox || where == FirstCommandBox )
+    if( where == Grassland || where == FirstCommandBox || where == SecondCommandBox )
         return true;
 
     if( ( where == Water ) && who->canFly() )
