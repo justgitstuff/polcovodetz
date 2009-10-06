@@ -9,6 +9,8 @@
 #include <Core/MultiThreading/CommandState.h>
 #include <Core/PolkApp.h>
 
+#include <QSize>
+
 //-------------------------------------------------------
 
 struct SimpleObjectDriverImpl
@@ -143,6 +145,10 @@ MovementDirection SimpleObjectDriver::nearesPointToFlag()const
     QPoint flag = m_impl->mapOperations->flagPoint( 3 - m_impl->state->side() );
 
     QPoint position = m_impl->connectedObject->position();
+
+    PtrPObject obj = m_impl->connectedObject;
+
+    QPoint speed = obj->speed();
 
     position /= PolkApp::SQUARE_SIZE;
 

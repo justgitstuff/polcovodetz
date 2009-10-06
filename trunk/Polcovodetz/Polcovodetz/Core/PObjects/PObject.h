@@ -66,6 +66,7 @@ public:
     virtual QPoint         maxSpeed()const = 0;
 
     virtual bool           canFly()const = 0;
+    virtual bool           needManagement()const = 0;
     virtual OnCollision    onCollision()const = 0;
 
     /**

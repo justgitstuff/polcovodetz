@@ -19,7 +19,7 @@ public:
         :PObject( side, -1 ) {};
 
     bool canFly()const{ return false; }
-
+    bool needManagement()const{ return true; };
 };
 
 //-------------------------------------------------------

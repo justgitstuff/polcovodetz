@@ -510,7 +510,7 @@ DriverHelper* CommandState::driverHelper()const
 
 //-------------------------------------------------------
 
-void CommandState::updatePositions( bool sendSignals )
+void CommandState::updatePositions( bool /*sendSignals*/ )
 {
     CommandStateImpl::PositionMap& positions = m_impl->positions;
     CommandStateImpl::CountMap& counts = m_impl->positionCount;
@@ -542,16 +542,6 @@ void CommandState::updatePositions( bool sendSignals )
         }
 
         counts[ driver ] = count + 1;
-
-        if( sendSignals && oldVal != newVal )
-        {
-            CoreObjectMessage* msg = new CoreObjectMessage( driver->pObject()->objectID() );
-
-            msg->type = CoreObjectMessage::SquareChanged;
-            msg->point = oldVal;
-
-            sendMessage( boost::shared_ptr< AbstractMessage >( msg ) );
-        }
     }
 }
 

@@ -24,6 +24,7 @@ public:
     {}
 
     virtual       bool     canFly()const{ return true; }
+                  bool     needManagement()const{ return false; };
 
     virtual OnCollision    onCollision()const{ return DisposeTwice; }
     virtual       int      powerfulness()const = 0;

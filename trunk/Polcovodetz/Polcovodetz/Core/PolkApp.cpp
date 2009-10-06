@@ -13,6 +13,7 @@
 #include <Core/PObjects/Interfaces/IShootableObject.h>
 #include <Core/PObjects/PObject.h>
 #include <Core/PObjects/PObjectSharedImpl.h>
+#include <Core/StateManagers/PositionManager.h>
 #include <Core/WinState.h>
 
 #include <GUI/SpecialControls/PaintArea2D.h>
@@ -58,7 +59,13 @@ enum GameState
 
 struct PolkAppImpl
 {    
-    PolkAppImpl():thread1( 1 ), thread2( 2 ), calcThread(), coreMutex(), state( ::Stopped ) {};
+    PolkAppImpl()
+        :thread1( 1 ), thread2( 2 ), 
+        calcThread(), 
+        coreMutex(), 
+        state( ::Stopped ) 
+    {};
+
     typedef QMap< long, PtrPObject >           PObjectMap;
     typedef QMap< long, int >                  PObjectSideMap;
 
@@ -94,6 +101,8 @@ struct PolkAppImpl
     GameState             state;
 
     WinState              winState;
+
+    boost::shared_ptr< PositionManager > positionManager;
 };
 
 //-------------------------------------------------------
@@ -156,6 +165,9 @@ bool PolkApp::addObjectOnScene( const PtrPObject& obj )
     m_impl->objectSides.insert( id, side );
     m_impl->objectIDs.insert( id, obj );
 
+    if( obj->needManagement() )
+        m_impl->positionManager->addObject( obj );
+
     emit objectAdded( obj );
 
     return true; 
@@ -210,6 +222,11 @@ bool PolkApp::startGame()
 
     m_impl->state = ::Running;
 
+    m_impl->command1 = m_impl->thread1.commandState();
+    m_impl->command2 = m_impl->thread2.commandState();
+
+    m_impl->positionManager.reset( new PositionManager( m_impl->command1, m_impl->command2 ) );
+
     if( m_impl->state == ::Paused )
         return m_impl->thread1.start() && m_impl->thread2.start() && m_impl->calcThread.start();
 
@@ -220,9 +237,6 @@ bool PolkApp::startGame()
 
     if( !isOk )
         return false;
-
-    m_impl->command1 = m_impl->thread1.commandState();
-    m_impl->command2 = m_impl->thread2.commandState();
     
     connect( this, SIGNAL( objectDisposed( const qint64 ) ), m_impl->command1, SLOT( disposeObject( const qint64 ) ) );
     connect( this, SIGNAL( objectDisposed( const qint64 ) ), m_impl->command2, SLOT( disposeObject( const qint64 ) ) );
@@ -479,7 +493,7 @@ bool PolkApp::refreshState()
         PObjectSharedImpl* info = objectVal->sImpl();
 
         QPoint point = info->coordinate;
-        QPoint speed = info->speed;
+        QPoint speed = objectVal->speed();
 
         int x0 = point.x();
         int y0 = point.y();
@@ -487,10 +501,8 @@ bool PolkApp::refreshState()
         if( speed.x() == 0 && speed.y() == 0 )
             continue;
 
-        QPoint rotatedSpeed = rotatePoint( speed, info->rotation );
-
-        int dx0 = rotatedSpeed.x();
-        int dy0 = rotatedSpeed.y();
+        int dx0 = speed.x();
+        int dy0 = speed.y();
 
         QSize size = objectVal->boundSize();
 
@@ -510,6 +522,17 @@ bool PolkApp::refreshState()
                 {
                     calculateObject( objectVal, x0, y0, x1, y1 );//cY * SQUARE_SIZE + SQUARE_SIZE - height;
                 }
+                else
+                {
+                    CoreObjectMessage* msg = new CoreObjectMessage( id );
+
+                    msg->type = CoreObjectMessage::Blocked;
+
+                    GET_LOADED_STATE( objectVal->side() );
+
+                    st->sendMessage( boost::shared_ptr< AbstractMessage >( msg ) );
+                }
+
             }
             else
             {
@@ -519,6 +542,17 @@ bool PolkApp::refreshState()
                 {
                     calculateObject( objectVal, x0, y0, x1, y1 );//cY * SQUARE_SIZE;
                 }
+                else
+                {
+                    CoreObjectMessage* msg = new CoreObjectMessage( id );
+
+                    msg->type = CoreObjectMessage::Blocked;
+
+                    GET_LOADED_STATE( objectVal->side() );
+
+                    st->sendMessage( boost::shared_ptr< AbstractMessage >( msg ) );
+                }
+
             }
         }
         if( dx0 != 0 )
@@ -531,6 +565,16 @@ bool PolkApp::refreshState()
                 {
                     calculateObject( objectVal, x0, y0, x1, y1 );//cX * SQUARE_SIZE + SQUARE_SIZE - width;
                 }
+                else
+                {
+                    CoreObjectMessage* msg = new CoreObjectMessage( id );
+
+                    msg->type = CoreObjectMessage::Blocked;
+
+                    GET_LOADED_STATE( objectVal->side() );
+
+                    st->sendMessage( boost::shared_ptr< AbstractMessage >( msg ) );
+                }
             }
             else
             {
@@ -539,7 +583,18 @@ bool PolkApp::refreshState()
                 if( !checkComeIn( objectVal, objTop ) || !checkComeIn( objectVal, objBottom ) )
                 {
                     calculateObject( objectVal, x0, y0, x1, y1 );//cX * SQUARE_SIZE;
+                }                
+                else
+                {
+                    CoreObjectMessage* msg = new CoreObjectMessage( id );
+
+                    msg->type = CoreObjectMessage::Blocked;
+
+                    GET_LOADED_STATE( objectVal->side() );
+
+                    st->sendMessage( boost::shared_ptr< AbstractMessage >( msg ) );
                 }
+
             }
         }
 
@@ -610,6 +665,8 @@ bool PolkApp::refreshState()
     }
 
     deleteDisposedObjects();
+
+    m_impl->positionManager->checkObjects();
 
     emit updateVisualState();
 
@@ -754,9 +811,11 @@ void PolkApp::deleteDisposedObjects()
 
         qint64 id = obj->objectID();
 
+        m_impl->positionManager->deleteObject( id );
+
         m_impl->objectIDs.remove( id );
     
-        m_impl->removedObjects[ id ] = obj;
+        m_impl->removedObjects[ id ] = obj;        
 
         emit objectDeleted( id );
 
@@ -769,6 +828,71 @@ void PolkApp::deleteDisposedObjects()
 
     objects.clear();
 }
- 
+
+//-------------------------------------------------------
+
+bool PolkApp::canComeNext( const PtrPObject& obj, const QPoint& speed )const
+{
+    int dx = speed.x();
+    int dy = speed.y();
+
+    QPoint now = obj->position();
+
+    int x0 = now.x();
+    int y0 = now.y();
+
+    int x1 = x0 + dx;
+    int y1 = y0 + dy;
+
+    QSize size= obj->boundSize();
+
+    int width = size.width();
+    int height = size.height();
+    
+    if( dy != 0 )
+    {
+        if( dy > 0 )
+        {
+            MapObject objLeft  = objectAt( x1, y1 + height );
+            MapObject objRight = objectAt( x1 + width, y1 + height );
+            if( !canComeIn( obj, objLeft ) || !canComeIn( obj, objRight ) )
+            {
+                return false;
+            }
+        }
+        else
+        {
+            MapObject objLeft  = objectAt( x1, y1 );
+            MapObject objRight = objectAt( x1 + width, y1 );
+            if( !canComeIn( obj, objLeft ) || !canComeIn( obj, objRight ) )
+            {
+                return false;
+            }
+        }
+    }
+    if( dx != 0 )
+    {
+        if( dx > 0 )
+        {
+            MapObject objTop = objectAt( x1 + width, y1 );
+            MapObject objBottom = objectAt( x1 + width, y1 + height );
+            if( !canComeIn( obj, objTop ) || !canComeIn( obj, objBottom ) )
+            {
+                return false;
+            }
+        }
+        else
+        {
+            MapObject objTop = objectAt( x1, y1 );
+            MapObject objBottom = objectAt( x1, y1 + height );
+            if( !canComeIn( obj, objTop ) || !canComeIn( obj, objBottom ) )
+            {
+                return false;
+            }
+        }
+    }
+
+}
+
 //-------------------------------------------------------
 
