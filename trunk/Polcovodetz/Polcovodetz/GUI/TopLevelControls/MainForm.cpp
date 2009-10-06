@@ -3,11 +3,11 @@
 
 #include <GUI/TopLevelControls/MainForm.h>
 
+#include <Core/LibraryLoader.h>
+#include <Core/PolkApp.h>
+#include <Core/ScriptInvoker.h>
 #include <GUI/TopLevelControls/CommandTreeForm.h>
 #include <GUI/SpecialControls/PaintArea2D.h>
-
-#include <Core/PolkApp.h>
-#include <Core/LibraryLoader.h>
 
 #include <QApplication>
 #include <QFileDialog>
@@ -336,7 +336,7 @@ void MainForm::invokeScript()
     if( str.isEmpty() )
         return;
 
-    if( !pApp.invokeScript( str ) )
+    if( !sInvoker.invokeScript( str ) )
         QMessageBox::warning( this, tr( "ScriptInvoking" ), tr( "ThereAreErrorsDuringInvokingScript" ) );
 }
 
