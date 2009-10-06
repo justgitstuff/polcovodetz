@@ -3,6 +3,7 @@
 
 #include <Core/PObjects/PObject.h>
 
+#include <Core/Common/MathUtils.h>
 #include <Core/PObjects/PObjectSharedImpl.h>
 #include <Core/PolkApp.h>
 
@@ -81,6 +82,13 @@ QPixmap PObject::image( const int angle )
     }
 
     return QPixmap( img );
+}
+
+//-------------------------------------------------------
+
+QPoint PObject::speed()const
+{
+    return  rotatePoint( s_impl->speed, s_impl->rotation );
 }
 
 //-------------------------------------------------------

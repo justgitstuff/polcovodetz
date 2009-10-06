@@ -75,7 +75,7 @@ void SimpleObjectController::message( CoreObjectMessage* message )
 
             break;
         }
-    case CoreObjectMessage::SquareChanged :
+    case CoreObjectMessage::SquareOutChanged :
         {
             MovementDirection md = m_impl->driver->nearesPointToFlag();
 
@@ -91,7 +91,7 @@ void SimpleObjectController::message( CoreObjectMessage* message )
 
             m_impl->driver->setRotation( md );
 
-            m_impl->driver->makeAttack();
+        //    m_impl->driver->makeAttack();
 
             break;
         }

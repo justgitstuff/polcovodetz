@@ -69,6 +69,8 @@ static const int               SQUARE_SIZE = 2 << 14;
            bool                setSpeed( const PtrPObject&, const QPoint& persent );
            bool                setRotation( const PtrPObject&, int angle );
 
+           bool                canComeNext( const PtrPObject& obj, const QPoint& speed )const;
+
            /**
             Выдает новый объект на карте с заданным rtti 
            */

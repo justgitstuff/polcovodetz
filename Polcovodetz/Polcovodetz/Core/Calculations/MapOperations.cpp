@@ -173,7 +173,7 @@ MovementDirection MapOperations::nearestPointFromPath( const QPoint& start, cons
 {
     MapObject startObject = m_impl->map.objectAt( start );
 
-    if( !PolkApp::canComeIn( startObject )/* || !PolkApp::canComeIn( stopObject ) */)
+    if( !PolkApp::canComeIn( startObject ) )
         return MovementDirection();
 
     return MovementDirection::createDirection( start, m_impl->nearestPointMap[ QPair< MyPoint, MyPoint > ( start, stop ) ] );

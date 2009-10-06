@@ -13,6 +13,8 @@
 class Map;
 struct MapOperationsImpl;
 
+class QSize;
+
 //-------------------------------------------------------
 
 class MapOperations

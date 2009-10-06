@@ -66,8 +66,6 @@ void CommandThread::run()
 
     m_impl->state->connectDrivers();
 
-    m_impl->state->updatePositions( false );
-
     int sleepIndex = 0;
 
     while( 1 )
@@ -85,10 +83,12 @@ void CommandThread::run()
 
         qApp->processEvents();
 
-        QThread::msleep( 100 );
+        QThread::msleep( 25 );
 
-        if( sleepIndex % 10 )
+        if( sleepIndex % 2 )
+        {
             m_impl->state->updatePositions( true );
+        }
     }
     return;
 }
