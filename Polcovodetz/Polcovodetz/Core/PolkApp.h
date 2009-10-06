@@ -51,8 +51,6 @@ static const int               SQUARE_SIZE = 2 << 14;
 
            bool                reloadMap( const QString& fileName );
 
-           bool                invokeScript( const QString& fileName );
-
            bool                registerCommandController( const int libraryID, const int side );
            int                 registerGroupController( const int libraryID, const int side );
            int                 registerObjectController( const int libraryID, const int side, const int gID, const int pObject );

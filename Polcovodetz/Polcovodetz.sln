@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1D5805
 		createText.bat = createText.bat
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{0367D242-6F9C-4AA3-A879-CCC1F41DBBE6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Polcovodetz", "Polcovodetz", "{0367D242-6F9C-4AA3-A879-CCC1F41DBBE6}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Common\Setup\Setup.vdproj", "{9D7C45BF-BD35-4A46-99B7-B613DC801C3A}"
 EndProject
