@@ -6,7 +6,7 @@
 //-------------------------------------------------------
 
 #include <IAbstractDrivers.h>
-#include <PObject.h>
+#include <AbstractPObject.h>
 #include <MovementDirection.h>
 
 //-------------------------------------------------------
@@ -34,7 +34,7 @@ class IObjectDriver : public IAbstractInputDriver
 public:
     virtual MovementDirection nearesPointToFlag()const = 0;
 
-    virtual PtrPObject& pObject() = 0;
+    virtual PtrAPObject pObject()const = 0;
 
     /**
         Устанавливает скорость как процент от максимальной.

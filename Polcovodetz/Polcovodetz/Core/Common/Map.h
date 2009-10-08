@@ -41,6 +41,9 @@ public:
 
     QPoint getRandomTankPlace( const int side )const;
 
+    QPoint getTankPlace( const int side, const int number )const;
+    int    tankPlaceCount( const int side )const;
+
 private:
     boost::shared_ptr< MapImpl > m_impl;          
 };

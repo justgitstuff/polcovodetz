@@ -12,8 +12,6 @@
 
 class AbstractMoveObject : public PObject
 {
-    Q_OBJECT;
-
 public:
     AbstractMoveObject( const int side )
         :PObject( side, -1 ) {};

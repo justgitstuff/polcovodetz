@@ -1,7 +1,7 @@
 
 //-------------------------------------------------------
 
-#include <Core/Common/MovementDirection.h>
+#include <MovementDirection.h>
 
 #include <QPoint>
 

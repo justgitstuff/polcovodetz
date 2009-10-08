@@ -7,12 +7,15 @@
 
 #include <boost/shared_ptr.hpp>
 
+#include <QObject>
 #include <QVector>
+
 
 //-------------------------------------------------------
 
 struct  PolkAppImpl;
 
+class  GlobalPoint;
 class  Map;
 class  QPoint;
 class  QWidget;

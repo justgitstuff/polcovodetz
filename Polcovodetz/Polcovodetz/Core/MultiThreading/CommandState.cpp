@@ -72,9 +72,9 @@ struct CommandStateImpl
 
 inline QPoint calculatePosition( SimpleObjectDriver* driver )
 {
-    if( driver->pObject().get() )
+    if( driver->pObject() )
     {
-        PtrPObject obj = driver->pObject();
+        PtrPObject obj = driver->ptrPObject();
 
         QPoint where = obj->position();
         QSize  size  = obj->boundSize();
@@ -431,7 +431,7 @@ void CommandState::disposeObject( const qint64 id )
 
     if( driver != 0 )
     {
-        PtrPObject object = driver->pObject();
+        PtrPObject object = driver->ptrPObject();
         
         if( object.get() == 0 )
             return;
@@ -475,7 +475,7 @@ void CommandState::createConnectedObject( const int rtti, const qint64 driverID 
     if( driver == 0 )
         return;
 
-    if( driver->pObject().get() != 0 )
+    if( driver->pObject() != 0 )
         return;
 
     PtrPObject object = pApp.getNewObject( m_impl->side, rtti );

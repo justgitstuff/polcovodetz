@@ -85,13 +85,19 @@ void SimpleObjectController::message( CoreObjectMessage* message )
 
             break;
         }
+   // case CoreObjectMessage::Blocked:
     case CoreObjectMessage::Staying:
         {
-            MovementDirection md = m_impl->driver->getRandomRotation();
+            PtrAPObject obj = m_impl->driver->pObject();
 
-            m_impl->driver->setRotation( md );
+            if( obj == 0 )
+                return;
 
-        //    m_impl->driver->makeAttack();
+            int rotation = obj->rotation();
+
+          //  m_impl->driver->setRotation( MovementDirection( ( rotation + 90 ) % 360 ) );
+
+            m_impl->driver->makeAttack();
 
             break;
         }

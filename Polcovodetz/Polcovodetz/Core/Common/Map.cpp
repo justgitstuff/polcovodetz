@@ -1,7 +1,7 @@
 
-#include <Core/Common/Map.h>
+#include <Map.h>
 
-#include <Core/Common/DualArray.h>
+#include <DualArray.h>
 
 #include <QIODevice>
 #include <QMap>
@@ -18,6 +18,9 @@ struct MapImpl
     MapArray values;
 
     QMap< MapObject, int > objectCounts;
+
+    QVector< QPoint > firstCommandBoxes;
+    QVector< QPoint > secondCommandBoxes;
 };
 
 //--------------------------------------------------------------------------
@@ -94,10 +97,30 @@ bool Map::loadFromFile( QIODevice& dev )
             newMap.setObjectAt( wid, hey, (MapObject)value );
 
             m_impl->objectCounts[ (MapObject)value ]++;
+
         }
     }
 
     m_impl->values = newMap;
+
+    m_impl->firstCommandBoxes.clear();
+    m_impl->secondCommandBoxes.clear();
+
+    for( int x = 0; x < w; x++ )
+    {
+        for( int y = 0; y < h; y++ )
+        {
+            switch( newMap.objectAt( x, y ) )
+            {
+            case ::FirstCommandBox :
+                m_impl->firstCommandBoxes.append( QPoint( x, y ) );
+                break;
+            case ::SecondCommandBox :
+                m_impl->secondCommandBoxes.append( QPoint( x, y ) );
+                break;
+            }
+        }
+    }
 
     return true;
 }
@@ -142,6 +165,27 @@ QPoint Map::getRandomTankPlace( const int side )const
     }
 
     return QPoint( -1, -1 );
+}
+
+//--------------------------------------------------------------------------
+
+QPoint Map::getTankPlace( const int side, const int number )const
+{
+    QVector< QPoint >& array = side == 1 ? m_impl->firstCommandBoxes : m_impl->secondCommandBoxes;
+
+    if( number >= array.size() || number < 0 )
+        return QPoint( -1, -1 );
+
+    return array[ number ];
+}
+
+//--------------------------------------------------------------------------
+
+int Map::tankPlaceCount( const int side )const
+{
+    QVector< QPoint >& array = side == 1 ? m_impl->firstCommandBoxes : m_impl->secondCommandBoxes;
+
+    return array.size();
 }
 
 //--------------------------------------------------------------------------
