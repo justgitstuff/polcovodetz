@@ -13,6 +13,7 @@ struct MainFormImpl;
 struct LibDefinition;
 
 class QFrame;
+class WinState;
 
 //-----------------------------------------------------------------
 
@@ -45,6 +46,8 @@ private slots:
     void addLibraryToTable( const LibDefinition& );
     void invokeScript();
     void updateControllersTable();
+
+    void gameOver( const WinState& );
 };
 
 //-----------------------------------------------------------------

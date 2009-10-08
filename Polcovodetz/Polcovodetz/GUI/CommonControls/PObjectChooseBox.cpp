@@ -63,7 +63,12 @@ PObjectChooseBox::PObjectChooseBox( QWidget* parent )
 
 int PObjectChooseBox::PObjectID()const
 {
-    return m_impl->ids[ m_impl->tableWidget->currentRow() ];
+    int row =  m_impl->tableWidget->currentRow();
+
+    if( row < 0 )
+        return -1;
+
+    return m_impl->ids[ row ];
 }
 
 //------------------------------------------------------------------------------
