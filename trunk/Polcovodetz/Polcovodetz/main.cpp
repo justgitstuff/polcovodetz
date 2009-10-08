@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
     a.installTranslator( &translator );
 
-    MainForm mainForm;    
+    MainForm mainForm;
 
     a.connect( &a, SIGNAL( lastWindowClosed() ), &a, SLOT( quit() ) );
     return a.exec();
