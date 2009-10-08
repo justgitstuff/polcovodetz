@@ -16,8 +16,6 @@ class QPixmap;
 
 class AbstractRocket : public PObject
 {
-    Q_OBJECT;
-
 public:
     AbstractRocket( const int side, const qint64 parentID )
         :PObject( side, parentID )

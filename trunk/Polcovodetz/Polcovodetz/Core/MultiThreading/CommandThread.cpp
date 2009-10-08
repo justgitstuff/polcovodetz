@@ -81,14 +81,13 @@ void CommandThread::run()
 
         m_impl->state->sendInnerMessages();
 
-        qApp->processEvents();
+        QThread::msleep( 20 );
 
-        QThread::msleep( 25 );
+        if( sleepIndex % 10 == 0 )
+            qApp->processEvents();
 
-        if( sleepIndex % 2 )
-        {
+        if( sleepIndex % 20 == 0 )
             m_impl->state->updatePositions( true );
-        }
     }
     return;
 }

@@ -6,9 +6,8 @@
 
 //-------------------------------------------------------
 
-#include <QObject>
+#include <AbstractPObject.h>
 #include <QString>
-#include <boost/shared_ptr.hpp>
 
 //-------------------------------------------------------
 
@@ -33,10 +32,8 @@ struct PObjectInfo
 
 //-------------------------------------------------------
 
-class PObject : QObject
+class PObject : public AbstractPObject
 {
-    Q_OBJECT;
-
 public:
 
     enum OnCollision
@@ -48,7 +45,9 @@ public:
         DisposeTwice   = DisposeMyself | DisposeAnother
     };
 
-    PObject( const int side, const qint64 parentID = -1 );
+    PObject( int side, qint64 parentID = -1 );
+
+  //  PObject& operator=( const PObject & ) {};
 
     virtual ~PObject();
 
@@ -59,9 +58,9 @@ public:
             qint64         parentID()const{ return m_parentID; }
             int            side()const{ return m_side; }
 
-    int                    rotation()const;
-    QPoint                 position()const;
-    QPoint                 speed()const;
+    virtual int            rotation()const;
+    virtual QPoint         position()const;
+    virtual QPoint         speed()const;
 
     virtual QPoint         maxSpeed()const = 0;
 
@@ -81,9 +80,9 @@ public:
     PObjectSharedImpl*     sImpl()const{ return s_impl.get(); }
 
 private:
-    const qint64 m_objectID;
-    const int    m_side;
-    const qint64 m_parentID;
+    qint64 m_objectID;
+    int    m_side;
+    qint64 m_parentID;
 
     boost::shared_ptr< PObjectSharedImpl > s_impl;
 };

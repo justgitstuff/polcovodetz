@@ -76,7 +76,7 @@ void SimpleObjectDriver::processKey( Qt::Key key )
 
 //-------------------------------------------------------
 
-PtrPObject& SimpleObjectDriver::pObject()
+PtrPObject SimpleObjectDriver::ptrPObject()const
 {
     return m_impl->connectedObject;
 }
@@ -85,7 +85,7 @@ PtrPObject& SimpleObjectDriver::pObject()
 
 void SimpleObjectDriver::setSpeed( const int persent )
 {
-    m_impl->state->setSpeed( pObject(), QPoint( persent, 0 ) );
+    m_impl->state->setSpeed( ptrPObject(), QPoint( persent, 0 ) );
 }
 
 //-------------------------------------------------------
@@ -95,19 +95,19 @@ void SimpleObjectDriver::setRotation( const ObjectRotation& rotation )
     switch( rotation )
     {
     case ToTop :
-        m_impl->state->setRotation( pObject(), 0 );
+        m_impl->state->setRotation( ptrPObject(), 0 );
         break;
 
     case ToRight :
-        m_impl->state->setRotation( pObject(), 90 );
+        m_impl->state->setRotation( ptrPObject(), 90 );
         break;
 
     case ToBottom:
-        m_impl->state->setRotation( pObject(), 180 );
+        m_impl->state->setRotation( ptrPObject(), 180 );
         break;
 
     case ToLeft :
-        m_impl->state->setRotation( pObject(), 270 );
+        m_impl->state->setRotation( ptrPObject(), 270 );
         break;
     }
 }

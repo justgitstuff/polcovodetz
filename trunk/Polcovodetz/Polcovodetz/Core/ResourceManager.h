@@ -3,10 +3,11 @@
 
 //-------------------------------------------------------
 
-#include <QVector>
-
 #include <Core/PObjects/PObject.h>
 #include <boost/shared_ptr.hpp>
+
+#include <QVector>
+#include <QObject>
 
 //-------------------------------------------------------
 

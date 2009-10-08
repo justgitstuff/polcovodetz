@@ -8,16 +8,16 @@
 
 #include <Core/PObjects/UserObjects/Flying/AbstractRocket.h>
 
+#include <QObject>
+
 //-------------------------------------------------------
 
 class QPixmap;
 
 //-------------------------------------------------------
 
-class SimpleRocket : public AbstractRocket
+class SimpleRocket : public AbstractRocket, QObject
 {
-    Q_OBJECT;
-
 public:
     SimpleRocket( const int side, const int parentID );
 

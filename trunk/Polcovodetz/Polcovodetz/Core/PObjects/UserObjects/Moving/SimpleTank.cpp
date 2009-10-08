@@ -9,6 +9,7 @@
 #include <Core/PObjects/Resources/BlueSimpleTank.xpm>
 #include <Core/PObjects/Resources/RedSimpleTank.xpm>
 
+#include <QObject>
 #include <QPixmap>
 #include <QPoint>
 #include <QSize>
@@ -41,8 +42,8 @@ PObjectInfo SimpleTank::info()
     PObjectInfo info;
 
     info.id = SimpleTank::RTTI;
-    info.name = tr( "SimpleTank" );
-    info.description = tr( "SimpleTank" );
+    info.name = QObject::tr( "SimpleTank" );
+    info.description = QObject::tr( "SimpleTank" );
 
     return info;
 }

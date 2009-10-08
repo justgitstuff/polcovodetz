@@ -1,9 +1,9 @@
 
 //-------------------------------------------------------
 
-#include <Core/PObjects/PObject.h>
+#include <PObject.h>
 
-#include <Core/Common/MathUtils.h>
+#include <MathUtils.h>
 #include <Core/PObjects/PObjectSharedImpl.h>
 #include <Core/PolkApp.h>
 
@@ -17,8 +17,9 @@ static volatile qint64 g_uniqueID = 1;
 
 //-------------------------------------------------------
 
-PObject::PObject( const int side, const qint64 parentID )
-        :m_objectID( g_uniqueID++ ),
+PObject::PObject( int side, qint64 parentID )
+        :AbstractPObject(),
+        m_objectID( g_uniqueID++ ),
         m_side( side ),
         m_parentID( parentID )
 {

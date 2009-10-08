@@ -18,11 +18,9 @@
 
 #include <GUI/SpecialControls/PaintArea2D.h>
 
-#include <QtDebug>
 #include <QFile>
 #include <QMap>
 #include <QMutex>
-#include <QPluginLoader>
 #include <QPoint>
 #include <QSize>
 #include <QTextEdit>
@@ -103,6 +101,9 @@ struct PolkAppImpl
     WinState              winState;
 
     boost::shared_ptr< PositionManager > positionManager;
+
+    QPoint                getStartPoint( int side );
+    bool                  checkToExists( const QRect& where );
 };
 
 //-------------------------------------------------------
@@ -893,6 +894,46 @@ bool PolkApp::canComeNext( const PtrPObject& obj, const QPoint& speed )const
     }
 
     return true;
+}
+
+//-------------------------------------------------------
+
+QPoint PolkAppImpl::getStartPoint( int side )
+{
+    for( int i = 0; i < map.tankPlaceCount( side ); i++ )
+    {
+        QPoint res = map.getTankPlace( side, i );
+
+        if( res.x() < 0 || res.y() < 0 )
+            continue;
+
+        res *= PolkApp::SQUARE_SIZE;
+
+        return res;
+    }
+
+    return QPoint( -1, -1 );
+}
+
+//-------------------------------------------------------
+
+bool PolkAppImpl::checkToExists( const QRect& where )
+{
+    QMutexLocker locker( &coreMutex );
+
+    for( PObjectMap::ConstIterator iter = objectIDs.constBegin();
+         iter != objectIDs.constEnd();
+         iter++ )
+    {
+        PtrPObject obj = iter.value();
+
+        QRect objRect( obj->position(), obj->boundSize() );
+
+        if( where.intersects( objRect ) )
+            return true;
+    }
+
+    return false;
 }
 
 //-------------------------------------------------------

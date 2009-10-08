@@ -17,8 +17,6 @@ class QPixmap;
 
 class SimpleTank : public AbstractMoveObject, public IShootableObject
 {
-    Q_OBJECT;
-
 public:
     SimpleTank( const int side );
 
