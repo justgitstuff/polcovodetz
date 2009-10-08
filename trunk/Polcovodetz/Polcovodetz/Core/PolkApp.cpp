@@ -434,13 +434,13 @@ bool PolkApp::checkComeIn( const PtrPObject& who, const MapObject& where )
     {
         if( where == FirstCommandFlag )
         {
-            m_impl->winState.setWinnerSide( 1 );
+            m_impl->winState.setWinnerSide( 2 );
 
             emit gameOver( m_impl->winState );
         }
         if( where == SecondCommandFlag )
         {
-            m_impl->winState.setWinnerSide( 2 );
+            m_impl->winState.setWinnerSide( 1 );
 
             emit gameOver( m_impl->winState );
         }
@@ -737,9 +737,12 @@ PtrPObject PolkApp::getNewObject( const int side, const int rtti )
         {
             result = PtrPObject( new SimpleTank( side ) );
 
-            QPoint point = m_impl->map.getRandomTankPlace( side );
+            QPoint point = m_impl->getStartPoint( side );
 
-            result->sImpl()->coordinate = QPoint( point.x() * SQUARE_SIZE, point.y() * SQUARE_SIZE );            
+            if( point.x() < 0 || point.y() < 0 )
+                return PtrPObject();
+
+            result->sImpl()->coordinate = QPoint( point.x(), point.y() );            
 
             break;
         }
@@ -908,6 +911,11 @@ QPoint PolkAppImpl::getStartPoint( int side )
             continue;
 
         res *= PolkApp::SQUARE_SIZE;
+
+        QRect rect( res, QSize( PolkApp::SQUARE_SIZE, PolkApp::SQUARE_SIZE ) );
+
+        if( checkToExists( rect ) )
+            continue;
 
         return res;
     }

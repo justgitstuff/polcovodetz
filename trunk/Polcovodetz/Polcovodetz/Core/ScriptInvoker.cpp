@@ -6,9 +6,11 @@
 #include <Core/LibraryLoader.h>
 #include <Core/PolkApp.h>
 
+#include <QApplication>
 #include <QDomDocument>
 #include <QFile>
 #include <QMap>
+#include <QMessageBox>
 
 //-------------------------------------------------------
 
@@ -141,6 +143,8 @@ bool ScriptInvoker::invokeScript( const QString& fileName )
         if( newId == 0 )
             return false;
     }
+
+    QMessageBox::information( NULL, tr( "ScriptLoaded" ), tr( "ScriptWasSuccesfulyInvoked" ) );
 
     return true;
 }

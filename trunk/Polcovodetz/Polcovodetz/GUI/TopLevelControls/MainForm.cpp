@@ -6,6 +6,7 @@
 #include <Core/LibraryLoader.h>
 #include <Core/PolkApp.h>
 #include <Core/ScriptInvoker.h>
+#include <Core/WinState.h>
 #include <GUI/TopLevelControls/CommandTreeForm.h>
 #include <GUI/SpecialControls/PaintArea2D.h>
 
@@ -64,7 +65,7 @@ MainForm::MainForm()
     updateControllersTable();
 
     connect( &libLoader, SIGNAL( newLibrary( const LibDefinition& ) ), this, SLOT( addLibraryToTable( const LibDefinition& ) ) );
-
+    connect( &pApp,      SIGNAL( gameOver( const WinState& ) ),        this, SLOT( gameOver( const WinState& ) ) );
 
     return;
 }
@@ -338,6 +339,15 @@ void MainForm::invokeScript()
 
     if( !sInvoker.invokeScript( str ) )
         QMessageBox::warning( this, tr( "ScriptInvoking" ), tr( "ThereAreErrorsDuringInvokingScript" ) );
+}
+
+//------------------------------------------------------------------------------
+
+void MainForm::gameOver( const WinState& state )
+{
+    QString winner = state.winnerSide() == 1 ? tr( "Command1Win" ) : tr( "Command2Win" );
+
+    QMessageBox::information( this, tr( "GameOver" ), winner );
 }
 
 //------------------------------------------------------------------------------
