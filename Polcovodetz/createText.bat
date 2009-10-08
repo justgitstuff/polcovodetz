@@ -1,6 +1,6 @@
 @echo off
 
-path c:\Qt\4.5.0\bin;C:\Program Files\doxygen\bin
+path c:\Qt\4.5.0\bin;C:\Program Files\doxygen\bin;C:\Program Files (x86)\doxygen\bin;
 
 md %TEMP%\logs
 echo LOG ARE SAVED TO %TEMP%\logs  

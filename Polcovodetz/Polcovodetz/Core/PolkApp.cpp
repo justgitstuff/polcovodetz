@@ -892,6 +892,7 @@ bool PolkApp::canComeNext( const PtrPObject& obj, const QPoint& speed )const
         }
     }
 
+    return true;
 }
 
 //-------------------------------------------------------
