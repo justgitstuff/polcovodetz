@@ -53,6 +53,11 @@ enum GameState
     Paused
 };
 
+class __declspec(dllimport) AAA
+{
+
+};
+
 //-------------------------------------------------------
 
 struct PolkAppImpl
