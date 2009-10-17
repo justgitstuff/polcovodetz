@@ -5,6 +5,14 @@
 
 #include <QObject>
 
+#include <VersionControl/VersionInfo.h>
+
+#include <boost/shared_ptr.hpp>
+
+//-------------------------------------------------------
+
+struct SetupDownloaderImpl;
+
 //-------------------------------------------------------
 
 class SetupDownloader : public QObject
@@ -15,8 +23,17 @@ public:
     SetupDownloader();
     ~SetupDownloader();
 
-private:
+
+    VerionInfo version()const;
+
+public slots:
+    bool       loadSettings();
     
+private slots:
+    void       onConnect();
+
+private:
+    boost::shared_ptr< SetupDownloaderImpl > m_impl;
 };
 
 //-------------------------------------------------------
