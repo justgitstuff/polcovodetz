@@ -52,7 +52,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmain.lib QtCore4.lib QtNetwork.lib"
+				AdditionalDependencies="qtmain.lib QtCore4.lib"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
 			/>
 			<Tool
@@ -114,7 +114,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtNetworkd.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dll"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
 				GenerateDebugInformation="true"
@@ -178,7 +178,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmain.lib QtCore4.lib QtNetwork.lib"
+				AdditionalDependencies="qtmain.lib QtCore4.lib"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
 			/>
 			<Tool
