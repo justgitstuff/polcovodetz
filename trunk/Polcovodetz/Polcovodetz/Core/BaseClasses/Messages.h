@@ -7,6 +7,7 @@
 
 #include <AbstractMessage.h>
 #include <QPoint>
+#include <QRect>
 
 //-------------------------------------------------------
 /**
@@ -135,7 +136,7 @@ class GroupCommandMessage : public AbstractMessage
 public:
     enum Type 
     {
-        GameStarted
+        
     };
 
     virtual int rtti()const{ return RTTI; }
@@ -152,8 +153,10 @@ class GroupObjectMessage : public AbstractMessage
 public:
     enum Type 
     {
-        GameStarted
+        PatrolSquare
     };
+
+    QRect rect;
 
     virtual int rtti()const{ return RTTI; }
 
