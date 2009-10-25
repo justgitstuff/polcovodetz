@@ -67,6 +67,10 @@ public:
     */
     virtual void makeAttack();
 
+    QPoint convertToNumber( const QPoint& bigCoordinates )const;
+    QPoint convertToCoordinate( const QPoint& squareNumber )const;
+
+
     virtual MovementDirection getRandomRotation()const;
 
 public slots:

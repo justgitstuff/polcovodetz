@@ -193,3 +193,17 @@ MovementDirection SimpleObjectDriver::getRandomRotation()const
 
 //-------------------------------------------------------
 
+QPoint SimpleObjectDriver::convertToNumber( const QPoint& bigCoordinates )const
+{
+    return bigCoordinates / PolkApp::SQUARE_SIZE; 
+}
+
+//-------------------------------------------------------
+
+QPoint SimpleObjectDriver::convertToCoordinate( const QPoint& squareNumber )const
+{
+    return squareNumber * PolkApp::SQUARE_SIZE; 
+}
+
+//-------------------------------------------------------
+
