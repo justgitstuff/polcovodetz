@@ -21,7 +21,7 @@ public:
 
     qint64 driverID()const{ return m_id; }
 
-private:
+private: 
     qint64 m_id;
 };
 

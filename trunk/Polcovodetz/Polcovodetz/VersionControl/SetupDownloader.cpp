@@ -10,8 +10,7 @@
 
 struct SetupDownloaderImpl
 {
-    static const int   DEFAULT_PORT = 10000;
-    
+    static const int   DEFAULT_PORT = 10000;    
 
     QTcpSocket socket;
 };
@@ -44,8 +43,10 @@ bool SetupDownloader::loadSettings()
         m_impl->socket.close();
 
         return false;
-    }   
+    }
 
+    //m_impl->
+        
     return false;
 }
 

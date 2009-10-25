@@ -9,10 +9,37 @@
 
 //-------------------------------------------------------
 
+enum ObjectState
+{
+    GoToFlag,
+    PatrolSquare
+};
+
+//-------------------------------------------------------
+
 struct SimpleObjectControllerImpl
 {
-    IObjectDriver*  driver;
+    IObjectDriver*    driver;
+
+    QRect             patrolSquare;
+
+    ObjectState       state;
+
+    MovementDirection nextPoint();
 };
+
+//-------------------------------------------------------
+
+MovementDirection SimpleObjectControllerImpl::nextPoint()
+{
+    switch( state )
+    {
+    case ::GoToFlag :
+        {
+            return driver->nearesPointToFlag();
+        }
+    }
+}
 
 //-------------------------------------------------------
 
@@ -69,6 +96,8 @@ void SimpleObjectController::message( CoreObjectMessage* message )
         {
             m_impl->driver->setSpeed( 100 );
 
+            m_impl->state = ::GoToFlag;
+
             MovementDirection md = m_impl->driver->nearesPointToFlag();
 
             m_impl->driver->setRotation( md );
@@ -77,7 +106,7 @@ void SimpleObjectController::message( CoreObjectMessage* message )
         }
     case CoreObjectMessage::SquareOutChanged :
         {
-            MovementDirection md = m_impl->driver->nearesPointToFlag();
+            MovementDirection md = m_impl->nextPoint();
 
             m_impl->driver->setRotation( md );
 
@@ -108,10 +137,28 @@ void SimpleObjectController::message( CoreObjectMessage* message )
 /**
     В сущности, все действия должны приниматься здесь.
 */
-//void SimpleObjectController::inputMessage( ObjectInputMessage* /*mesage*/ )
-//{
-//    return;
-//}
+void SimpleObjectController::message( GroupObjectMessage* message )
+{
+    switch( message->type )
+    {
+    case GroupObjectMessage::PatrolSquare :
+        {
+            m_impl->patrolSquare = message->rect;
+
+            m_impl->state = ::PatrolSquare;
+
+            break;
+        }
+    case GroupObjectMessage::GoToFlag :
+        {
+            m_impl->state = ::GoToFlag;
+
+            break;
+        }
+    }
+
+    return;
+}
 
 //-------------------------------------------------------
 
