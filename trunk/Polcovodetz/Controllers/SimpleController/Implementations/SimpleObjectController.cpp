@@ -26,6 +26,16 @@ struct SimpleObjectControllerImpl
     ObjectState       state;
 
     MovementDirection nextPoint();
+
+    /**
+        Номер угла. Требуется для патрулирования.
+        По сценарию, объект идет к углам последовательно: 0, 1, 2, 3, 4, 1, 2, ...
+    */
+    int               squareNumber;
+
+private:
+
+    static inline QPoint nextCorner( int& cornerNum, const QRect& rect );
 };
 
 //-------------------------------------------------------
@@ -38,6 +48,31 @@ MovementDirection SimpleObjectControllerImpl::nextPoint()
         {
             return driver->nearesPointToFlag();
         }
+    case ::PatrolSquare : 
+        {
+            QPoint square = driver->pObject()->position();
+
+               
+        }
+    }
+}
+
+//-------------------------------------------------------
+
+QPoint SimpleObjectControllerImpl::nextCorner( int& cornerNum, const QRect& rect )
+{
+    cornerNum++;
+
+    switch( cornerNum % 4 )
+    {
+    case 0 :
+        return rect.topLeft();
+    case 1 :
+        return rect.topRight();
+    case 2 :
+        return rect.bottomRight();
+    case 3 :
+        return rect.bottomLeft();
     }
 }
 
@@ -124,7 +159,7 @@ void SimpleObjectController::message( CoreObjectMessage* message )
 
             int rotation = obj->rotation();
 
-          //  m_impl->driver->setRotation( MovementDirection( ( rotation + 90 ) % 360 ) );
+            m_impl->driver->setRotation( MovementDirection( ( rotation + 90 ) % 360 ) );
 
             m_impl->driver->makeAttack();
 
