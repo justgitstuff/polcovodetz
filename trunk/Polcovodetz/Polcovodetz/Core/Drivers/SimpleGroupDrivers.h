@@ -18,33 +18,18 @@ class ICommandOutputDriver;
  Драйвер для соединения IGroupController
  и ICommandController
 */
-class SimpleGroupInputDriver : public IGroupInputDriver
+class SimpleGroupDriver : public IGroupDriver
 {
     Q_OBJECT;
 
 public:
-    SimpleGroupInputDriver(){};
+    SimpleGroupDriver(){};
 
     bool init( const boost::shared_ptr< IGroupController >& );
 
     bool dConnect( const boost::shared_ptr< ICommandOutputDriver >& );
 
     bool registerKey( Qt::Key );
-};
-
-//-------------------------------------------------------
-/**
- Драйвер для соединения IGroupController
- и его подчиненных. 
-*/
-class SimpleGroupOutputDriver : public IGroupOutputDriver
-{
-    Q_OBJECT;
-
-public:
-    SimpleGroupOutputDriver(){};
-
-    bool init( const boost::shared_ptr< IGroupController >& );
 };
 
 //-------------------------------------------------------

@@ -11,7 +11,7 @@
 //-------------------------------------------------------
 
 class CommandState;
-class IGroupInputDriver;
+class IGroupDriver;
 
 struct SimpleCommandInputDriverImpl;
 struct SimpleCommandOutputDriverImpl;
@@ -55,7 +55,7 @@ public:
 
     bool init();
 
-    bool dConnect( const boost::shared_ptr< IGroupInputDriver >& );
+    bool dConnect( const boost::shared_ptr< IGroupDriver >& );
 
     void createObjectForDriver( const qint64 driverID, const int objectRTTI );
 

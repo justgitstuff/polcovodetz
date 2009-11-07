@@ -52,9 +52,11 @@ MovementDirection SimpleObjectControllerImpl::nextPoint()
         {
             QPoint square = driver->pObject()->position();
 
-               
+            return MovementDirection();
         }
     }
+
+    return MovementDirection();
 }
 
 //-------------------------------------------------------

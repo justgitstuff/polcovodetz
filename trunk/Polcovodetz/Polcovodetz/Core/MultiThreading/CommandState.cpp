@@ -340,24 +340,20 @@ bool CommandState::connectDrivers()
 
         boost::shared_ptr< IGroupController > gc( libLoader.loadGroupController( iter.value() ) );
 
-        boost::shared_ptr< SimpleGroupInputDriver >  gid ( new SimpleGroupInputDriver() );
-        boost::shared_ptr< SimpleGroupOutputDriver > god ( new SimpleGroupOutputDriver() );
+        boost::shared_ptr< SimpleGroupDriver >  gd ( new SimpleGroupDriver() );
         
-        m_impl->driversMap.insert( gid->driverID(), gid );
-        m_impl->driversMap.insert( god->driverID(), god );
+        m_impl->driversMap.insert( gd->driverID(), gd );
 
-        gid->init( gc );
-        god->init( gc );
+        gd->init( gc );
 
-        gc->init( gid.get(), god.get() );
+        gc->init( gd.get() );
 
-        cod->dConnect( gid );
-        gid->dConnect( m_impl->coDriver );
+        cod->dConnect( gd );
+        gd->dConnect( m_impl->coDriver );
 
         QVector< int > oIDs = m_impl->ocIDs[ id ];
 
-        m_impl->driverStorage.append( gid );
-        m_impl->driverStorage.append( god );
+        m_impl->driverStorage.append( gd );
 
         m_impl->oControllers[ id ].clear();
 
