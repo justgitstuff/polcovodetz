@@ -20,31 +20,7 @@ class CommandGroupMessage;
 /**
  Драйвер для соединения IGroupController и PolkApp
 */
-class IGroupInputDriver : public IAbstractInputDriver
-{
-    Q_OBJECT;
-
-signals:
-    /**
-        Сигнал приема сообщений.
-    */
-    void message( CommandGroupMessage* mesage );
-    void message( ObjectGroupMessage* mesage );
-};
-
-//-------------------------------------------------------
-
-struct GroupOutputMessage
-{
-    GroupOutputMessage(){};
-};
-
-//-------------------------------------------------------
-/**
- Драйвер для соединения ICommandController
- и его подчиненных. 
-*/
-class IGroupOutputDriver : public IAbstractOutputDriver
+class IGroupDriver : public IAbstractInputDriver
 {
     Q_OBJECT;
 };

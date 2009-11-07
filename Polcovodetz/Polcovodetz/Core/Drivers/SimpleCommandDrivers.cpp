@@ -72,7 +72,7 @@ bool SimpleCommandOutputDriver::init()
 
 //-------------------------------------------------------
 
-bool SimpleCommandOutputDriver::dConnect( const boost::shared_ptr< IGroupInputDriver >& )
+bool SimpleCommandOutputDriver::dConnect( const boost::shared_ptr< IGroupDriver >& )
 {
     return true;
 }

@@ -33,7 +33,7 @@ public:
     virtual QString name()const;
     virtual QString description()const;
 
-    virtual bool    init( IGroupInputDriver*, IGroupOutputDriver* );
+    virtual bool    init( IGroupDriver* );
 
 private:    
     /**
@@ -44,6 +44,7 @@ private:
 public slots:
     virtual void message( ObjectGroupMessage* ){};
     virtual void message( CommandGroupMessage* ){};
+    virtual void message( CoreGroupMessage* ){};
 
 };
 

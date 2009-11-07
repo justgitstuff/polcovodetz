@@ -7,8 +7,7 @@
 
 struct SimpleGroupControllerImpl
 {
-    IGroupInputDriver*  inDriver;
-    IGroupOutputDriver* outDriver;
+    IGroupDriver*  driver;
 };
 
 //-------------------------------------------------------
@@ -49,16 +48,9 @@ QString SimpleGroupController::description()const
     каждого раунда игры, причем, необходимое условие: к драйверу не подсоединен
     ни один объект.
 */
-bool SimpleGroupController::init( IGroupInputDriver* inDriver , IGroupOutputDriver* outDriver )
+bool SimpleGroupController::init( IGroupDriver* driver )
 {
-    m_impl->inDriver  = inDriver;
-    m_impl->outDriver = outDriver;
-
-    connect( inDriver, SIGNAL( message( GroupInputMessage* ) ), 
-             this,     SLOT( inputMessage( GroupInputMessage* ) ) );
-
-    connect( this,    SIGNAL( outputMessage( GroupOutputMessage* ) ), 
-             this,     SLOT( message( GroupOutputMessage* ) ) );
+    m_impl->driver  = driver;
 
     return true; 
 };

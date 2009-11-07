@@ -10,8 +10,8 @@
 
 //-------------------------------------------------------
 
-class IGroupInputDriver;
-class IGroupOutputDriver;
+class IGroupDriver;
+class IGroupDriver;
 
 //-------------------------------------------------------
 /**
@@ -37,11 +37,12 @@ public:
        Из-за асинхронности класс может опаздать к началу игры, т. к. 
        долго конфигурировался.
     */
-    virtual bool    init( IGroupInputDriver*, IGroupOutputDriver* ) = 0;
+    virtual bool    init( IGroupDriver* ) = 0;
 
 public slots:
     virtual void message( ObjectGroupMessage* ) = 0;
     virtual void message( CommandGroupMessage* )= 0;
+    virtual void message( CoreGroupMessage* )= 0;
 };
 
 //-------------------------------------------------------

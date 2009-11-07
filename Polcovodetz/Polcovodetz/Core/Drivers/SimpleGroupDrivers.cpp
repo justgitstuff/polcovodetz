@@ -5,28 +5,21 @@
 
 //-------------------------------------------------------
 
-bool SimpleGroupInputDriver::init( const boost::shared_ptr< IGroupController >&/* cc */)
+bool SimpleGroupDriver::init( const boost::shared_ptr< IGroupController >&/* cc */)
 {
     return true;
 }
 
 //-------------------------------------------------------
 
-bool SimpleGroupOutputDriver::init( const boost::shared_ptr< IGroupController >&/* cc */)
+bool SimpleGroupDriver::dConnect( const boost::shared_ptr< ICommandOutputDriver >& )
 {
     return true;
 }
 
 //-------------------------------------------------------
 
-bool SimpleGroupInputDriver::dConnect( const boost::shared_ptr< ICommandOutputDriver >& )
-{
-    return true;
-}
-
-//-------------------------------------------------------
-
-bool SimpleGroupInputDriver::registerKey( Qt::Key /*key */)
+bool SimpleGroupDriver::registerKey( Qt::Key /*key */)
 {
     return false;
 }
