@@ -140,19 +140,22 @@ void SimpleObjectDriver::makeAttack()
 
 //-------------------------------------------------------
 
-MovementDirection SimpleObjectDriver::nearesPointToFlag()const
+MovementDirection SimpleObjectDriver::nearestPointToFlag()const
 {
     QPoint flag = m_impl->mapOperations->flagPoint( 3 - m_impl->state->side() );
 
+    return nearestPointTo( flag );
+}
+
+//-------------------------------------------------------
+
+MovementDirection SimpleObjectDriver::nearestPointTo( const QPoint& squareNumber )const
+{
     QPoint position = m_impl->connectedObject->position();
-
-    PtrPObject obj = m_impl->connectedObject;
-
-    QPoint speed = obj->speed();
 
     position /= PolkApp::SQUARE_SIZE;
 
-    return m_impl->mapOperations->nearestPointFromPath( position, flag );
+    return m_impl->mapOperations->nearestPointFromPath( position, squareNumber );
 }
 
 //-------------------------------------------------------

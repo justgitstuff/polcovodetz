@@ -34,7 +34,12 @@ class IObjectDriver : public IAbstractInputDriver
     Q_OBJECT;
 
 public:
-    virtual MovementDirection nearesPointToFlag()const = 0;
+    virtual MovementDirection nearestPointToFlag()const = 0;
+
+    /**
+        Выдает направление, чтобы следовать к точке 
+    */
+    virtual MovementDirection nearestPointTo( const QPoint& squareNumber )const = 0;
 
     virtual PtrAPObject pObject()const = 0;
 

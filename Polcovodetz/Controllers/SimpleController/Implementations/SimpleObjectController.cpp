@@ -46,12 +46,13 @@ MovementDirection SimpleObjectControllerImpl::nextPoint()
     {
     case ::GoToFlag :
         {
-            return driver->nearesPointToFlag();
+            return driver->nearestPointToFlag();
         }
     case ::PatrolSquare : 
         {
             QPoint square = driver->pObject()->position();
 
+               
             return MovementDirection();
         }
     }
@@ -135,7 +136,7 @@ void SimpleObjectController::message( CoreObjectMessage* message )
 
             m_impl->state = ::GoToFlag;
 
-            MovementDirection md = m_impl->driver->nearesPointToFlag();
+            MovementDirection md = m_impl->driver->nearestPointToFlag();
 
             m_impl->driver->setRotation( md );
 
