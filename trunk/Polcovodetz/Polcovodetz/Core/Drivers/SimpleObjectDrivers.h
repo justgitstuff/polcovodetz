@@ -41,7 +41,8 @@ public:
 
     bool oConnect( const PtrPObject& object );
 
-    MovementDirection nearesPointToFlag()const;
+    MovementDirection nearestPointToFlag()const;
+    MovementDirection nearestPointTo( const QPoint& squareNumber )const;
     
     bool registerKey( Qt::Key key );
 
