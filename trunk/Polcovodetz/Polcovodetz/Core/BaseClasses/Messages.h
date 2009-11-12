@@ -104,7 +104,12 @@ class CommandGroupMessage : public AbstractMessage
 {
  public:
    enum Type 
-    { };
+   {
+       FlagProtection,
+       Attack
+   };
+
+   Type   type;
 
     virtual int rtti()const{ return RTTI; }
 

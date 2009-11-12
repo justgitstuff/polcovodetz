@@ -55,14 +55,23 @@ bool SimpleGroupController::init( IGroupDriver* driver )
     return true; 
 };
 
-//-------------------------------------------------------
 /**
-    В сущности, все действия должны приниматься здесь.
+   Прием сообщений от главнокоммандующего.
 */
-//void SimpleGroupController::message( GroupObjectMessage* /*mesage*/ )
-//{
-//    return;
-//}
+void SimpleGroupController::message( CommandGroupMessage* mes )
+{
+    switch( mes->type )
+    {
+    case CommandGroupMessage::Attack :
+        {
+            break;
+        }
+    case CommandGroupMessage::FlagProtection :
+        {
+            break;
+        }
+    }
+}
 
 //-------------------------------------------------------
 

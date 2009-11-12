@@ -340,7 +340,7 @@ bool CommandState::connectDrivers()
 
         boost::shared_ptr< IGroupController > gc( libLoader.loadGroupController( iter.value() ) );
 
-        boost::shared_ptr< SimpleGroupDriver >  gd ( new SimpleGroupDriver() );
+        boost::shared_ptr< SimpleGroupDriver >  gd ( new SimpleGroupDriver( this ) );
         
         m_impl->driversMap.insert( gd->driverID(), gd );
 
@@ -351,7 +351,7 @@ bool CommandState::connectDrivers()
         cod->dConnect( gd );
         gd->dConnect( m_impl->coDriver );
 
-        QVector< int > oIDs = m_impl->ocIDs[ id ];
+        IDEnumeration oIDs = m_impl->ocIDs[ id ];
 
         m_impl->driverStorage.append( gd );
 
@@ -539,6 +539,13 @@ void CommandState::updatePositions( bool /*sendSignals*/ )
 
         counts[ driver ] = count + 1;
     }
+}
+
+//-------------------------------------------------------
+
+QVector< qint64 > CommandState::objectInGroup( qint64 groupID )
+{
+    return m_impl->ocIDs[ groupID ];
 }
 
 //-------------------------------------------------------

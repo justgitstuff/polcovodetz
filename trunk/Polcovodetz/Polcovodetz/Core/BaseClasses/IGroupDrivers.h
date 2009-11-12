@@ -23,6 +23,13 @@ class CommandGroupMessage;
 class IGroupDriver : public IAbstractInputDriver
 {
     Q_OBJECT;
+public:
+
+    /**
+        Посылает сообщение объекту, который имеет драйвер с заданным id.
+        Если Id == -1 - сообщение рассылается ВСЕм членам данной группы
+    */
+    virtual void sendObjectMessage( GroupObjectMessage* ) = 0;
 };
 
 //-------------------------------------------------------
