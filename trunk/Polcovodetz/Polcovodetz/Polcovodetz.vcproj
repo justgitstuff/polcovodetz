@@ -471,6 +471,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\GUI\SpecialControls\Resources\Crash.png"
+						>
+					</File>
+					<File
 						RelativePath=".\GUI\SpecialControls\Resources\GroupImage.xpm"
 						>
 					</File>
