@@ -43,7 +43,7 @@ private:
 
 public slots:
     virtual void message( ObjectGroupMessage* ){};
-    virtual void message( CommandGroupMessage* ){};
+    virtual void message( CommandGroupMessage* );
     virtual void message( CoreGroupMessage* ){};
 
 };

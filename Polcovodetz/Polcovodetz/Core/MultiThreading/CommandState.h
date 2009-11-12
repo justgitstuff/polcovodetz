@@ -20,7 +20,7 @@ class DriverHelper;
 
 //-------------------------------------------------------
 
-typedef QVector< int > IDEnumeration;
+typedef QVector< qint64 > IDEnumeration;
 
 //-------------------------------------------------------
 
@@ -118,6 +118,11 @@ public:
 		ID для объекта
 	*/
     int                 objectControllerPObject( const int objectID );
+
+    /**
+        Список id-шников драйверов, прикрепленных к конкретной группе.
+    */
+    IDEnumeration       objectInGroup( qint64 groupID );
 
     /**
 		Отправка сообщения ( сообщение ставится в очередь и обрабатывается уже в коммандном потоке )

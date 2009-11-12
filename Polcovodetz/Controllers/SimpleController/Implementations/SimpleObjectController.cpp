@@ -33,6 +33,14 @@ struct SimpleObjectControllerImpl
     */
     int               squareNumber;
 
+    /**
+        Точка, в которую планируется дойти.
+    */
+    QPoint            plannedPoint;
+
+public:
+    inline void       planNextPatrolPoint();
+
 private:
 
     static inline QPoint nextCorner( int& cornerNum, const QRect& rect );
@@ -50,14 +58,24 @@ MovementDirection SimpleObjectControllerImpl::nextPoint()
         }
     case ::PatrolSquare : 
         {
-            QPoint square = driver->pObject()->position();
+            QPoint square = driver->pObject()->position();            
 
-               
-            return MovementDirection();
+            if( ( square.x() <= patrolSquare.x() || square.x() >= patrolSquare.x() + patrolSquare.width() ) &&
+                ( square.y() <= patrolSquare.y() || square.y() >= patrolSquare.y() + patrolSquare.height() ) )
+                planNextPatrolPoint();
+
+            return driver->nearestPointTo( plannedPoint );
         }
     }
 
     return MovementDirection();
+}
+
+//-------------------------------------------------------
+
+void SimpleObjectControllerImpl::planNextPatrolPoint()
+{
+    plannedPoint = nextCorner( squareNumber, patrolSquare );
 }
 
 //-------------------------------------------------------
@@ -76,6 +94,8 @@ QPoint SimpleObjectControllerImpl::nextCorner( int& cornerNum, const QRect& rect
         return rect.bottomRight();
     case 3 :
         return rect.bottomLeft();
+    default:
+        return rect.bottomRight();
     }
 }
 
@@ -184,6 +204,8 @@ void SimpleObjectController::message( GroupObjectMessage* message )
             m_impl->patrolSquare = message->rect;
 
             m_impl->state = ::PatrolSquare;
+
+            m_impl->planNextPatrolPoint();
 
             break;
         }

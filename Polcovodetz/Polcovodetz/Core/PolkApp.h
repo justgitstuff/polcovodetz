@@ -31,7 +31,7 @@ class  ICommandController;
 
 //-------------------------------------------------------
 
-typedef QVector< int > IDEnumeration;
+typedef QVector< qint64 > IDEnumeration;
 
 //-------------------------------------------------------
 /** Главный управляющий класс проекта.

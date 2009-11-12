@@ -15,7 +15,7 @@ class CommandState;
 
 //-------------------------------------------------------
 
-typedef QVector< int > IDEnumeration;
+typedef QVector< qint64 > IDEnumeration;
 
 //-------------------------------------------------------
 
