@@ -137,7 +137,7 @@ inline void calculateObject( const PtrPObject& object, int x0, int y0, int& x1, 
     {
         pApp.disposeObject( object );
 
-        x1 = y1 = -PolkApp::SQUARE_SIZE;
+     //   x1 = y1 = -PolkApp::SQUARE_SIZE;
     }
 };
 
@@ -197,6 +197,7 @@ QWidget* PolkApp::currentView()const
         connect( this, SIGNAL( updateVisualState() ),              m_impl->currentView, SLOT( updateObjects() ) );
         connect( this, SIGNAL( objectAdded( const PtrPObject& ) ), m_impl->currentView, SLOT( addPObject( const PtrPObject& ) ) );
         connect( this, SIGNAL( objectDeleted( const qint64 ) ),    m_impl->currentView, SLOT( deleteObject( const qint64 ) ) );
+        connect( this, SIGNAL( showCrash( const QPoint& ) ),       m_impl->currentView, SLOT( addCrashMark( const QPoint& ) ) );
     }
 
     return new PaintArea2D( m_impl->currentView, NULL );
@@ -558,7 +559,6 @@ bool PolkApp::refreshState()
 
                     st->sendMessage( boost::shared_ptr< AbstractMessage >( msg ) );
                 }
-
             }
         }
         if( dx0 != 0 )
@@ -820,6 +820,8 @@ void PolkApp::deleteDisposedObjects()
 
         qint64 id = obj->objectID();
 
+        QPoint position = obj->position();
+
         m_impl->positionManager->deleteObject( id );
 
         m_impl->objectIDs.remove( id );
@@ -833,6 +835,8 @@ void PolkApp::deleteDisposedObjects()
         st->disposeObject( id );
 
         emit objectDisposed( id );
+
+        emit showCrash( position );
     }
 
     objects.clear();

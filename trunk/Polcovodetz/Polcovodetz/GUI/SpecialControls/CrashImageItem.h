@@ -17,10 +17,11 @@ class CrashImageItem : public QGraphicsPixmapItem
 {
 
 public:
-    CrashImageItem();
+    CrashImageItem( QGraphicsScene* );
     ~CrashImageItem();
 
     void nextStep();
+    bool needDelete()const;
 
 private:
     boost::shared_ptr < CrashImageItemImpl > m_impl;

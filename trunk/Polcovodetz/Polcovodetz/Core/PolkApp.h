@@ -106,6 +106,7 @@ static const int               SQUARE_SIZE = 2 << 14;
        static bool             canFlyIn( const MapObject& where );
 
 signals:
+           void                showCrash( const QPoint& where );
            void                updateVisualState();
            void                objectDeleted( const qint64 id );
            void                objectAdded( const PtrPObject& );

@@ -2,6 +2,7 @@
 #include <GUI/TopLevelControls/GUIControler.h>
 
 #include <Core/PolkApp.h>
+#include <GUI/SpecialControls/CrashImageItem.h>
 #include <GUI/SpecialControls/MapView.h>
 
 #include <QDebug>
@@ -9,15 +10,19 @@
 #include <QMap>
 #include <QMutex>
 #include <QMutexLocker>
+#include <QQueue>
 #include <QVector>
 
 //--------------------------------------------------------------------------
 
 struct GUIControlerImpl
 {
-    typedef QMap< qint64, PtrPObject >           ObjectMap;
-    typedef QMap< qint64, QGraphicsPixmapItem* > ViewMap;
+    typedef QMap< qint64, PtrPObject >            ObjectMap;
+    typedef QMap< qint64, QGraphicsPixmapItem* >  ViewMap;
+    typedef boost::shared_ptr< CrashImageItem >   PtrCrashItem;
+    typedef QQueue< PtrCrashItem >                CrashItems;
 
+    GUIControler*                        parent;
     MapView*                             mapView;
 
     QMutex                               objectsMutex;
@@ -27,17 +32,56 @@ struct GUIControlerImpl
 
     QMap< qint64, int >                  rotationMap;
 
-    GUIControlerImpl(){ mapView = 0; }
+    GUIControlerImpl( GUIControler* parent ){ mapView = 0; this->parent = parent; }
 
     int index;
+
+    CrashItems crashItems;
+
+    void cleanCrashItems();
+    void updateCrashItems();
 };
+
+//--------------------------------------------------------------------------
+
+void GUIControlerImpl::updateCrashItems()
+{
+    for( CrashItems::Iterator iter = crashItems.begin();
+         iter != crashItems.end();
+         iter ++ )
+    {
+        iter->get()->nextStep();
+    }
+}
+
+//--------------------------------------------------------------------------
+
+void GUIControlerImpl::cleanCrashItems()
+{
+    if( crashItems.isEmpty() )
+        return;
+
+    boost::shared_ptr< CrashImageItem > last = crashItems.last();
+
+    while( last->needDelete() )
+    {
+        parent->removeItem( last.get() );
+
+        crashItems.pop_back();
+
+        if( crashItems.isEmpty() )
+            return;
+
+        last = crashItems.last();
+    }
+}
 
 //--------------------------------------------------------------------------
 
 GUIControler::GUIControler()
             :QGraphicsScene()
 {
-    m_impl.reset( new GUIControlerImpl() );
+    m_impl.reset( new GUIControlerImpl( this ) );
 };
 
 //--------------------------------------------------------------------------
@@ -126,8 +170,28 @@ void GUIControler::updateObjects()
         updatePosition( object, view );
     }
 
+    m_impl->updateCrashItems();
+    m_impl->cleanCrashItems();
+
    /* if( m_impl->index % 400 == 0 )
         update();*/
+}
+
+//--------------------------------------------------------------------------
+
+void GUIControler::addCrashMark( const QPoint& where )
+{
+    GUIControlerImpl::PtrCrashItem newItem( new CrashImageItem( this ) );
+
+    QPoint newPosition( where.x() - PolkApp::SQUARE_SIZE / 2, where.y() - PolkApp::SQUARE_SIZE / 2 );
+
+    newPosition = ( newPosition * SQUARE_SIZE ) / PolkApp::SQUARE_SIZE;
+
+    newItem->setPos( newPosition );
+
+    addItem( newItem.get() );
+
+    m_impl->crashItems.push_front( newItem );
 }
 
 //--------------------------------------------------------------------------
