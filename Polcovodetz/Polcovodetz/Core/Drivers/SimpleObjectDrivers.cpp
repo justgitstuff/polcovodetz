@@ -151,7 +151,12 @@ MovementDirection SimpleObjectDriver::nearestPointToFlag()const
 
 MovementDirection SimpleObjectDriver::nearestPointTo( const QPoint& squareNumber )const
 {
-    QPoint position = m_impl->connectedObject->position();
+    PtrPObject obj = m_impl->connectedObject;
+
+    if( obj.get() == 0 )
+        return MovementDirection();
+
+    QPoint position = obj->position();
 
     position /= PolkApp::SQUARE_SIZE;
 

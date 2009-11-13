@@ -1,5 +1,5 @@
 /* XPM */ 
-static const char * crash_xpm[] = {
+static const char * crash_8_xpm[] = {
 "36 36 544 2",
 "  	c None",
 "! 	c black",

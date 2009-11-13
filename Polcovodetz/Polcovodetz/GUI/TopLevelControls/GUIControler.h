@@ -31,6 +31,8 @@ public slots:
     virtual void deleteObject( const qint64 id );
     virtual void addPObject( const PtrPObject& );
 
+    virtual void addCrashMark( const QPoint& where );
+
 private:
     boost::shared_ptr< GUIControlerImpl > m_impl;
 
